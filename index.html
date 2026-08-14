@@ -1,0 +1,826 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>English Drill — Bebris Practice</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #f4f5f7;
+      --panel: rgba(255,255,255,.88);
+      --panel-solid:#fff;
+      --text:#17191d;
+      --muted:#6b7280;
+      --line:#e5e7eb;
+      --accent:#111827;
+      --accent-2:#374151;
+      --ok:#0f7a42;
+      --ok-bg:#edf9f1;
+      --bad:#b42318;
+      --bad-bg:#fff1f0;
+      --warn:#9a6700;
+      --warn-bg:#fff8df;
+      --shadow: 0 18px 60px rgba(15,23,42,.09);
+      --radius: 22px;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg:#0f1115;
+        --panel:rgba(24,27,33,.90);
+        --panel-solid:#181b21;
+        --text:#f5f7fa;
+        --muted:#9aa3b2;
+        --line:#2d333d;
+        --accent:#f3f4f6;
+        --accent-2:#d1d5db;
+        --ok:#71d69d;
+        --ok-bg:#11281b;
+        --bad:#ff8f87;
+        --bad-bg:#321916;
+        --warn:#ffd16a;
+        --warn-bg:#332a12;
+        --shadow: 0 18px 60px rgba(0,0,0,.28);
+      }
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(99,102,241,.08), transparent 26rem),
+        radial-gradient(circle at 90% 85%, rgba(16,185,129,.07), transparent 28rem),
+        var(--bg);
+      color:var(--text);
+    }
+    button,input{font:inherit}
+    button{cursor:pointer}
+    .wrap{max-width:980px;margin:0 auto;padding:28px 20px 60px}
+    .topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:18px}
+    .brand{font-weight:800;font-size:20px;letter-spacing:-.02em}
+    .subtle{font-size:13px;color:var(--muted)}
+    .toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+    .session-control{
+      display:flex;align-items:center;gap:7px;
+      border:1px solid var(--line);background:var(--panel-solid);
+      border-radius:12px;padding:5px 6px 5px 10px;
+    }
+    .session-control span{font-size:12px;color:var(--muted);white-space:nowrap}
+    .session-control input{
+      width:74px;border:0;outline:none;background:transparent;color:var(--text);
+      font-weight:750;text-align:center;padding:5px 2px;
+    }
+    .btn{
+      border:1px solid var(--line);
+      background:var(--panel-solid);
+      color:var(--text);
+      border-radius:12px;
+      padding:10px 13px;
+      font-weight:650;
+      transition:.16s ease;
+    }
+    .btn:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(0,0,0,.06)}
+    .btn.primary{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+    @media (prefers-color-scheme: dark){.btn.primary{color:#111318}}
+    .btn.danger{color:var(--bad)}
+    .stats{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:10px;
+      margin-bottom:14px;
+    }
+    .stat{
+      border:1px solid var(--line);
+      background:var(--panel);
+      backdrop-filter:blur(10px);
+      border-radius:16px;
+      padding:14px 16px;
+    }
+    .stat .n{font-size:22px;font-weight:800;letter-spacing:-.03em}
+    .stat .l{font-size:12px;color:var(--muted);margin-top:2px}
+    .progress{
+      height:8px;background:rgba(127,127,127,.13);
+      border-radius:999px;overflow:hidden;margin:2px 2px 18px;
+    }
+    .progress > div{
+      height:100%;width:0;background:var(--accent);transition:width .25s ease;border-radius:999px
+    }
+    .card{
+      background:var(--panel);
+      backdrop-filter:blur(14px);
+      border:1px solid var(--line);
+      box-shadow:var(--shadow);
+      border-radius:var(--radius);
+      padding:30px;
+    }
+    .eyebrow{
+      display:flex;justify-content:space-between;gap:12px;align-items:center;
+      font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;font-weight:750
+    }
+    .prompt{
+      font-size:clamp(25px,4vw,39px);
+      line-height:1.2;
+      letter-spacing:-.035em;
+      font-weight:780;
+      margin:34px 0 28px;
+      min-height:92px;
+      display:flex;align-items:center
+    }
+    .answer{
+      width:100%;
+      border:1.5px solid var(--line);
+      background:var(--panel-solid);
+      color:var(--text);
+      border-radius:15px;
+      padding:16px 17px;
+      font-size:18px;
+      outline:none;
+      transition:border .15s, box-shadow .15s;
+    }
+    .answer:focus{
+      border-color:var(--accent-2);
+      box-shadow:0 0 0 4px rgba(100,116,139,.12);
+    }
+    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+    .actions .btn{padding:12px 16px}
+    .feedback{
+      margin-top:20px;border-radius:16px;padding:17px 18px;border:1px solid var(--line);display:none
+    }
+    .feedback.ok{display:block;background:var(--ok-bg);border-color:color-mix(in srgb,var(--ok) 25%,transparent)}
+    .feedback.bad{display:block;background:var(--bad-bg);border-color:color-mix(in srgb,var(--bad) 25%,transparent)}
+    .feedback.warn{display:block;background:var(--warn-bg);border-color:color-mix(in srgb,var(--warn) 25%,transparent)}
+    .fb-title{font-weight:800;margin-bottom:9px}
+    .fb-row{margin-top:7px;line-height:1.5}
+    .fb-label{font-size:12px;color:var(--muted);display:block;margin-bottom:2px}
+    .english{font-size:17px;font-weight:650}
+    .mini{font-size:13px;color:var(--muted)}
+    .bottom{
+      margin-top:14px;display:grid;grid-template-columns:1.3fr .7fr;gap:14px
+    }
+    .panel{
+      border:1px solid var(--line);background:var(--panel);border-radius:18px;padding:18px
+    }
+    .panel h3{font-size:14px;margin:0 0 12px}
+    .problems{display:grid;gap:8px}
+    .problem{
+      display:flex;justify-content:space-between;gap:12px;
+      font-size:13px;padding:8px 0;border-top:1px solid var(--line)
+    }
+    .problem:first-child{border-top:0;padding-top:0}
+    .pill{
+      display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);
+      padding:6px 9px;border-radius:999px;font-size:12px;color:var(--muted)
+    }
+    .complete{
+      text-align:center;padding:25px 0 8px
+    }
+    .complete .big{font-size:46px;margin-bottom:8px}
+    .hidden{display:none!important}
+    input[type=file]{display:none}
+    .kbd{
+      border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;padding:1px 6px;font-size:11px;color:var(--muted)
+    }
+    @media (max-width:700px){
+      .wrap{padding:18px 12px 36px}
+      .topbar{align-items:flex-start;flex-direction:column}
+      .stats{grid-template-columns:repeat(2,1fr)}
+      .card{padding:22px 18px}
+      .prompt{margin:27px 0 22px;min-height:75px}
+      .bottom{grid-template-columns:1fr}
+      .actions .btn{flex:1}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div>
+        <div class="brand">English Drill</div>
+        <div class="subtle" id="deckName">Bebris B1 — встроенные 1000 карточек · фиксированный порядок</div>
+      </div>
+      <div class="toolbar">
+        <div class="session-control">
+          <span>Первые</span>
+          <input id="sessionSizeInput" type="number" min="1" step="1" value="20" title="Использовать первые N карточек из базы">
+        </div>
+        <button class="btn primary" id="startSessionBtn">Начать</button>
+        <label class="btn" for="fileInput">Импорт .txt</label>
+        <input id="fileInput" type="file" accept=".txt,.tsv,.csv,text/plain">
+        <button class="btn" id="exportBtn">Экспорт прогресса</button>
+        <button class="btn danger" id="resetBtn">Перезапустить сессию</button>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="n" id="doneStat">0</div><div class="l">выполнено</div></div>
+      <div class="stat"><div class="n" id="leftStat">0</div><div class="l">осталось</div></div>
+      <div class="stat"><div class="n" id="errorsStat">0</div><div class="l">ошибок</div></div>
+      <div class="stat"><div class="n" id="streakStat">0</div><div class="l">серия</div></div>
+    </div>
+    <div class="progress"><div id="progressBar"></div></div>
+
+    <main class="card" id="trainer">
+      <div class="eyebrow">
+        <span>Переведи на английский</span>
+        <span id="positionText">карточка</span>
+      </div>
+
+      <div class="prompt" id="prompt">Загрузка…</div>
+
+      <input
+        id="answerInput"
+        class="answer"
+        type="text"
+        autocomplete="off"
+        autocapitalize="sentences"
+        spellcheck="false"
+        placeholder="Введите перевод и нажмите Enter"
+      >
+
+      <div class="actions">
+        <button class="btn primary" id="checkBtn">Проверить</button>
+        <button class="btn" id="dontKnowBtn">Не знаю</button>
+        <button class="btn hidden" id="acceptBtn">Засчитать мой вариант</button>
+        <button class="btn hidden" id="nextBtn">Дальше</button>
+      </div>
+
+      <div class="feedback" id="feedback">
+        <div class="fb-title" id="fbTitle"></div>
+        <div class="fb-row hidden" id="yourRow">
+          <span class="fb-label">Ваш ответ</span>
+          <span class="english" id="yourAnswer"></span>
+        </div>
+        <div class="fb-row">
+          <span class="fb-label">Эталон</span>
+          <span class="english" id="correctAnswer"></span>
+        </div>
+        <div class="mini" id="repeatInfo" style="margin-top:10px"></div>
+      </div>
+
+      <div class="complete hidden" id="complete">
+        <div class="big">✓</div>
+        <h2>Сессия завершена</h2>
+        <p class="subtle">Все выбранные карточки этой сессии выполнены, включая контрольные повторы после ошибок.</p>
+        <button class="btn primary" id="newRoundBtn">Начать новую сессию</button>
+      </div>
+    </main>
+
+    <div class="bottom">
+      <section class="panel">
+        <h3>Самые проблемные карточки</h3>
+        <div class="problems" id="problems"></div>
+      </section>
+      <section class="panel">
+        <h3>Как работает</h3>
+        <div class="mini" style="line-height:1.65">
+          В поле «Первые» введите любое число: например 20, 37, 100 или 250.<br>
+          «Первые N» всегда означает одни и те же карточки с начала базы — случайной выборки и перемешивания нет.<br>
+          Правильно с первой попытки → карточка уходит из текущей сессии.<br>
+          Ошибка / «Не знаю» → карточка возвращается дважды: первый раз через 5–10 заданий, второй — ещё через 10–15 заданий после первого.<br>
+          Если на повторе снова ошибиться, цикл закрепления для этой карточки запускается заново.<br>
+          Ваш корректный альтернативный перевод можно сохранить кнопкой «Засчитать мой вариант».<br><br>
+          <span class="pill"><span class="kbd">Enter</span> проверить / дальше</span>
+        </div>
+      </section>
+    </div>
+  </div>
+
+<script>
+const BUILTIN_DECK = [{"ru": "Он уделяет этому слишком много времени.", "answers": ["He devotes too much time to it."]}, {"ru": "Она способна сказать правду.", "answers": ["She is capable of telling the truth."]}, {"ru": "Я точно знаю, что руководство осведомлено об этих проблемах.", "answers": ["I know for sure that the management are aware of these problems."]}, {"ru": "Её обвинили во лжи.", "answers": ["She was accused of lying."]}, {"ru": "Он всегда заботится о ней.", "answers": ["He always cares about her."]}, {"ru": "Ты был в растерянности?", "answers": ["Were you at a loss?"]}, {"ru": "Он страдает от бессонницы.", "answers": ["He suffers from insomnia."]}, {"ru": "Я осведомлён об этих изменениях, потому что они связаны с моей работой.", "answers": ["I am aware of these changes because they are related to my work."]}, {"ru": "Новый торговый центр сейчас строится.", "answers": ["A new shopping centre is under construction now."]}, {"ru": "Она ждёт ответа, но ей уже наскучило ждать.", "answers": ["She is waiting for an answer, but she is already bored with waiting."]}, {"ru": "Ему не всё ясно.", "answers": ["Not everything is clear to him."]}, {"ru": "Я могу рассчитывать на него, потому что он всегда помогает мне.", "answers": ["I can count on him because he always helps me."]}, {"ru": "Эта новость сильно повлияла на моё отношение к ситуации.", "answers": ["This news greatly influenced my attitude to the situation."]}, {"ru": "Она замужем за ним уже пять лет.", "answers": ["She has been married to him for five years."]}, {"ru": "Он участвовал в турнире?", "answers": ["Did he participate in the tournament?"]}, {"ru": "Можно сделать это с помощью приложения?", "answers": ["Can we do it with the help of this app?"]}, {"ru": "Кто отвечает за этот проект?", "answers": ["Who is responsible for this project?"]}, {"ru": "Ты можешь объяснить это мне?", "answers": ["Can you explain it to me?"]}, {"ru": "Я очень рад за тебя.", "answers": ["I am very glad for you."]}, {"ru": "Почему ты настаиваешь на этом?", "answers": ["Why do you insist on it?"]}, {"ru": "Он присутствовал на конференции.", "answers": ["He was present at the conference."]}, {"ru": "Он очень успешен в бизнесе.", "answers": ["He is very successful in business."]}, {"ru": "Она страдает от этой боли.", "answers": ["She suffers from this pain."]}, {"ru": "Кого ты ждёшь?", "answers": ["Who are you waiting for?"]}, {"ru": "Это хорошо только в теории?", "answers": ["Is it good only in theory?"]}, {"ru": "Она привыкла вставать рано.", "answers": ["She is accustomed to getting up early."]}, {"ru": "Ты давно его не видел?", "answers": ["Have you not seen him for ages?"]}, {"ru": "Они спорят об этой проблеме, но я не хочу участвовать в споре.", "answers": ["They are arguing about this problem, but I do not want to take part in the argument."]}, {"ru": "Ей удалось решить проблему, и она довольна результатом.", "answers": ["She succeeded in solving the problem, and she is satisfied with the result."]}, {"ru": "У него аллергия на орехи?", "answers": ["Is he allergic to nuts?"]}, {"ru": "Он привык работать под давлением и способен быстро принимать решения.", "answers": ["He is used to working under pressure and is capable of making decisions quickly."]}, {"ru": "Он окончил университет и сейчас ищет работу.", "answers": ["He graduated from university and is searching for a job."]}, {"ru": "Всё зависит от погоды.", "answers": ["Everything depends on the weather."]}, {"ru": "Я устал от этой рутины.", "answers": ["I am tired of this routine."]}, {"ru": "Почему он отсутствовал на работе?", "answers": ["Why was he absent from work?"]}, {"ru": "Она хочет получить эту работу любой ценой, но пока ей это не удалось.", "answers": ["She wants to get this job at any cost, but she has not succeeded yet."]}, {"ru": "Она зависит от своих родителей.", "answers": ["She is dependent on her parents."]}, {"ru": "В настоящее время новый мост строится.", "answers": ["At present a new bridge is under construction."]}, {"ru": "Это принадлежит мне.", "answers": ["It belongs to me."]}, {"ru": "Почему ты не привык говорить на публике?", "answers": ["Why are you not used to speaking in public?"]}, {"ru": "У него нехватка опыта.", "answers": ["He has a lack of experience."]}, {"ru": "Мне нужно время, чтобы адаптироваться к новой работе.", "answers": ["I need some time to adapt to the new job."]}, {"ru": "Она способна сказать правду.", "answers": ["She is capable of telling the truth."]}, {"ru": "Я участвовал в этом чемпионате.", "answers": ["I participated in this championship."]}, {"ru": "Я рад этим результатам.", "answers": ["I am happy about these results."]}, {"ru": "Ты благодарен ему за помощь?", "answers": ["Are you grateful to him for his help?"]}, {"ru": "Музей находится на юге города.", "answers": ["The museum is located in the south of the city."]}, {"ru": "Какова была её реакция на эту новость?", "answers": ["What was her reaction to this news?"]}, {"ru": "У них нет ничего общего?", "answers": ["Do they have nothing in common?"]}, {"ru": "Он боится неизвестности.", "answers": ["He is afraid of the unknown."]}, {"ru": "У них нет ничего общего, и их взгляды совсем не похожи.", "answers": ["They have nothing in common, and their views are not similar at all."]}, {"ru": "Я готов к тесту, но всё ещё нервничаю из-за него.", "answers": ["I am ready for the test, but I am still nervous about it."]}, {"ru": "Он хочет сделать это любой ценой.", "answers": ["He wants to do it at any cost."]}, {"ru": "Ты привык вставать рано?", "answers": ["Are you used to getting up early?"]}, {"ru": "У нас нет ничего общего.", "answers": ["We have nothing in common."]}, {"ru": "Тяжёлая работа может привести к успеху.", "answers": ["Hard work can lead to success."]}, {"ru": "Она боится искать новую работу.", "answers": ["She is afraid of looking for a new job."]}, {"ru": "Я готов к тесту, но всё ещё нервничаю из-за него.", "answers": ["I am ready for the test, but I am still nervous about it."]}, {"ru": "Она замужем за моим другом.", "answers": ["She is married to my friend."]}, {"ru": "Он принимал участие в этом турнире.", "answers": ["He took part in this tournament."]}, {"ru": "Она уделяет много времени изучению английского.", "answers": ["She devotes a lot of time to learning English."]}, {"ru": "Я очень увлекаюсь английским и уделяю ему много времени.", "answers": ["I am very keen on English and I devote a lot of time to it."]}, {"ru": "Все мои усилия были напрасны, и я был в растерянности.", "answers": ["All my efforts were in vain, and I was at a loss."]}, {"ru": "Он ужасно играет в теннис.", "answers": ["He is terrible at playing tennis."]}, {"ru": "Я очень обеспокоен своим будущим.", "answers": ["I am very worried about my future."]}, {"ru": "Это стоит как минимум пятьдесят долларов.", "answers": ["It costs at least fifty dollars."]}, {"ru": "Я не привык выступать на публике.", "answers": ["I am not used to speaking in public."]}, {"ru": "Ты можешь рассчитывать на него?", "answers": ["Can you count on him?"]}, {"ru": "Это место находится близко к парку.", "answers": ["This place is close to the park."]}, {"ru": "Это произошло случайно?", "answers": ["Did it happen by accident?"]}, {"ru": "Она хочет подать заявку на эту работу и уже готовится к интервью.", "answers": ["She wants to apply for this job and is already preparing for the interview."]}, {"ru": "Город переполнен туристами?", "answers": ["Is the city crowded with tourists?"]}, {"ru": "Мне нужно остаться здесь на некоторое время.", "answers": ["I need to stay here for a while."]}, {"ru": "Она рада твоему успеху.", "answers": ["She is glad about your success."]}, {"ru": "Это может быть вредно для детей.", "answers": ["It can be harmful to children."]}, {"ru": "Это имя кажется мне знакомым.", "answers": ["This name seems familiar to me."]}, {"ru": "Она устала делать одно и то же и хочет для разнообразия попробовать другой метод.", "answers": ["She is tired of doing the same thing and wants to try another method for a change."]}, {"ru": "Ей нужно время, чтобы адаптироваться к новой работе, потому что она к ней не привыкла.", "answers": ["She needs time to adapt to the new job because she is not used to it."]}, {"ru": "Я особенно увлекаюсь иностранными языками.", "answers": ["I am particularly keen on foreign languages."]}, {"ru": "Презентация состоит из трёх частей, и я разделил работу таким же образом.", "answers": ["The presentation consists of three parts, and I divided the work in the same way."]}, {"ru": "Город переполнен туристами?", "answers": ["Is the city crowded with tourists?"]}, {"ru": "Она подала заявление на визу.", "answers": ["She applied for a visa."]}, {"ru": "Я был в растерянности.", "answers": ["I was at a loss."]}, {"ru": "Это хорошо только в теории.", "answers": ["It is good only in theory."]}, {"ru": "Кто указал на твои ошибки?", "answers": ["Who pointed out your mistakes?"]}, {"ru": "Мне нужно остаться здесь на некоторое время.", "answers": ["I need to stay here for a while."]}, {"ru": "Ты можешь положиться на меня.", "answers": ["You can rely on me."]}, {"ru": "Она не способна сказать правду?", "answers": ["Is she incapable of telling the truth?"]}, {"ru": "Мне стало ясно, что это лучшее решение.", "answers": ["It became clear to me that it is the best solution."]}, {"ru": "Я готов к тесту, но всё ещё нервничаю из-за него.", "answers": ["I am ready for the test, but I am still nervous about it."]}, {"ru": "Было очень мило с твоей стороны помочь нам.", "answers": ["It was very nice of you to help us."]}, {"ru": "Она страдает от этой боли.", "answers": ["She suffers from this pain."]}, {"ru": "Мне не хватает денег, но я не собираюсь жаловаться.", "answers": ["I am short of money, but I am not going to complain."]}, {"ru": "Эта книга подходит для начинающих?", "answers": ["Is this book suitable for beginners?"]}, {"ru": "Эти две вещи тесно связаны друг с другом.", "answers": ["These two things are closely related to each other."]}, {"ru": "Ты всегда можешь рассчитывать на мою помощь.", "answers": ["You can always count on my help."]}, {"ru": "О чём ты думаешь сейчас?", "answers": ["What are you thinking about now?"]}, {"ru": "Я благодарен тебе за помощь, и было очень мило с твоей стороны предложить её.", "answers": ["I am grateful to you for your help, and it was very nice of you to offer it."]}, {"ru": "Этот дом продаётся?", "answers": ["Is this house for sale?"]}, {"ru": "Я задал этот вопрос просто из любопытства, но не получил ответа.", "answers": ["I asked this question just out of curiosity, but I did not get an answer."]}, {"ru": "Это очень эгоистично с его стороны.", "answers": ["It is very selfish of him."]}, {"ru": "Каково лучшее решение этой проблемы?", "answers": ["What is the best solution to this problem?"]}, {"ru": "Она нервничает из-за интервью.", "answers": ["She is nervous about the interview."]}, {"ru": "Она боится искать новую работу.", "answers": ["She is afraid of looking for a new job."]}, {"ru": "Она недовольна качеством услуги и хочет пожаловаться.", "answers": ["She is dissatisfied with the quality of the service and wants to complain."]}, {"ru": "Она хорошо подготовлена к интервью, но всё равно беспокоится.", "answers": ["She is well prepared for the interview, but she is still worried."]}, {"ru": "У них нехватка профессионализма.", "answers": ["They have a lack of professionalism."]}, {"ru": "Он недоволен результатами, но не собирается жаловаться.", "answers": ["He is dissatisfied with the results, but he is not going to complain."]}, {"ru": "Она недовольна качеством услуги и хочет пожаловаться.", "answers": ["She is dissatisfied with the quality of the service and wants to complain."]}, {"ru": "В любом случае мне придётся сделать это.", "answers": ["I will have to do it in any case."]}, {"ru": "Я готовлюсь к тесту и уделяю этому много времени.", "answers": ["I am preparing for the test and devote a lot of time to it."]}, {"ru": "Я жду твоего ответа.", "answers": ["I am waiting for your answer."]}, {"ru": "Не вини его в этом.", "answers": ["Do not blame him for it."]}, {"ru": "Что было причиной аварии?", "answers": ["What was the cause of the accident?"]}, {"ru": "Эта книга принадлежит мне.", "answers": ["This book belongs to me."]}, {"ru": "Он не боится трудностей и готов к худшему.", "answers": ["He is not afraid of difficulties and is prepared for the worst."]}, {"ru": "Мои идеи похожи на её.", "answers": ["My ideas are similar to hers."]}, {"ru": "Какова была причина пожара?", "answers": ["What was the cause of the fire?"]}, {"ru": "Она готовится к интервью.", "answers": ["She is preparing for the interview."]}, {"ru": "Она ищет новую работу и уже подала заявку на две позиции.", "answers": ["She is searching for a new job and has already applied for two positions."]}, {"ru": "Я хотел бы комнату с видом на море, но этот отель ещё строится.", "answers": ["I would like a room with a view of the sea, but this hotel is still under construction."]}, {"ru": "Какова цель этой встречи?", "answers": ["What is the purpose of this meeting?"]}, {"ru": "Я задал этот вопрос просто из любопытства, но не получил ответа.", "answers": ["I asked this question just out of curiosity, but I did not get an answer."]}, {"ru": "Она винит его во всём.", "answers": ["She blames him for everything."]}, {"ru": "Все его усилия были напрасны.", "answers": ["All his efforts were in vain."]}, {"ru": "К чему это может привести?", "answers": ["What can it lead to?"]}, {"ru": "Я знаком с этой проблемой и знаю решение.", "answers": ["I am familiar with this problem and know the solution."]}, {"ru": "Эти две проблемы тесно связаны, и руководство знает о них.", "answers": ["These two problems are closely related, and the management are aware of them."]}, {"ru": "Она работает без перерыва и сыта по горло этой рутиной.", "answers": ["She is working without a break and is fed up with this routine."]}, {"ru": "Она подала заявку на эту работу.", "answers": ["She applied for this job."]}, {"ru": "Я знаю это точно.", "answers": ["I know it for sure."]}, {"ru": "Почему она винит его во всём?", "answers": ["Why does she blame him for everything?"]}, {"ru": "Я осведомлён об этих изменениях, потому что они связаны с моей работой.", "answers": ["I am aware of these changes because they are related to my work."]}, {"ru": "Тебе не хватает времени?", "answers": ["Are you short of time?"]}, {"ru": "Я люблю читать иностранную литературу.", "answers": ["I am fond of reading foreign literature."]}, {"ru": "Мне удалось закончить работу вовремя.", "answers": ["I managed to finish the work on time."]}, {"ru": "Эта книга подходит для начинающих.", "answers": ["This book is suitable for beginners."]}, {"ru": "У него аллергия на орехи.", "answers": ["He is allergic to nuts."]}, {"ru": "Он ещё не ответил на моё сообщение.", "answers": ["He has not replied to my message yet."]}, {"ru": "Он отсутствовал на работе.", "answers": ["He was absent from work."]}, {"ru": "Ты давно его не видел?", "answers": ["Have you not seen him for ages?"]}, {"ru": "Он уехал в Англию на прошлой неделе.", "answers": ["He left for England last week."]}, {"ru": "Она не способна сделать это одна, поэтому попросила меня о помощи.", "answers": ["She is incapable of doing it alone, so she asked me for help."]}, {"ru": "Ты уже адаптировался к этим условиям?", "answers": ["Have you already adapted to these conditions?"]}, {"ru": "Курение очень вредно для здоровья.", "answers": ["Smoking is very harmful to health."]}, {"ru": "Она винит во всём его.", "answers": ["She blames everything on him."]}, {"ru": "Он окончил университет и сейчас ищет работу.", "answers": ["He graduated from university and is searching for a job."]}, {"ru": "Он отсутствовал на работе.", "answers": ["He was absent from work."]}, {"ru": "Новый торговый центр сейчас строится.", "answers": ["A new shopping centre is under construction now."]}, {"ru": "Он ужасно играет в теннис.", "answers": ["He is terrible at playing tennis."]}, {"ru": "Я не могу работать и учиться одновременно.", "answers": ["I cannot work and study at the same time."]}, {"ru": "Я знаком с этой проблемой.", "answers": ["I am familiar with this problem."]}, {"ru": "Он ещё не ответил на моё сообщение.", "answers": ["He has not replied to my message yet."]}, {"ru": "Ему удалось получить эту работу.", "answers": ["He succeeded in getting this job."]}, {"ru": "В настоящее время новый мост строится.", "answers": ["At present a new bridge is under construction."]}, {"ru": "Почему она недовольна результатами?", "answers": ["Why is she dissatisfied with the results?"]}, {"ru": "Я пришёл к выводу, что это лучший способ изучения английского.", "answers": ["I came to the conclusion that it is the best way of learning English."]}, {"ru": "Он привык ложиться поздно.", "answers": ["He is accustomed to going to bed late."]}, {"ru": "Он отвечает за всё.", "answers": ["He is responsible for everything."]}, {"ru": "Это повлияло на твоё решение?", "answers": ["Did it influence your decision?"]}, {"ru": "Нехватка опыта может быть причиной ошибок.", "answers": ["A lack of experience can be the cause of mistakes."]}, {"ru": "Он способен решить эту проблему?", "answers": ["Is he capable of solving this problem?"]}, {"ru": "Ему удалось получить эту работу?", "answers": ["Did he succeed in getting this job?"]}, {"ru": "Она винит во всём его.", "answers": ["She blames everything on him."]}, {"ru": "Он очень увлечён этим проектом.", "answers": ["He is very enthusiastic about this project."]}, {"ru": "Я уже адаптировался к этим условиям и привык к ним.", "answers": ["I have already adapted to these conditions and I am used to them."]}, {"ru": "Мне удалось закончить работу вовремя.", "answers": ["I managed to finish the work on time."]}, {"ru": "Она замужем за моим другом.", "answers": ["She is married to my friend."]}, {"ru": "Она подала заявку на эту работу.", "answers": ["She applied for this job."]}, {"ru": "Он не одобряет эту идею и настаивает на другом решении.", "answers": ["He does not approve of this idea and insists on another solution."]}, {"ru": "Эта сумка сделана из кожи, и я полностью доволен её качеством.", "answers": ["This bag is made of leather, and I am fully satisfied with its quality."]}, {"ru": "Все его усилия были напрасны.", "answers": ["All his efforts were in vain."]}, {"ru": "Я готовлюсь к экзамену.", "answers": ["I am preparing for the exam."]}, {"ru": "Это находится в западной части страны.", "answers": ["It is in the western part of the country."]}, {"ru": "Эти события повлияли на моё решение.", "answers": ["These events influenced my decision."]}, {"ru": "Ты спросил это просто из любопытства?", "answers": ["Did you ask it just out of curiosity?"]}, {"ru": "Новый отель строится в западной части города.", "answers": ["A new hotel is under construction in the western part of the city."]}, {"ru": "Эта программа не подходит для детей.", "answers": ["This program is not suitable for children."]}, {"ru": "Она уже восстановилась после операции?", "answers": ["Has she already recovered from the operation?"]}, {"ru": "Всё зависит от погоды.", "answers": ["Everything depends on the weather."]}, {"ru": "Эта ошибка может привести к серьёзным проблемам.", "answers": ["This mistake can lead to serious problems."]}, {"ru": "Каково лучшее решение этой проблемы?", "answers": ["What is the best solution to this problem?"]}, {"ru": "Он хочет представить её своей семье.", "answers": ["He wants to introduce her to his family."]}, {"ru": "Я хочу знать хотя бы два иностранных языка.", "answers": ["I want to know at least two foreign languages."]}, {"ru": "Каков лучший ответ на этот вопрос?", "answers": ["What is the best answer to this question?"]}, {"ru": "Он хочет подать заявку на эту работу.", "answers": ["He wants to apply for this job."]}, {"ru": "Он ещё не восстановился после болезни, поэтому отсутствует на работе.", "answers": ["He has not recovered from the illness yet, so he is absent from work."]}, {"ru": "Она отвечает за результаты.", "answers": ["She is responsible for the results."]}, {"ru": "Она присутствовала на встрече?", "answers": ["Was she present at the meeting?"]}, {"ru": "Они спорят об этой проблеме, но я не хочу участвовать в споре.", "answers": ["They are arguing about this problem, but I do not want to take part in the argument."]}, {"ru": "Она полна энергии.", "answers": ["She is full of energy."]}, {"ru": "Она хорошо подготовлена к интервью.", "answers": ["She is well prepared for the interview."]}, {"ru": "Она помолвлена с ним.", "answers": ["She is engaged to him."]}, {"ru": "Что-то не так с двигателем.", "answers": ["Something is wrong with the engine."]}, {"ru": "Ты благодарен ему за помощь?", "answers": ["Are you grateful to him for his help?"]}, {"ru": "Она интересуется музыкой.", "answers": ["She is interested in music."]}, {"ru": "Она была впечатлена его достижениями и очень рада за него.", "answers": ["She was impressed by his achievements and is very glad for him."]}, {"ru": "Он зависит от своих родителей, потому что ему не хватает опыта.", "answers": ["He is dependent on his parents because he lacks experience."]}, {"ru": "Я целую вечность не видел его, поэтому хочу встретиться с ним сразу.", "answers": ["I have not seen him for ages, so I want to meet him at once."]}, {"ru": "Его обвинили в преступлении.", "answers": ["He was accused of a crime."]}, {"ru": "Было очень мило с твоей стороны помочь нам.", "answers": ["It was very nice of you to help us."]}, {"ru": "Я был шокирован этой новостью.", "answers": ["I was shocked by this news."]}, {"ru": "Я пришёл к выводу, что это хороший вариант.", "answers": ["I came to the conclusion that it is a good option."]}, {"ru": "Мне нужно остаться здесь на некоторое время.", "answers": ["I need to stay here for a while."]}, {"ru": "Ей не хватает опыта?", "answers": ["Does she lack experience?"]}, {"ru": "Ты уже адаптировался к этим условиям?", "answers": ["Have you already adapted to these conditions?"]}, {"ru": "В любом случае я точно знаю, что он ответит.", "answers": ["In any case I know for sure that he will reply."]}, {"ru": "Она уехала в другую страну.", "answers": ["She left for another country."]}, {"ru": "Мы были поражены результатами.", "answers": ["We were amazed by the results."]}, {"ru": "Я уже адаптировался к этим условиям.", "answers": ["I have already adapted to these conditions."]}, {"ru": "Она стыдится своей ошибки.", "answers": ["She is ashamed of her mistake."]}, {"ru": "Он раздражён ею.", "answers": ["He is annoyed with her."]}, {"ru": "Эта вещь ассоциируется с богатством и успехом.", "answers": ["This thing is associated with wealth and success."]}, {"ru": "Она осведомлена об этих рисках.", "answers": ["She is aware of these risks."]}, {"ru": "Он знаком с этим методом, но не одобряет его.", "answers": ["He is familiar with this method, but he does not approve of it."]}, {"ru": "Нехватка опыта может быть причиной ошибок.", "answers": ["A lack of experience can be the cause of mistakes."]}, {"ru": "Он знаком с этим методом, но не одобряет его.", "answers": ["He is familiar with this method, but he does not approve of it."]}, {"ru": "Каково твоё отношение к этому?", "answers": ["What is your attitude to it?"]}, {"ru": "Она совершенно безнадёжна в готовке.", "answers": ["She is absolutely hopeless at cooking."]}, {"ru": "Какие преимущества есть у этого метода?", "answers": ["What are the advantages of this method?"]}, {"ru": "Аэропорт находится на севере города.", "answers": ["The airport is located in the north of the city."]}, {"ru": "Она уделяет много времени изучению английского.", "answers": ["She devotes a lot of time to learning English."]}, {"ru": "Некоторые мои коллеги очень чувствительны к критике.", "answers": ["Some of my colleagues are very sensitive to criticism."]}, {"ru": "Это хорошая альтернатива этому методу.", "answers": ["It is a good alternative to this method."]}, {"ru": "Он готов к худшему.", "answers": ["He is prepared for the worst."]}, {"ru": "У него аллергия на орехи.", "answers": ["He is allergic to nuts."]}, {"ru": "Он грустит из-за своей ошибки.", "answers": ["He is sad about his mistake."]}, {"ru": "Он зол из-за этой ситуации.", "answers": ["He is angry about this situation."]}, {"ru": "Чем они были удивлены?", "answers": ["What were they surprised by?"]}, {"ru": "Она страдает от бессонницы и беспокоится о своём здоровье.", "answers": ["She suffers from insomnia and is worried about her health."]}, {"ru": "Она недовольна качеством этой услуги.", "answers": ["She is dissatisfied with the quality of this service."]}, {"ru": "Когда она уехала в Англию?", "answers": ["When did she leave for England?"]}, {"ru": "Кстати, что с этим не так?", "answers": ["By the way, what is wrong with it?"]}, {"ru": "Этот дом продаётся.", "answers": ["This house is for sale."]}, {"ru": "Некоторые его коллеги присутствовали на конференции.", "answers": ["Some of his colleagues were present at the conference."]}, {"ru": "Мои родители не одобряют решение моего брата.", "answers": ["My parents do not approve of my brother's decision."]}, {"ru": "У них нет ничего общего, и их взгляды совсем не похожи.", "answers": ["They have nothing in common, and their views are not similar at all."]}, {"ru": "Я опоздал на урок.", "answers": ["I was late for the lesson."]}, {"ru": "Я могу рассчитывать на него, потому что он всегда помогает мне.", "answers": ["I can count on him because he always helps me."]}, {"ru": "Кто отвечает за этот проект?", "answers": ["Who is responsible for this project?"]}, {"ru": "Я хочу подать заявление на визу, поэтому готовлюсь к поездке.", "answers": ["I want to apply for a visa, so I am preparing for the trip."]}, {"ru": "Ей нужно время, чтобы адаптироваться к новой работе, потому что она к ней не привыкла.", "answers": ["She needs time to adapt to the new job because she is not used to it."]}, {"ru": "Она полна энергии.", "answers": ["She is full of energy."]}, {"ru": "Он участвовал в турнире?", "answers": ["Did he participate in the tournament?"]}, {"ru": "Я не думаю, что это хорошее решение.", "answers": ["I do not think it is a good solution."]}, {"ru": "Он страдает от бессонницы.", "answers": ["He suffers from insomnia."]}, {"ru": "Она была в растерянности, но потом нашла правильный ответ.", "answers": ["She was at a loss, but then she found the right answer."]}, {"ru": "Почему ты настаиваешь на том, чтобы сделать это?", "answers": ["Why do you insist on doing it?"]}, {"ru": "Мы можем работать без перерыва?", "answers": ["Can we work without a break?"]}, {"ru": "Сколько времени ты уделяешь английскому?", "answers": ["How much time do you devote to English?"]}, {"ru": "Это точно.", "answers": ["That is for sure."]}, {"ru": "Не вини его в этом.", "answers": ["Do not blame him for it."]}, {"ru": "Деньги часто ассоциируются с успехом.", "answers": ["Money is often associated with success."]}, {"ru": "Она указала на несколько ошибок.", "answers": ["She pointed out several mistakes."]}, {"ru": "Он уделяет этому слишком много времени.", "answers": ["He devotes too much time to it."]}, {"ru": "Какова цель этой встречи?", "answers": ["What is the purpose of this meeting?"]}, {"ru": "Она хочет получить эту работу любой ценой, но пока ей это не удалось.", "answers": ["She wants to get this job at any cost, but she has not succeeded yet."]}, {"ru": "Я жду его и уже устал ждать.", "answers": ["I am waiting for him and I am already tired of waiting."]}, {"ru": "Я очень чувствителен к холоду.", "answers": ["I am very sensitive to cold."]}, {"ru": "Он недоволен качеством услуги.", "answers": ["He is dissatisfied with the quality of the service."]}, {"ru": "Ты согласен со мной в некоторой степени?", "answers": ["Do you agree with me to a certain extent?"]}, {"ru": "Ты был в растерянности?", "answers": ["Were you at a loss?"]}, {"ru": "Какие преимущества есть у этого метода?", "answers": ["What are the advantages of this method?"]}, {"ru": "Ты одобряешь эту идею?", "answers": ["Do you approve of this idea?"]}, {"ru": "Ты давно его не видел?", "answers": ["Have you not seen him for ages?"]}, {"ru": "Я не одобряю эту идею, и моё отношение к ней негативное.", "answers": ["I do not approve of this idea, and my attitude to it is negative."]}, {"ru": "Она полностью довольна результатами и очень рада им.", "answers": ["She is fully satisfied with the results and very happy about them."]}, {"ru": "Она подала заявку на визу?", "answers": ["Did she apply for a visa?"]}, {"ru": "Он присутствовал на встрече, но она отсутствовала.", "answers": ["He was present at the meeting, but she was absent."]}, {"ru": "Она безнадёжна в катании на коньках.", "answers": ["She is hopeless at skating."]}, {"ru": "Я готов к тесту.", "answers": ["I am ready for the test."]}, {"ru": "У нас много общего, и наши идеи очень похожи.", "answers": ["We have much in common, and our ideas are very similar."]}, {"ru": "Давай пойдём в другое место для разнообразия?", "answers": ["Shall we go to another place for a change?"]}, {"ru": "Мне нужно время, чтобы адаптироваться к новой работе.", "answers": ["I need some time to adapt to the new job."]}, {"ru": "Я не понимаю, что с этим не так, поэтому объясни это мне.", "answers": ["I do not understand what is wrong with it, so explain it to me."]}, {"ru": "Он отвечает за этот проект.", "answers": ["He is responsible for this project."]}, {"ru": "Он не привык вставать рано и уже устал от этого.", "answers": ["He is not used to getting up early, and he is already tired of it."]}, {"ru": "Я не знаю, кому принадлежит эта вещь, но она кажется мне знакомой.", "answers": ["I do not know who this thing belongs to, but it seems familiar to me."]}, {"ru": "Я буду ждать тебя здесь.", "answers": ["I will wait for you here."]}, {"ru": "Ты попросил её о помощи?", "answers": ["Did you ask her for help?"]}, {"ru": "Он жалуется на качество услуги.", "answers": ["He complains about the quality of the service."]}, {"ru": "Он был впечатлён красотой этого места.", "answers": ["He was impressed by the beauty of this place."]}, {"ru": "Она ответила на твоё письмо?", "answers": ["Did she reply to your letter?"]}, {"ru": "В любом случае я могу положиться на его поддержку.", "answers": ["In any case I can rely on his support."]}, {"ru": "Чем она увлекается?", "answers": ["What is she keen on?"]}, {"ru": "Я знаком с этой проблемой и знаю решение.", "answers": ["I am familiar with this problem and know the solution."]}, {"ru": "Я благодарен тебе за всё.", "answers": ["I am grateful to you for everything."]}, {"ru": "Я не одобряю эту идею.", "answers": ["I do not approve of this idea."]}, {"ru": "Можно сделать это с помощью приложения?", "answers": ["Can we do it with the help of this app?"]}, {"ru": "Ты знаешь это точно?", "answers": ["Do you know it for sure?"]}, {"ru": "Он был впечатлён красотой этого места.", "answers": ["He was impressed by the beauty of this place."]}, {"ru": "Я очень чувствителен к холоду.", "answers": ["I am very sensitive to cold."]}, {"ru": "Он уехал в Англию на прошлой неделе.", "answers": ["He left for England last week."]}, {"ru": "Ты готовишься к тесту?", "answers": ["Are you preparing for the test?"]}, {"ru": "Я беспокоюсь, что это может случиться с ним.", "answers": ["I am worried that it can happen to him."]}, {"ru": "Она не была виновна в этом.", "answers": ["She was not guilty of it."]}, {"ru": "Он боится выступать на публике, потому что не привык к этому.", "answers": ["He is afraid of speaking in public because he is not used to it."]}, {"ru": "Когда он окончил университет?", "answers": ["When did he graduate from university?"]}, {"ru": "Он присутствовал на конференции.", "answers": ["He was present at the conference."]}, {"ru": "Она никогда не жалуется на это.", "answers": ["She never complains about it."]}, {"ru": "У нас много общего, и наши идеи очень похожи.", "answers": ["We have much in common, and our ideas are very similar."]}, {"ru": "Какую музыку ты предпочитаешь слушать?", "answers": ["What kind of music do you prefer to listen to?"]}, {"ru": "Этот дом продаётся?", "answers": ["Is this house for sale?"]}, {"ru": "Я хотел бы комнату с видом на море.", "answers": ["I would like a room with a view of the sea."]}, {"ru": "Эта сумка сделана из кожи, и я полностью доволен её качеством.", "answers": ["This bag is made of leather, and I am fully satisfied with its quality."]}, {"ru": "Для начала ты можешь попробовать этот метод.", "answers": ["For a start you can try this method."]}, {"ru": "Я не думаю, что это хорошее решение.", "answers": ["I do not think it is a good solution."]}, {"ru": "Ты всегда очень добр ко мне.", "answers": ["You are always very kind to me."]}, {"ru": "Я уже адаптировался к этим условиям.", "answers": ["I have already adapted to these conditions."]}, {"ru": "О чём они спорят?", "answers": ["What are they arguing about?"]}, {"ru": "Она боится искать новую работу?", "answers": ["Is she afraid of looking for a new job?"]}, {"ru": "Я хочу знать хотя бы два иностранных языка.", "answers": ["I want to know at least two foreign languages."]}, {"ru": "Ты можешь объяснить это мне?", "answers": ["Can you explain it to me?"]}, {"ru": "Он готов к худшему.", "answers": ["He is prepared for the worst."]}, {"ru": "Мне не хватает денег.", "answers": ["I am short of money."]}, {"ru": "Я пришёл к выводу, что это лучший способ изучения английского.", "answers": ["I came to the conclusion that it is the best way of learning English."]}, {"ru": "Я не одобряю эту идею, и моё отношение к ней негативное.", "answers": ["I do not approve of this idea, and my attitude to it is negative."]}, {"ru": "Я рад этим результатам.", "answers": ["I am happy about these results."]}, {"ru": "Она не привыкла выступать на публике и очень нервничает.", "answers": ["She is not accustomed to speaking in public and is very nervous."]}, {"ru": "Это произошло случайно.", "answers": ["It happened by accident."]}, {"ru": "Над чем ты сейчас работаешь?", "answers": ["What are you working on?"]}, {"ru": "Я не могу делать эти две вещи одновременно.", "answers": ["I cannot do these two things at the same time."]}, {"ru": "Она отсутствовала на работе.", "answers": ["She was absent from work."]}, {"ru": "Какова цель твоего визита?", "answers": ["What is the purpose of your visit?"]}, {"ru": "Я благодарен тебе за всё.", "answers": ["I am grateful to you for everything."]}, {"ru": "Он всегда заботится о ней.", "answers": ["He always cares about her."]}, {"ru": "Я очень рад за тебя и доволен твоими результатами.", "answers": ["I am very glad for you and satisfied with your results."]}, {"ru": "Его лицо кажется мне знакомым.", "answers": ["His face seems familiar to me."]}, {"ru": "Я думаю, что они в опасности.", "answers": ["I think they are at risk."]}, {"ru": "Я хотел бы комнату с видом на море, но этот отель ещё строится.", "answers": ["I would like a room with a view of the sea, but this hotel is still under construction."]}, {"ru": "Она была удивлена его словами.", "answers": ["She was surprised by his words."]}, {"ru": "У них нет ничего общего?", "answers": ["Do they have nothing in common?"]}, {"ru": "Она полностью довольна результатами и очень рада им.", "answers": ["She is fully satisfied with the results and very happy about them."]}, {"ru": "Она сейчас на диете.", "answers": ["She is on a diet at present."]}, {"ru": "Я опоздал на встречу.", "answers": ["I was late for the meeting."]}, {"ru": "Кого ты ждёшь?", "answers": ["Who are you waiting for?"]}, {"ru": "Давай пойдём погулять.", "answers": ["Let us go for a walk."]}, {"ru": "Я не вижу никаких недостатков этого метода.", "answers": ["I do not see any disadvantages of this method."]}, {"ru": "Это точно.", "answers": ["That is for sure."]}, {"ru": "Ты готовишься к тесту?", "answers": ["Are you preparing for the test?"]}, {"ru": "Пойдём погулять?", "answers": ["Shall we go for a walk?"]}, {"ru": "Ты можешь делать это одновременно?", "answers": ["Can you do it at the same time?"]}, {"ru": "Он хочет сделать это любой ценой.", "answers": ["He wants to do it at any cost."]}, {"ru": "Я действительно был в растерянности.", "answers": ["I was really at a loss."]}, {"ru": "Было жестоко с его стороны так поступить.", "answers": ["It was cruel of him to behave like that."]}, {"ru": "Он очень успешен в бизнесе.", "answers": ["He is very successful in business."]}, {"ru": "Я сейчас думаю об этом.", "answers": ["I am thinking about it right now."]}, {"ru": "Город всегда переполнен туристами.", "answers": ["The city is always crowded with tourists."]}, {"ru": "Я был шокирован этой новостью.", "answers": ["I was shocked by this news."]}, {"ru": "Он ещё не восстановился после этой болезни.", "answers": ["He has not recovered from this illness yet."]}, {"ru": "Ей не хватает опыта?", "answers": ["Does she lack experience?"]}, {"ru": "Она привыкла вставать рано.", "answers": ["She is accustomed to getting up early."]}, {"ru": "Чего ты боишься?", "answers": ["What are you afraid of?"]}, {"ru": "Тебе удалось сделать это?", "answers": ["Did you manage to do it?"]}, {"ru": "Эта реакция довольно типична для него.", "answers": ["This reaction is quite typical of him."]}, {"ru": "Почему ты смеёшься над этим?", "answers": ["Why are you laughing at it?"]}, {"ru": "Он злится из-за этой ситуации и постоянно жалуется на неё.", "answers": ["He is angry about this situation and constantly complains about it."]}, {"ru": "Я беспокоюсь, что это может случиться с ним.", "answers": ["I am worried that it can happen to him."]}, {"ru": "Она недовольна качеством этой услуги.", "answers": ["She is dissatisfied with the quality of this service."]}, {"ru": "Эта программа подходит для начинающих, и я полностью доволен ею.", "answers": ["This program is suitable for beginners, and I am fully satisfied with it."]}, {"ru": "Он не способен сделать такую вещь.", "answers": ["He is incapable of doing such a thing."]}, {"ru": "Он очень жесток с этим человеком.", "answers": ["He is very cruel to this man."]}, {"ru": "Я привык работать под давлением, поэтому не боюсь этой работы.", "answers": ["I am used to working under pressure, so I am not afraid of this work."]}, {"ru": "Она осведомлена об этих рисках.", "answers": ["She is aware of these risks."]}, {"ru": "Она отвечает за результаты.", "answers": ["She is responsible for the results."]}, {"ru": "Она полна энергии и готова к работе.", "answers": ["She is full of energy and ready for work."]}, {"ru": "Она знакома с этой системой.", "answers": ["She is familiar with this system."]}, {"ru": "Это произошло случайно?", "answers": ["Did it happen by accident?"]}, {"ru": "Он решил сделать это сразу.", "answers": ["He decided to do it at once."]}, {"ru": "Кто заплатил за билет?", "answers": ["Who paid for the ticket?"]}, {"ru": "Какова была её реакция на эту новость?", "answers": ["What was her reaction to this news?"]}, {"ru": "Она обеспокоена своим будущим и думает о новой работе.", "answers": ["She is worried about her future and is thinking about a new job."]}, {"ru": "Я хочу познакомиться с ним.", "answers": ["I want to get acquainted with him."]}, {"ru": "Она ответила неправильно по ошибке и была разочарована результатом.", "answers": ["She answered incorrectly by mistake and was disappointed about the result."]}, {"ru": "Ситуация выходит из-под контроля.", "answers": ["The situation is getting out of control."]}, {"ru": "Его коллеги завидуют его успеху.", "answers": ["His colleagues are envious of his success."]}, {"ru": "Чем ты обеспокоен?", "answers": ["What are you worried about?"]}, {"ru": "Она очень раздражена его комментариями.", "answers": ["She is irritated by his comments."]}, {"ru": "Это место находится близко к парку.", "answers": ["This place is close to the park."]}, {"ru": "Мне пришлось адаптироваться к этим условиям.", "answers": ["I had to adapt to these conditions."]}, {"ru": "Я не видел его целую вечность.", "answers": ["I have not seen him for ages."]}, {"ru": "Что с ним случилось?", "answers": ["What happened to him?"]}, {"ru": "Эта вещь сделана из стали и сейчас продаётся.", "answers": ["This thing is made of steel and is for sale now."]}, {"ru": "Она рада своим достижениям, но всё ещё нервничает из-за будущего.", "answers": ["She is happy about her achievements but is still nervous about the future."]}, {"ru": "Город всегда переполнен туристами.", "answers": ["The city is always crowded with tourists."]}, {"ru": "Ты спросил это просто из любопытства?", "answers": ["Did you ask it just out of curiosity?"]}, {"ru": "Она замужем за ним уже пять лет.", "answers": ["She has been married to him for five years."]}, {"ru": "Почему он нервничает из-за интервью?", "answers": ["Why is he nervous about the interview?"]}, {"ru": "Я разделил презентацию на три части.", "answers": ["I divided my presentation into three parts."]}, {"ru": "Кстати, ты уже ответил на письмо?", "answers": ["By the way, have you replied to the letter yet?"]}, {"ru": "Она очень подозрительно относится к нему.", "answers": ["She is very suspicious of him."]}, {"ru": "Мне всё ясно.", "answers": ["Everything is clear to me."]}, {"ru": "Она ждёт ответа, но ей уже наскучило ждать.", "answers": ["She is waiting for an answer, but she is already bored with waiting."]}, {"ru": "Это точно.", "answers": ["That is for sure."]}, {"ru": "Она знакома с этой системой.", "answers": ["She is familiar with this system."]}, {"ru": "Она ответила на твоё письмо?", "answers": ["Did she reply to your letter?"]}, {"ru": "Я действительно сожалею об этом.", "answers": ["I am really sorry about it."]}, {"ru": "Она не была виновна в этом.", "answers": ["She was not guilty of it."]}, {"ru": "Из скольких глав состоит эта книга?", "answers": ["How many chapters does this book consist of?"]}, {"ru": "Спрос на этот продукт падает, поэтому успех проекта находится под угрозой.", "answers": ["The demand for this product is getting lower, so the success of the project is at risk."]}, {"ru": "Ты можешь положиться на него?", "answers": ["Can you rely on him?"]}, {"ru": "Мне нужно подготовиться к этому тесту.", "answers": ["I need to prepare for this test."]}, {"ru": "Кто указал на эту ошибку?", "answers": ["Who pointed out this mistake?"]}, {"ru": "Эта книга принадлежит мне.", "answers": ["This book belongs to me."]}, {"ru": "Я беспокоюсь, потому что ситуация выходит из-под контроля.", "answers": ["I am worried because the situation is getting out of control."]}, {"ru": "Я вижу несколько преимуществ работы здесь.", "answers": ["I see several advantages of working here."]}, {"ru": "Она сейчас на диете?", "answers": ["Is she on a diet at present?"]}, {"ru": "О чём они спорят?", "answers": ["What are they arguing about?"]}, {"ru": "Ему стыдно за своё поведение.", "answers": ["He is ashamed of his behaviour."]}, {"ru": "Он боится выступать на публике, потому что не привык к этому.", "answers": ["He is afraid of speaking in public because he is not used to it."]}, {"ru": "Из скольких частей состоит презентация?", "answers": ["How many parts does the presentation consist of?"]}, {"ru": "Она отвечает за результаты, но не уверена в них.", "answers": ["She is responsible for the results, but she is not sure about them."]}, {"ru": "Она очень зла на него.", "answers": ["She is very angry with him."]}, {"ru": "Все мои усилия были напрасны, и я был в растерянности.", "answers": ["All my efforts were in vain, and I was at a loss."]}, {"ru": "Они всё ещё в опасности?", "answers": ["Are they still at risk?"]}, {"ru": "У них нет ничего общего?", "answers": ["Do they have nothing in common?"]}, {"ru": "Какова причина его отказа?", "answers": ["What is the reason for his refusal?"]}, {"ru": "Ему не хватает уверенности.", "answers": ["He lacks confidence."]}, {"ru": "Она не способна сказать правду?", "answers": ["Is she incapable of telling the truth?"]}, {"ru": "Я действительно был в растерянности.", "answers": ["I was really at a loss."]}, {"ru": "Ты можешь делать это одновременно?", "answers": ["Can you do it at the same time?"]}, {"ru": "Каков лучший ответ на этот вопрос?", "answers": ["What is the best answer to this question?"]}, {"ru": "Она отсутствовала на работе.", "answers": ["She was absent from work."]}, {"ru": "Я жду ответа и уже начинаю нервничать.", "answers": ["I am waiting for an answer and I am already getting nervous."]}, {"ru": "Ты должен быть более вежлив с коллегами.", "answers": ["You should be more polite to your colleagues."]}, {"ru": "Это может быть вредно для детей.", "answers": ["It can be harmful to children."]}, {"ru": "Давай пойдём в другое место для разнообразия?", "answers": ["Shall we go to another place for a change?"]}, {"ru": "Этот метод хорош только в теории, и я не вижу его преимуществ.", "answers": ["This method is good only in theory, and I do not see its advantages."]}, {"ru": "Я не привык работать без перерыва и уже устал.", "answers": ["I am not used to working without a break and I am already tired."]}, {"ru": "В любом случае я могу положиться на его поддержку.", "answers": ["In any case I can rely on his support."]}, {"ru": "Я устал от этой рутины.", "answers": ["I am tired of this routine."]}, {"ru": "Все усилия были напрасны?", "answers": ["Were all the efforts in vain?"]}, {"ru": "Они всё ещё в опасности?", "answers": ["Are they still at risk?"]}, {"ru": "Он ничего не боится.", "answers": ["He is not afraid of anything."]}, {"ru": "Что не так с лифтом?", "answers": ["What is wrong with the elevator?"]}, {"ru": "В чём разница между этими вещами?", "answers": ["What is the difference between these things?"]}, {"ru": "Кому принадлежит эта вещь?", "answers": ["Who does this thing belong to?"]}, {"ru": "Я не знаю, кому принадлежит эта вещь, но она кажется мне знакомой.", "answers": ["I do not know who this thing belongs to, but it seems familiar to me."]}, {"ru": "Он хочет победить любой ценой?", "answers": ["Does he want to win at any cost?"]}, {"ru": "Кстати, ты готов к тесту?", "answers": ["By the way, are you ready for the test?"]}, {"ru": "У неё аллергия на пыль.", "answers": ["She is allergic to dust."]}, {"ru": "Она очень зла на него.", "answers": ["She is very angry with him."]}, {"ru": "Он всегда добр ко мне и очень вежлив.", "answers": ["He is always kind to me and very polite."]}, {"ru": "Это очень эгоистично с его стороны.", "answers": ["It is very selfish of him."]}, {"ru": "Мне не хватает времени.", "answers": ["I am short of time."]}, {"ru": "О чём ты думаешь сейчас?", "answers": ["What are you thinking about now?"]}, {"ru": "Она зависит от своих родителей.", "answers": ["She is dependent on her parents."]}, {"ru": "Руководство осведомлено об этой проблеме и ищет решение.", "answers": ["The management are aware of this problem and is searching for a solution."]}, {"ru": "Ты сделаешь это в любом случае?", "answers": ["Will you do it in any case?"]}, {"ru": "Я могу объяснить тебе эту проблему.", "answers": ["I can explain this problem to you."]}, {"ru": "Она отсутствовала на работе, потому что плохо себя чувствовала.", "answers": ["She was absent from work because she did not feel well."]}, {"ru": "Какова причина его отказа?", "answers": ["What is the reason for his refusal?"]}, {"ru": "Он занят своей домашней работой.", "answers": ["He is busy with his homework."]}, {"ru": "Что нам сделать для начала?", "answers": ["What should we do for a start?"]}, {"ru": "Кем ты был вдохновлён?", "answers": ["Who were you inspired by?"]}, {"ru": "Это хорошо только в теории?", "answers": ["Is it good only in theory?"]}, {"ru": "Ты сделаешь это в любом случае?", "answers": ["Will you do it in any case?"]}, {"ru": "Она подала заявление на визу.", "answers": ["She applied for a visa."]}, {"ru": "Она хорошо подготовлена к интервью.", "answers": ["She is well prepared for the interview."]}, {"ru": "Каков правильный ответ на этот вопрос?", "answers": ["What is the right answer to this question?"]}, {"ru": "Некоторые мои коллеги очень чувствительны к критике.", "answers": ["Some of my colleagues are very sensitive to criticism."]}, {"ru": "Этот дом продаётся.", "answers": ["This house is for sale."]}, {"ru": "Мы можем работать без перерыва?", "answers": ["Can we work without a break?"]}, {"ru": "Я знаю это точно.", "answers": ["I know it for sure."]}, {"ru": "Она не привыкла работать под давлением.", "answers": ["She is not accustomed to working under pressure."]}, {"ru": "Кстати, что с ним не так?", "answers": ["By the way, what is wrong with him?"]}, {"ru": "Это имя кажется мне знакомым.", "answers": ["This name seems familiar to me."]}, {"ru": "Он очень жесток с этим человеком.", "answers": ["He is very cruel to this man."]}, {"ru": "Он хочет подать заявку на эту работу.", "answers": ["He wants to apply for this job."]}, {"ru": "Они живут близко ко мне.", "answers": ["They live close to me."]}, {"ru": "Я точно знаю, что руководство осведомлено об этих проблемах.", "answers": ["I know for sure that the management are aware of these problems."]}, {"ru": "Эти две проблемы тесно связаны, и руководство знает о них.", "answers": ["These two problems are closely related, and the management are aware of them."]}, {"ru": "Она привыкла вставать рано.", "answers": ["She is accustomed to getting up early."]}, {"ru": "Я никогда не думал об этом.", "answers": ["I have never thought about it."]}, {"ru": "Он не способен сделать такую вещь.", "answers": ["He is incapable of doing such a thing."]}, {"ru": "Эта реакция довольно типична для него.", "answers": ["This reaction is quite typical of him."]}, {"ru": "Я был в растерянности.", "answers": ["I was at a loss."]}, {"ru": "Она полностью довольна результатами и очень рада им.", "answers": ["She is fully satisfied with the results and very happy about them."]}, {"ru": "Что не так с лифтом?", "answers": ["What is wrong with the elevator?"]}, {"ru": "Она страдает от бессонницы и беспокоится о своём здоровье.", "answers": ["She suffers from insomnia and is worried about her health."]}, {"ru": "Я сделал это по ошибке и действительно сожалею об этом.", "answers": ["I did it by mistake and I am really sorry about it."]}, {"ru": "Его слова повлияли на моё решение, и я изменил своё отношение.", "answers": ["His words influenced my decision, and I changed my attitude."]}, {"ru": "Ему удалось получить эту работу, и я очень рад за него.", "answers": ["He succeeded in getting this job, and I am very glad for him."]}, {"ru": "Она недовольна качеством услуги и хочет пожаловаться.", "answers": ["She is dissatisfied with the quality of the service and wants to complain."]}, {"ru": "Она сыта по горло этой работой.", "answers": ["She is fed up with this work."]}, {"ru": "Она очень раздражена его комментариями.", "answers": ["She is irritated by his comments."]}, {"ru": "Это может случиться с каждым.", "answers": ["It can happen to anyone."]}, {"ru": "Это хорошо только в теории.", "answers": ["It is good only in theory."]}, {"ru": "Она боится искать новую работу?", "answers": ["Is she afraid of looking for a new job?"]}, {"ru": "Я очень рад за тебя и доволен твоими результатами.", "answers": ["I am very glad for you and satisfied with your results."]}, {"ru": "Ты попросил её о помощи?", "answers": ["Did you ask her for help?"]}, {"ru": "Она была в растерянности, но потом нашла правильный ответ.", "answers": ["She was at a loss, but then she found the right answer."]}, {"ru": "Он не одобряет эту идею.", "answers": ["He does not approve of this idea."]}, {"ru": "Она ответила неправильно по ошибке и была разочарована результатом.", "answers": ["She answered incorrectly by mistake and was disappointed about the result."]}, {"ru": "Спрос на этот продукт очень высок.", "answers": ["The demand for this product is very high."]}, {"ru": "Эта книга подходит для начинающих?", "answers": ["Is this book suitable for beginners?"]}, {"ru": "Чего ты боишься?", "answers": ["What are you afraid of?"]}, {"ru": "Что-то не так с двигателем.", "answers": ["Something is wrong with the engine."]}, {"ru": "Я готовлюсь к тесту и уделяю этому много времени.", "answers": ["I am preparing for the test and devote a lot of time to it."]}, {"ru": "Я сделал это по ошибке.", "answers": ["I did it by mistake."]}, {"ru": "Он боится неизвестности.", "answers": ["He is afraid of the unknown."]}, {"ru": "Почему ты не привык говорить на публике?", "answers": ["Why are you not used to speaking in public?"]}, {"ru": "Эта вещь сделана из стали и сейчас продаётся.", "answers": ["This thing is made of steel and is for sale now."]}, {"ru": "Эти две проблемы тесно связаны, и руководство знает о них.", "answers": ["These two problems are closely related, and the management are aware of them."]}, {"ru": "Что она ищет?", "answers": ["What is she searching for?"]}, {"ru": "Эта проблема связана с нашей работой.", "answers": ["This problem is related to our work."]}, {"ru": "Она отвечает за результаты, но не уверена в них.", "answers": ["She is responsible for the results, but she is not sure about them."]}, {"ru": "Он отвечает за всё.", "answers": ["He is responsible for everything."]}, {"ru": "Некоторые его коллеги присутствовали на конференции.", "answers": ["Some of his colleagues were present at the conference."]}, {"ru": "Мы отвечаем за всё это.", "answers": ["We are responsible for all this."]}, {"ru": "Ты привык вставать рано?", "answers": ["Are you used to getting up early?"]}, {"ru": "Он привык к этой работе.", "answers": ["He is used to this work."]}, {"ru": "Я не привык выступать на публике.", "answers": ["I am not used to speaking in public."]}, {"ru": "Я хотел бы комнату с видом на море.", "answers": ["I would like a room with a view of the sea."]}, {"ru": "Я действительно устал делать это снова и снова.", "answers": ["I am really tired of doing it again and again."]}, {"ru": "Она присутствовала на встрече?", "answers": ["Was she present at the meeting?"]}, {"ru": "Деньги часто ассоциируются с успехом.", "answers": ["Money is often associated with success."]}, {"ru": "Спрос на этот продукт падает, поэтому успех проекта находится под угрозой.", "answers": ["The demand for this product is getting lower, so the success of the project is at risk."]}, {"ru": "В любом случае я точно знаю, что он ответит.", "answers": ["In any case I know for sure that he will reply."]}, {"ru": "На что он ссылается?", "answers": ["What does he refer to?"]}, {"ru": "Это один из самых эффективных способов изучения английского.", "answers": ["It is one of the most effective ways of learning English."]}, {"ru": "Мне нужно подготовиться к этому тесту.", "answers": ["I need to prepare for this test."]}, {"ru": "Какова была причина пожара?", "answers": ["What was the cause of the fire?"]}, {"ru": "У него негативное отношение к курению.", "answers": ["He has a negative attitude to smoking."]}, {"ru": "Я готовлюсь к экзамену.", "answers": ["I am preparing for the exam."]}, {"ru": "Ты знаешь это точно?", "answers": ["Do you know it for sure?"]}, {"ru": "Сделай это сразу.", "answers": ["Do it at once."]}, {"ru": "Презентация состоит из трёх частей, и я разделил работу таким же образом.", "answers": ["The presentation consists of three parts, and I divided the work in the same way."]}, {"ru": "Она пытается работать и учиться одновременно.", "answers": ["She is trying to work and study at the same time."]}, {"ru": "Мы не можем работать без перерыва.", "answers": ["We cannot work without a break."]}, {"ru": "Я готов к тесту.", "answers": ["I am ready for the test."]}, {"ru": "Это лучшее решение этой проблемы.", "answers": ["It is the best solution to this problem."]}, {"ru": "Он часто ссылается на этот источник.", "answers": ["He often refers to this source."]}, {"ru": "Он не виновен в этом преступлении.", "answers": ["He is not guilty of this crime."]}, {"ru": "Он решил сделать это сразу.", "answers": ["He decided to do it at once."]}, {"ru": "Она безнадёжна в катании на коньках.", "answers": ["She is hopeless at skating."]}, {"ru": "Она интересуется музыкой.", "answers": ["She is interested in music."]}, {"ru": "Эти вопросы связаны с этой ситуацией.", "answers": ["These issues are connected with this situation."]}, {"ru": "Я могу рассчитывать на его поддержку.", "answers": ["I can count on his support."]}, {"ru": "Он недоволен качеством услуги.", "answers": ["He is dissatisfied with the quality of the service."]}, {"ru": "Ты всегда можешь рассчитывать на мою помощь.", "answers": ["You can always count on my help."]}, {"ru": "Я задал этот вопрос просто из любопытства.", "answers": ["I asked this question just out of curiosity."]}, {"ru": "Почему он сделал это сразу?", "answers": ["Why did he do it at once?"]}, {"ru": "Им не удалось сбежать от полиции.", "answers": ["They did not manage to escape from the police."]}, {"ru": "К чему это может привести?", "answers": ["What can it lead to?"]}, {"ru": "Она хорошо подготовлена к интервью.", "answers": ["She is well prepared for the interview."]}, {"ru": "Я не готов к этому.", "answers": ["I am not prepared for it."]}, {"ru": "Мы были поражены результатами.", "answers": ["We were amazed by the results."]}, {"ru": "Это принадлежит мне.", "answers": ["It belongs to me."]}, {"ru": "Ей удалось решить проблему, и она довольна результатом.", "answers": ["She succeeded in solving the problem, and she is satisfied with the result."]}, {"ru": "Ему не хватает уверенности.", "answers": ["He lacks confidence."]}, {"ru": "Если что-то не так, укажи на ошибку.", "answers": ["If something is wrong, point out the mistake."]}, {"ru": "Она готовится к интервью.", "answers": ["She is preparing for the interview."]}, {"ru": "Я особенно увлекаюсь иностранными языками.", "answers": ["I am particularly keen on foreign languages."]}, {"ru": "Я не могу работать и учиться одновременно.", "answers": ["I cannot work and study at the same time."]}, {"ru": "Я хочу попросить тебя о помощи.", "answers": ["I want to ask you for help."]}, {"ru": "Мне не хватает времени, поэтому я попросил её о помощи.", "answers": ["I am short of time, so I asked her for help."]}, {"ru": "Что с этим не так?", "answers": ["What is wrong with it?"]}, {"ru": "Она всё ещё восстанавливается после операции.", "answers": ["She is still recovering from the operation."]}, {"ru": "Ты останешься здесь на некоторое время?", "answers": ["Will you stay here for a while?"]}, {"ru": "Ей не хватает денег.", "answers": ["She is short of money."]}, {"ru": "Она заботится о своих родителях.", "answers": ["She cares about her parents."]}, {"ru": "Он зависит от своих родителей, потому что ему не хватает опыта.", "answers": ["He is dependent on his parents because he lacks experience."]}, {"ru": "Я привык вставать рано.", "answers": ["I am used to getting up early."]}, {"ru": "Она очень успешна в бизнесе, и многие завидуют её успеху.", "answers": ["She is very successful in business, and many people are envious of her success."]}, {"ru": "Кем ты был вдохновлён?", "answers": ["Who were you inspired by?"]}, {"ru": "Мне пришлось адаптироваться к этим условиям.", "answers": ["I had to adapt to these conditions."]}, {"ru": "Ты можешь положиться на него?", "answers": ["Can you rely on him?"]}, {"ru": "Ему не всё ясно.", "answers": ["Not everything is clear to him."]}, {"ru": "Она рада твоему успеху.", "answers": ["She is glad about your success."]}, {"ru": "Ты одобряешь эту идею?", "answers": ["Do you approve of this idea?"]}, {"ru": "Она сыта по горло этой рутиной.", "answers": ["She is fed up with this routine."]}, {"ru": "Он интересуется этим проектом и хочет принять в нём участие.", "answers": ["He is interested in this project and wants to take part in it."]}, {"ru": "Почему она недовольна результатами?", "answers": ["Why is she dissatisfied with the results?"]}, {"ru": "Я могу рассчитывать на его поддержку.", "answers": ["I can count on his support."]}, {"ru": "Чем ты обеспокоен?", "answers": ["What are you worried about?"]}, {"ru": "Я знаком с такого рода проблемами.", "answers": ["I am acquainted with this kind of problem."]}, {"ru": "Каково твоё отношение к этой идее?", "answers": ["What is your attitude to this idea?"]}, {"ru": "Он попросил её о помощи.", "answers": ["He asked her for help."]}, {"ru": "Спрос на этот продукт очень высок.", "answers": ["The demand for this product is very high."]}, {"ru": "Я целую вечность не видел его, поэтому хочу встретиться с ним сразу.", "answers": ["I have not seen him for ages, so I want to meet him at once."]}, {"ru": "Что с этим не так?", "answers": ["What is wrong with it?"]}, {"ru": "У нас нет ничего общего.", "answers": ["We have nothing in common."]}, {"ru": "Она винит его во всём.", "answers": ["She blames him for everything."]}, {"ru": "Она боится искать новую работу.", "answers": ["She is afraid of looking for a new job."]}, {"ru": "Это будет зависеть от него.", "answers": ["It will depend on him."]}, {"ru": "Она указала на несколько ошибок.", "answers": ["She pointed out several mistakes."]}, {"ru": "В любом случае я могу положиться на его поддержку.", "answers": ["In any case I can rely on his support."]}, {"ru": "Почему ты настаиваешь на том, чтобы сделать это?", "answers": ["Why do you insist on doing it?"]}, {"ru": "Мне стало ясно, что это лучшее решение.", "answers": ["It became clear to me that it is the best solution."]}, {"ru": "Курение очень вредно для здоровья.", "answers": ["Smoking is very harmful to health."]}, {"ru": "Он очень увлечён этим проектом.", "answers": ["He is very enthusiastic about this project."]}, {"ru": "Она ответила на твоё письмо.", "answers": ["She replied to your letter."]}, {"ru": "Он хочет победить любой ценой?", "answers": ["Does he want to win at any cost?"]}, {"ru": "Я целую вечность не видел его, поэтому хочу встретиться с ним сразу.", "answers": ["I have not seen him for ages, so I want to meet him at once."]}, {"ru": "Ему наскучила эта работа?", "answers": ["Is he bored with this work?"]}, {"ru": "Наш начальник дружелюбен со своими сотрудниками.", "answers": ["Our boss is friendly with his employees."]}, {"ru": "Это сильно повлияло на меня.", "answers": ["It influenced me a lot."]}, {"ru": "Давай для разнообразия пойдём в другое место.", "answers": ["Let us go to another place for a change."]}, {"ru": "Эта программа подходит для начинающих, и я полностью доволен ею.", "answers": ["This program is suitable for beginners, and I am fully satisfied with it."]}, {"ru": "Из скольких глав состоит эта книга?", "answers": ["How many chapters does this book consist of?"]}, {"ru": "Я буду ждать тебя здесь.", "answers": ["I will wait for you here."]}, {"ru": "В чём разница между этими вещами?", "answers": ["What is the difference between these things?"]}, {"ru": "Новый отель строится в западной части города.", "answers": ["A new hotel is under construction in the western part of the city."]}, {"ru": "Он не привык вставать рано и уже устал от этого.", "answers": ["He is not used to getting up early, and he is already tired of it."]}, {"ru": "Тебе нужно быть осторожнее, потому что ситуация выходит из-под контроля.", "answers": ["You need to be more careful because the situation is getting out of control."]}, {"ru": "Эта вещь сделана из хлопка и подходит для детей.", "answers": ["This thing is made of cotton and is suitable for children."]}, {"ru": "Он был вдохновлён этой речью и решил подать заявку на работу.", "answers": ["He was inspired by this speech and decided to apply for the job."]}, {"ru": "Кстати, ты готов к тесту?", "answers": ["By the way, are you ready for the test?"]}, {"ru": "Он часто ссылается на этот источник, когда отвечает на вопросы.", "answers": ["He often refers to this source when he answers questions."]}, {"ru": "Руководство осведомлено об этой проблеме и ищет решение.", "answers": ["The management are aware of this problem and is searching for a solution."]}, {"ru": "Наши взгляды похожи на их.", "answers": ["Our views are similar to theirs."]}, {"ru": "Ему удалось получить эту работу?", "answers": ["Did he succeed in getting this job?"]}, {"ru": "Он знаком с этим методом, но не одобряет его.", "answers": ["He is familiar with this method, but he does not approve of it."]}, {"ru": "Почему ты не слушаешь его?", "answers": ["Why do you not listen to him?"]}, {"ru": "Я не могу делать эти две вещи одновременно.", "answers": ["I cannot do these two things at the same time."]}, {"ru": "Она готова к тесту.", "answers": ["She is ready for the test."]}, {"ru": "Он ничего не боится.", "answers": ["He is not afraid of anything."]}, {"ru": "Это правильный ответ на этот вопрос.", "answers": ["It is the right answer to this question."]}, {"ru": "Она ищет новую работу.", "answers": ["She is searching for a new job."]}, {"ru": "Ему стыдно за своё поведение.", "answers": ["He is ashamed of his behaviour."]}, {"ru": "В любом случае ты можешь рассчитывать на меня.", "answers": ["In any case you can count on me."]}, {"ru": "Я не вижу никаких недостатков этого метода.", "answers": ["I do not see any disadvantages of this method."]}, {"ru": "Никто ещё не ответил на эту жалобу.", "answers": ["No one has responded to this complaint yet."]}, {"ru": "Она стыдится своей ошибки.", "answers": ["She is ashamed of her mistake."]}, {"ru": "Его обвинили во лжи, но я не думаю, что он виновен.", "answers": ["He was accused of lying, but I do not think he is guilty."]}, {"ru": "Ты должен быть более вежлив с коллегами.", "answers": ["You should be more polite to your colleagues."]}, {"ru": "Я не привык делать это.", "answers": ["I am not used to doing it."]}, {"ru": "Эта ошибка может привести к серьёзным проблемам.", "answers": ["This mistake can lead to serious problems."]}, {"ru": "Он заботится о своих родителях?", "answers": ["Does he care about his parents?"]}, {"ru": "Я уже адаптировался к этим условиям и привык к ним.", "answers": ["I have already adapted to these conditions and I am used to them."]}, {"ru": "Она рада своим достижениям, но всё ещё нервничает из-за будущего.", "answers": ["She is happy about her achievements but is still nervous about the future."]}, {"ru": "Ей не хватает опыта работы.", "answers": ["She lacks work experience."]}, {"ru": "Она очень чувствительна к критике, поэтому будь вежлив с ней.", "answers": ["She is very sensitive to criticism, so be polite to her."]}, {"ru": "Она осведомлена об этих рисках.", "answers": ["She is aware of these risks."]}, {"ru": "Мои родители не одобряют решение моего брата.", "answers": ["My parents do not approve of my brother's decision."]}, {"ru": "Ему удалось получить эту работу.", "answers": ["He succeeded in getting this job."]}, {"ru": "Он попросил её о помощи.", "answers": ["He asked her for help."]}, {"ru": "Эта книга подходит для начинающих.", "answers": ["This book is suitable for beginners."]}, {"ru": "Ты можешь положиться на меня.", "answers": ["You can rely on me."]}, {"ru": "Она работает без перерыва и сыта по горло этой рутиной.", "answers": ["She is working without a break and is fed up with this routine."]}, {"ru": "Почему ты настаиваешь на этом?", "answers": ["Why do you insist on it?"]}, {"ru": "Он попросил о помощи, потому что не мог положиться на коллег.", "answers": ["He asked for help because he could not rely on his colleagues."]}, {"ru": "Он был виновен в этом преступлении.", "answers": ["He was guilty of this crime."]}, {"ru": "Этот мост всё ещё строится?", "answers": ["Is this bridge still under construction?"]}, {"ru": "Она не привыкла выступать на публике и очень нервничает.", "answers": ["She is not accustomed to speaking in public and is very nervous."]}, {"ru": "Эта программа подходит для начинающих, и я полностью доволен ею.", "answers": ["This program is suitable for beginners, and I am fully satisfied with it."]}, {"ru": "Она отлично играет на скрипке.", "answers": ["She is excellent at playing the violin."]}, {"ru": "Я люблю читать иностранную литературу.", "answers": ["I am fond of reading foreign literature."]}, {"ru": "Кстати, ты уже ответил на письмо?", "answers": ["By the way, have you replied to the letter yet?"]}, {"ru": "Он отвечает за проект, и я думаю, что он способен справиться с этой работой.", "answers": ["He is responsible for the project, and I think he is capable of doing this work."]}, {"ru": "Какова причина его отказа?", "answers": ["What is the reason for his refusal?"]}, {"ru": "Он хочет получить эту работу любой ценой и уже подал заявку.", "answers": ["He wants to get this job at any cost and has already applied."]}, {"ru": "Когда она уехала в Англию?", "answers": ["When did she leave for England?"]}, {"ru": "Она нервничает из-за интервью.", "answers": ["She is nervous about the interview."]}, {"ru": "Она ищет новую работу.", "answers": ["She is searching for a new job."]}, {"ru": "Я не привык выступать на публике.", "answers": ["I am not used to speaking in public."]}, {"ru": "Я боюсь делать это.", "answers": ["I am afraid of doing it."]}, {"ru": "Наши взгляды похожи на их.", "answers": ["Our views are similar to theirs."]}, {"ru": "Она сыта по горло этой работой.", "answers": ["She is fed up with this work."]}, {"ru": "Она сейчас на диете.", "answers": ["She is on a diet at present."]}, {"ru": "Я хочу познакомиться с ним.", "answers": ["I want to get acquainted with him."]}, {"ru": "Я знаком с этой проблемой.", "answers": ["I am familiar with this problem."]}, {"ru": "Он всё ещё зависит от своего отца.", "answers": ["He is still dependent on his father."]}, {"ru": "Я был удивлён её реакцией на эту новость.", "answers": ["I was surprised by her reaction to this news."]}, {"ru": "Это может случиться с каждым.", "answers": ["It can happen to anyone."]}, {"ru": "Он злится из-за этой ситуации и постоянно жалуется на неё.", "answers": ["He is angry about this situation and constantly complains about it."]}, {"ru": "Он привык ложиться поздно.", "answers": ["He is accustomed to going to bed late."]}, {"ru": "Она очень подозрительно относится к нему.", "answers": ["She is very suspicious of him."]}, {"ru": "Я участвовал в этом чемпионате.", "answers": ["I participated in this championship."]}, {"ru": "Я не понимаю, что с этим не так, поэтому объясни это мне.", "answers": ["I do not understand what is wrong with it, so explain it to me."]}, {"ru": "Я очень рад за тебя.", "answers": ["I am very glad for you."]}, {"ru": "Я жду ответа и уже начинаю нервничать.", "answers": ["I am waiting for an answer and I am already getting nervous."]}, {"ru": "Он всегда добр ко мне и очень вежлив.", "answers": ["He is always kind to me and very polite."]}, {"ru": "Это сильно повлияло на меня.", "answers": ["It influenced me a lot."]}, {"ru": "Чего он ждёт?", "answers": ["What is he waiting for?"]}, {"ru": "Они часто спорят о неважных вещах.", "answers": ["They often argue about unimportant things."]}, {"ru": "Я беспокоюсь, потому что ситуация выходит из-под контроля.", "answers": ["I am worried because the situation is getting out of control."]}, {"ru": "Этот метод хорош только в теории, и я не вижу его преимуществ.", "answers": ["This method is good only in theory, and I do not see its advantages."]}, {"ru": "Я боюсь делать это.", "answers": ["I am afraid of doing it."]}, {"ru": "Тебе не хватает времени?", "answers": ["Are you short of time?"]}, {"ru": "Я привык работать под давлением, поэтому не боюсь этой работы.", "answers": ["I am used to working under pressure, so I am not afraid of this work."]}, {"ru": "Она хорошо подготовлена к интервью, но всё равно беспокоится.", "answers": ["She is well prepared for the interview, but she is still worried."]}, {"ru": "Что нам сделать для начала?", "answers": ["What should we do for a start?"]}, {"ru": "Он привык к этой работе.", "answers": ["He is used to this work."]}, {"ru": "Мы имеем много общего.", "answers": ["We have much in common."]}, {"ru": "Я очень обеспокоен своим будущим.", "answers": ["I am very worried about my future."]}, {"ru": "Этот дом продаётся, и спрос на него довольно высокий.", "answers": ["This house is for sale, and the demand for it is quite high."]}, {"ru": "Я не одобряю эту идею, и моё отношение к ней негативное.", "answers": ["I do not approve of this idea, and my attitude to it is negative."]}, {"ru": "Мне не хватает денег, но я не собираюсь жаловаться.", "answers": ["I am short of money, but I am not going to complain."]}, {"ru": "Они живут близко ко мне.", "answers": ["They live close to me."]}, {"ru": "Он хочет подать заявку на эту работу.", "answers": ["He wants to apply for this job."]}, {"ru": "Давай пойдём погулять.", "answers": ["Let us go for a walk."]}, {"ru": "Мне нужно остаться здесь на некоторое время, чтобы адаптироваться к этим условиям.", "answers": ["I need to stay here for a while to adapt to these conditions."]}, {"ru": "Чего он ждёт?", "answers": ["What is he waiting for?"]}, {"ru": "Аэропорт находится на севере города.", "answers": ["The airport is located in the north of the city."]}, {"ru": "Эта идея хороша только в теории, но я согласен с ней в некоторой степени.", "answers": ["This idea is good only in theory, but I agree with it to a certain extent."]}, {"ru": "Он работает без перерыва и уже устал от этого.", "answers": ["He is working without a break and is already tired of it."]}, {"ru": "Каково твоё отношение к этому?", "answers": ["What is your attitude to it?"]}, {"ru": "От чего это зависит?", "answers": ["What does it depend on?"]}, {"ru": "Она сыта по горло этой рутиной.", "answers": ["She is fed up with this routine."]}, {"ru": "У комнаты есть вид на море?", "answers": ["Does the room have a view of the sea?"]}, {"ru": "Я благодарен тебе за помощь, и было очень мило с твоей стороны предложить её.", "answers": ["I am grateful to you for your help, and it was very nice of you to offer it."]}, {"ru": "Она хочет подать заявку на эту работу и уже готовится к интервью.", "answers": ["She wants to apply for this job and is already preparing for the interview."]}, {"ru": "Эти две вещи тесно связаны друг с другом.", "answers": ["These two things are closely related to each other."]}, {"ru": "Она зависит от своего отца, но хочет адаптироваться к самостоятельной жизни.", "answers": ["She is dependent on her father but wants to adapt to independent life."]}, {"ru": "Он работает без перерыва и уже устал от этого.", "answers": ["He is working without a break and is already tired of it."]}, {"ru": "Я хочу подать заявление на визу, поэтому готовлюсь к поездке.", "answers": ["I want to apply for a visa, so I am preparing for the trip."]}, {"ru": "Она никогда не жалуется на это.", "answers": ["She never complains about it."]}, {"ru": "Давай для разнообразия пойдём погулять в парк.", "answers": ["Let us go for a walk in the park for a change."]}, {"ru": "Ты согласен со мной в некоторой степени?", "answers": ["Do you agree with me to a certain extent?"]}, {"ru": "От чего это зависит?", "answers": ["What does it depend on?"]}, {"ru": "Она пытается работать и учиться одновременно.", "answers": ["She is trying to work and study at the same time."]}, {"ru": "Давай для разнообразия пойдём в другое место.", "answers": ["Let us go to another place for a change."]}, {"ru": "Кстати, что с ним не так?", "answers": ["By the way, what is wrong with him?"]}, {"ru": "Его обвинили во лжи, но я не думаю, что он виновен.", "answers": ["He was accused of lying, but I do not think he is guilty."]}, {"ru": "Она была впечатлена его достижениями и очень рада за него.", "answers": ["She was impressed by his achievements and is very glad for him."]}, {"ru": "Я сейчас думаю об этом.", "answers": ["I am thinking about it right now."]}, {"ru": "Её обвинили в преступлении, и ей стыдно за эту ситуацию.", "answers": ["She was accused of a crime, and she is ashamed of this situation."]}, {"ru": "Чем ты интересуешься?", "answers": ["What are you interested in?"]}, {"ru": "Почему он отсутствовал на работе?", "answers": ["Why was he absent from work?"]}, {"ru": "Кто заплатил за билет?", "answers": ["Who paid for the ticket?"]}, {"ru": "Я знаю это точно.", "answers": ["I know it for sure."]}, {"ru": "Она подала заявку на визу?", "answers": ["Did she apply for a visa?"]}, {"ru": "Она отвечает за результаты.", "answers": ["She is responsible for the results."]}, {"ru": "Он заботится о своих родителях?", "answers": ["Does he care about his parents?"]}, {"ru": "Эти события повлияли на моё решение.", "answers": ["These events influenced my decision."]}, {"ru": "Я жду его и уже устал ждать.", "answers": ["I am waiting for him and I am already tired of waiting."]}, {"ru": "Ты можешь рассчитывать на него?", "answers": ["Can you count on him?"]}, {"ru": "Я пришёл к выводу, что это хороший вариант.", "answers": ["I came to the conclusion that it is a good option."]}, {"ru": "Высок ли спрос на этот продукт?", "answers": ["Is the demand for this product high?"]}, {"ru": "Она ответила на твоё письмо?", "answers": ["Did she reply to your letter?"]}, {"ru": "Нам нужно хотя бы два часа?", "answers": ["Do we need at least two hours?"]}, {"ru": "В любом случае я точно знаю, что он ответит.", "answers": ["In any case I know for sure that he will reply."]}, {"ru": "Ему наскучил этот формат обучения.", "answers": ["He is bored with this format of education."]}, {"ru": "Она зависит от своего отца, но хочет адаптироваться к самостоятельной жизни.", "answers": ["She is dependent on her father but wants to adapt to independent life."]}, {"ru": "Он недоволен качеством услуги.", "answers": ["He is dissatisfied with the quality of the service."]}, {"ru": "Мне не хватает денег.", "answers": ["I am short of money."]}, {"ru": "Ты можешь положиться на него?", "answers": ["Can you rely on him?"]}, {"ru": "Какую музыку ты слушаешь?", "answers": ["What kind of music do you listen to?"]}, {"ru": "Каково твоё отношение к этой идее?", "answers": ["What is your attitude to this idea?"]}, {"ru": "Он всё ещё зависит от родителей?", "answers": ["Is he still dependent on his parents?"]}, {"ru": "Эта проблема связана с нашей работой.", "answers": ["This problem is related to our work."]}, {"ru": "Высок ли спрос на этот продукт?", "answers": ["Is the demand for this product high?"]}, {"ru": "Каково лучшее решение этой проблемы?", "answers": ["What is the best solution to this problem?"]}, {"ru": "Он раздражён ею.", "answers": ["He is annoyed with her."]}, {"ru": "Он присутствовал на встрече, но она отсутствовала.", "answers": ["He was present at the meeting, but she was absent."]}, {"ru": "Она сейчас на диете?", "answers": ["Is she on a diet at present?"]}, {"ru": "Я не думаю, что он способен сделать это.", "answers": ["I do not think he is capable of doing it."]}, {"ru": "Я быстро привык к этой погоде.", "answers": ["I got used to this weather quickly."]}, {"ru": "Ты всегда можешь рассчитывать на мою помощь.", "answers": ["You can always count on my help."]}, {"ru": "Ситуация выходит из-под контроля?", "answers": ["Is the situation getting out of control?"]}, {"ru": "Им не удалось сбежать от полиции.", "answers": ["They did not manage to escape from the police."]}, {"ru": "Она помолвлена с ним.", "answers": ["She is engaged to him."]}, {"ru": "Он интересуется этим проектом и хочет принять в нём участие.", "answers": ["He is interested in this project and wants to take part in it."]}, {"ru": "Кто указал на твои ошибки?", "answers": ["Who pointed out your mistakes?"]}, {"ru": "Я задал этот вопрос просто из любопытства.", "answers": ["I asked this question just out of curiosity."]}, {"ru": "Он всё ещё зависит от своего отца.", "answers": ["He is still dependent on his father."]}, {"ru": "Она привыкла работать под давлением?", "answers": ["Is she accustomed to working under pressure?"]}, {"ru": "Он полон энтузиазма и очень увлечён этим проектом.", "answers": ["He is full of enthusiasm and very enthusiastic about this project."]}, {"ru": "Его лицо кажется мне знакомым.", "answers": ["His face seems familiar to me."]}, {"ru": "На что он ссылается?", "answers": ["What does he refer to?"]}, {"ru": "Он был вдохновлён этой речью и решил подать заявку на работу.", "answers": ["He was inspired by this speech and decided to apply for the job."]}, {"ru": "Он очень обеспокоен результатами теста.", "answers": ["He is very anxious about the test results."]}, {"ru": "Они часто спорят о неважных вещах.", "answers": ["They often argue about unimportant things."]}, {"ru": "Я не видел тебя целую вечность.", "answers": ["I have not seen you for ages."]}, {"ru": "В чём разница между этими двумя вещами?", "answers": ["What is the difference between these two things?"]}, {"ru": "Я не видел его целую вечность.", "answers": ["I have not seen him for ages."]}, {"ru": "Ситуация выходит из-под контроля.", "answers": ["The situation is getting out of control."]}, {"ru": "Она очень успешна в бизнесе, и многие завидуют её успеху.", "answers": ["She is very successful in business, and many people are envious of her success."]}, {"ru": "Я хочу попросить тебя о помощи.", "answers": ["I want to ask you for help."]}, {"ru": "Сколько времени ты уделяешь английскому?", "answers": ["How much time do you devote to English?"]}, {"ru": "Она обеспокоена своим будущим и думает о новой работе.", "answers": ["She is worried about her future and is thinking about a new job."]}, {"ru": "Он ещё не заплатил за это.", "answers": ["He has not paid for it yet."]}, {"ru": "Пойдём погулять?", "answers": ["Shall we go for a walk?"]}, {"ru": "Я опоздал на встречу.", "answers": ["I was late for the meeting."]}, {"ru": "Она подала заявку на визу?", "answers": ["Did she apply for a visa?"]}, {"ru": "В любом случае мне придётся сделать это.", "answers": ["I will have to do it in any case."]}, {"ru": "Она ответила неправильно по ошибке и была разочарована результатом.", "answers": ["She answered incorrectly by mistake and was disappointed about the result."]}, {"ru": "Её обвинили в преступлении, и ей стыдно за эту ситуацию.", "answers": ["She was accused of a crime, and she is ashamed of this situation."]}, {"ru": "Я могу согласиться с тобой в определённой степени.", "answers": ["I can agree with you to a certain degree."]}, {"ru": "Я немного устал.", "answers": ["I am a bit tired."]}, {"ru": "Он способен решить эту проблему?", "answers": ["Is he capable of solving this problem?"]}, {"ru": "Тебе удалось сделать это?", "answers": ["Did you manage to do it?"]}, {"ru": "Это произошло случайно.", "answers": ["It happened by accident."]}, {"ru": "Почему она винит его во всём?", "answers": ["Why does she blame him for everything?"]}, {"ru": "Где находится музей — на севере или на юге?", "answers": ["Is the museum in the north or in the south?"]}, {"ru": "У него негативное отношение к курению.", "answers": ["He has a negative attitude to smoking."]}, {"ru": "Он принимал участие в этом турнире.", "answers": ["He took part in this tournament."]}, {"ru": "Она не привыкла работать под давлением.", "answers": ["She is not accustomed to working under pressure."]}, {"ru": "В любом случае ты можешь рассчитывать на меня.", "answers": ["In any case you can count on me."]}, {"ru": "У вас много общего?", "answers": ["Do you have much in common?"]}, {"ru": "Что было причиной аварии?", "answers": ["What was the cause of the accident?"]}, {"ru": "Он способен решить эту проблему?", "answers": ["Is he capable of solving this problem?"]}, {"ru": "Он отвечает за этот проект.", "answers": ["He is responsible for this project."]}, {"ru": "Он привык работать под давлением и способен быстро принимать решения.", "answers": ["He is used to working under pressure and is capable of making decisions quickly."]}, {"ru": "Она всё ещё восстанавливается после операции.", "answers": ["She is still recovering from the operation."]}, {"ru": "Ты всегда очень добр ко мне.", "answers": ["You are always very kind to me."]}, {"ru": "Мне не хватает времени.", "answers": ["I am short of time."]}, {"ru": "Почему они смеются над этим?", "answers": ["Why are they laughing at it?"]}, {"ru": "Я могу объяснить тебе эту проблему.", "answers": ["I can explain this problem to you."]}, {"ru": "У вас много общего?", "answers": ["Do you have much in common?"]}, {"ru": "Кому принадлежит эта книга?", "answers": ["Who does this book belong to?"]}, {"ru": "Кстати, ты готов к тесту?", "answers": ["By the way, are you ready for the test?"]}, {"ru": "Я опоздал на встречу и извинился за опоздание.", "answers": ["I was late for the meeting and apologised for being late."]}, {"ru": "У него нехватка опыта.", "answers": ["He has a lack of experience."]}, {"ru": "Он очень обеспокоен результатами теста.", "answers": ["He is very anxious about the test results."]}, {"ru": "Над чем ты сейчас работаешь?", "answers": ["What are you working on?"]}, {"ru": "Я немного устал.", "answers": ["I am a bit tired."]}, {"ru": "Он грустит из-за своей ошибки.", "answers": ["He is sad about his mistake."]}, {"ru": "Его обвинили в преступлении.", "answers": ["He was accused of a crime."]}, {"ru": "Ты можешь положиться на меня.", "answers": ["You can rely on me."]}, {"ru": "Я полностью доволен результатами.", "answers": ["I am fully satisfied with the results."]}, {"ru": "Ему наскучил этот формат обучения.", "answers": ["He is bored with this format of education."]}, {"ru": "Если что-то не так, укажи на ошибку.", "answers": ["If something is wrong, point out the mistake."]}, {"ru": "Я могу улучшить английский с помощью этого приложения.", "answers": ["I can improve my English with the help of this app."]}, {"ru": "Он недоволен результатами, но не собирается жаловаться.", "answers": ["He is dissatisfied with the results, but he is not going to complain."]}, {"ru": "Наш начальник дружелюбен со своими сотрудниками.", "answers": ["Our boss is friendly with his employees."]}, {"ru": "У неё аллергия на пыль.", "answers": ["She is allergic to dust."]}, {"ru": "Она готова к тесту.", "answers": ["She is ready for the test."]}, {"ru": "Она была удивлена его словами.", "answers": ["She was surprised by his words."]}, {"ru": "Она права в некоторой степени.", "answers": ["She is right to a certain extent."]}, {"ru": "Я не готов к этому.", "answers": ["I am not prepared for it."]}, {"ru": "Он всё ещё зависит от родителей?", "answers": ["Is he still dependent on his parents?"]}, {"ru": "Она ответила на твоё письмо.", "answers": ["She replied to your letter."]}, {"ru": "Я не видел его целую вечность.", "answers": ["I have not seen him for ages."]}, {"ru": "Я опоздал на урок.", "answers": ["I was late for the lesson."]}, {"ru": "Эта идея хороша только в теории, но я согласен с ней в некоторой степени.", "answers": ["This idea is good only in theory, but I agree with it to a certain extent."]}, {"ru": "Это будет зависеть от него.", "answers": ["It will depend on him."]}, {"ru": "Он очень обеспокоен результатами теста.", "answers": ["He is very anxious about the test results."]}, {"ru": "Этот дом продаётся, и спрос на него довольно высокий.", "answers": ["This house is for sale, and the demand for it is quite high."]}, {"ru": "Все усилия были напрасны?", "answers": ["Were all the efforts in vain?"]}, {"ru": "Кому принадлежит эта вещь?", "answers": ["Who does this thing belong to?"]}, {"ru": "Он не одобряет эту идею.", "answers": ["He does not approve of this idea."]}, {"ru": "Чем она увлекается?", "answers": ["What is she keen on?"]}, {"ru": "Она сослалась на эту цитату.", "answers": ["She referred to this quote."]}, {"ru": "Он жалуется на качество услуги.", "answers": ["He complains about the quality of the service."]}, {"ru": "Эта программа не подходит для детей.", "answers": ["This program is not suitable for children."]}, {"ru": "Это хорошая альтернатива этому методу.", "answers": ["It is a good alternative to this method."]}, {"ru": "Она рада своим достижениям, но всё ещё нервничает из-за будущего.", "answers": ["She is happy about her achievements but is still nervous about the future."]}, {"ru": "Он ещё не восстановился после этой болезни.", "answers": ["He has not recovered from this illness yet."]}, {"ru": "Эти вопросы связаны с этой ситуацией.", "answers": ["These issues are connected with this situation."]}, {"ru": "Из скольких частей состоит презентация?", "answers": ["How many parts does the presentation consist of?"]}, {"ru": "Кстати, что с этим не так?", "answers": ["By the way, what is wrong with it?"]}, {"ru": "Он попросил о помощи, потому что не мог положиться на коллег.", "answers": ["He asked for help because he could not rely on his colleagues."]}, {"ru": "Я не привык работать без перерыва и уже устал.", "answers": ["I am not used to working without a break and I am already tired."]}, {"ru": "Я думаю, что они в опасности.", "answers": ["I think they are at risk."]}, {"ru": "Он не способен сделать такую вещь.", "answers": ["He is incapable of doing such a thing."]}, {"ru": "Это правильный ответ на этот вопрос.", "answers": ["It is the right answer to this question."]}, {"ru": "Она уехала в другую страну.", "answers": ["She left for another country."]}, {"ru": "Ему наскучила эта работа?", "answers": ["Is he bored with this work?"]}, {"ru": "Он не виновен в этом преступлении.", "answers": ["He is not guilty of this crime."]}, {"ru": "Почему он сделал это сразу?", "answers": ["Why did he do it at once?"]}, {"ru": "Это повлияло на твоё решение?", "answers": ["Did it influence your decision?"]}, {"ru": "Он очень хорош в математике.", "answers": ["He is very good at maths."]}, {"ru": "Он привык к этой работе.", "answers": ["He is used to this work."]}, {"ru": "Музей находится на юге города.", "answers": ["The museum is located in the south of the city."]}, {"ru": "Она готова к тесту.", "answers": ["She is ready for the test."]}, {"ru": "Она сослалась на эту цитату.", "answers": ["She referred to this quote."]}, {"ru": "В чём разница между этими двумя вещами?", "answers": ["What is the difference between these two things?"]}, {"ru": "Он ещё не восстановился после болезни, поэтому отсутствует на работе.", "answers": ["He has not recovered from the illness yet, so he is absent from work."]}, {"ru": "Он ещё не заплатил за это.", "answers": ["He has not paid for it yet."]}, {"ru": "Ей нужно время, чтобы восстановиться после операции.", "answers": ["She needs some time to recover from the operation."]}, {"ru": "Он очень хорош в математике.", "answers": ["He is very good at maths."]}, {"ru": "Она совершенно безнадёжна в готовке.", "answers": ["She is absolutely hopeless at cooking."]}, {"ru": "Для начала ты можешь попробовать этот метод.", "answers": ["For a start you can try this method."]}, {"ru": "Я действительно устал делать это снова и снова.", "answers": ["I am really tired of doing it again and again."]}, {"ru": "Я думаю, у нас много общего.", "answers": ["I think we have much in common."]}, {"ru": "Я могу улучшить английский с помощью этого приложения.", "answers": ["I can improve my English with the help of this app."]}, {"ru": "Что она ищет?", "answers": ["What is she searching for?"]}, {"ru": "Я работаю над новым проектом.", "answers": ["I am working on a new project."]}, {"ru": "Я был вдохновлён этой речью.", "answers": ["I was inspired by this speech."]}, {"ru": "Я работаю над новым проектом.", "answers": ["I am working on a new project."]}, {"ru": "Её обвинили во лжи.", "answers": ["She was accused of lying."]}, {"ru": "Ты останешься здесь на некоторое время?", "answers": ["Will you stay here for a while?"]}, {"ru": "Он занят своей домашней работой.", "answers": ["He is busy with his homework."]}, {"ru": "Какова цель твоего визита?", "answers": ["What is the purpose of your visit?"]}, {"ru": "Это один из самых эффективных способов изучения английского.", "answers": ["It is one of the most effective ways of learning English."]}, {"ru": "Я не одобряю эту идею.", "answers": ["I do not approve of this idea."]}, {"ru": "Она устала делать одно и то же и хочет для разнообразия попробовать другой метод.", "answers": ["She is tired of doing the same thing and wants to try another method for a change."]}, {"ru": "Почему ты смеёшься над этим?", "answers": ["Why are you laughing at it?"]}, {"ru": "Она отлично играет на скрипке.", "answers": ["She is excellent at playing the violin."]}, {"ru": "Мои идеи похожи на её.", "answers": ["My ideas are similar to hers."]}, {"ru": "Он полон энтузиазма.", "answers": ["He is full of enthusiasm."]}, {"ru": "Нам нужно хотя бы два часа?", "answers": ["Do we need at least two hours?"]}, {"ru": "Этот мост всё ещё строится?", "answers": ["Is this bridge still under construction?"]}, {"ru": "Ты можешь рассчитывать на него?", "answers": ["Can you count on him?"]}, {"ru": "Почему он нервничает из-за интервью?", "answers": ["Why is he nervous about the interview?"]}, {"ru": "Нехватка опыта может быть причиной ошибок.", "answers": ["A lack of experience can be the cause of mistakes."]}, {"ru": "Она отсутствовала на работе, потому что плохо себя чувствовала.", "answers": ["She was absent from work because she did not feel well."]}, {"ru": "Она привыкла работать под давлением?", "answers": ["Is she accustomed to working under pressure?"]}, {"ru": "Эта новость сильно повлияла на моё отношение к ситуации.", "answers": ["This news greatly influenced my attitude to the situation."]}, {"ru": "Я привык работать под давлением, поэтому не боюсь этой работы.", "answers": ["I am used to working under pressure, so I am not afraid of this work."]}, {"ru": "Почему ты не слушаешь его?", "answers": ["Why do you not listen to him?"]}, {"ru": "Я сделал это по ошибке и действительно сожалею об этом.", "answers": ["I did it by mistake and I am really sorry about it."]}, {"ru": "Его коллеги завидуют его успеху.", "answers": ["His colleagues are envious of his success."]}, {"ru": "У них нехватка профессионализма.", "answers": ["They have a lack of professionalism."]}, {"ru": "Мы имеем много общего.", "answers": ["We have much in common."]}, {"ru": "Она полна энергии и готова к работе.", "answers": ["She is full of energy and ready for work."]}, {"ru": "Каков лучший ответ на этот вопрос?", "answers": ["What is the best answer to this question?"]}, {"ru": "Это находится в западной части страны.", "answers": ["It is in the western part of the country."]}, {"ru": "Мне всё ясно.", "answers": ["Everything is clear to me."]}, {"ru": "Я знаком с такого рода проблемами.", "answers": ["I am acquainted with this kind of problem."]}, {"ru": "Это лучшее решение этой проблемы.", "answers": ["It is the best solution to this problem."]}, {"ru": "У комнаты есть вид на море?", "answers": ["Does the room have a view of the sea?"]}, {"ru": "Каков правильный ответ на этот вопрос?", "answers": ["What is the right answer to this question?"]}, {"ru": "Я действительно сожалею об этом.", "answers": ["I am really sorry about it."]}, {"ru": "Он не одобряет эту идею и настаивает на другом решении.", "answers": ["He does not approve of this idea and insists on another solution."]}, {"ru": "У него аллергия на орехи?", "answers": ["Is he allergic to nuts?"]}, {"ru": "Я могу согласиться с тобой в определённой степени.", "answers": ["I can agree with you to a certain degree."]}, {"ru": "Я не видел тебя целую вечность.", "answers": ["I have not seen you for ages."]}, {"ru": "На что он жалуется?", "answers": ["What does he complain about?"]}, {"ru": "Что ты ищешь?", "answers": ["What are you searching for?"]}, {"ru": "Я был в растерянности и не мог найти решение этой проблемы.", "answers": ["I was at a loss and could not find a solution to this problem."]}, {"ru": "Он полон энтузиазма.", "answers": ["He is full of enthusiasm."]}, {"ru": "Мне не хватает времени, поэтому я попросил её о помощи.", "answers": ["I am short of time, so I asked her for help."]}, {"ru": "Она хорошо подготовлена к интервью, но всё равно беспокоится.", "answers": ["She is well prepared for the interview, but she is still worried."]}, {"ru": "Где находится музей — на севере или на юге?", "answers": ["Is the museum in the north or in the south?"]}, {"ru": "Я не привык работать без перерыва и уже устал.", "answers": ["I am not used to working without a break and I am already tired."]}, {"ru": "Давай для разнообразия пойдём погулять в парк.", "answers": ["Let us go for a walk in the park for a change."]}, {"ru": "Это стоит как минимум пятьдесят долларов.", "answers": ["It costs at least fifty dollars."]}, {"ru": "Мы отвечаем за всё это.", "answers": ["We are responsible for all this."]}, {"ru": "Я опоздал на встречу и извинился за опоздание.", "answers": ["I was late for the meeting and apologised for being late."]}, {"ru": "Это будет зависеть от него.", "answers": ["It will depend on him."]}, {"ru": "Какую музыку ты слушаешь?", "answers": ["What kind of music do you listen to?"]}, {"ru": "Эта проблема связана с нашей работой.", "answers": ["This problem is related to our work."]}, {"ru": "Я жду твоего ответа.", "answers": ["I am waiting for your answer."]}, {"ru": "Каков правильный ответ на этот вопрос?", "answers": ["What is the right answer to this question?"]}, {"ru": "Мне нужно остаться здесь на некоторое время, чтобы адаптироваться к этим условиям.", "answers": ["I need to stay here for a while to adapt to these conditions."]}, {"ru": "Ему удалось получить эту работу, и я очень рад за него.", "answers": ["He succeeded in getting this job, and I am very glad for him."]}, {"ru": "Что не так с двигателем?", "answers": ["What is wrong with the engine?"]}, {"ru": "Ситуация выходит из-под контроля?", "answers": ["Is the situation getting out of control?"]}, {"ru": "Чем они были удивлены?", "answers": ["What were they surprised by?"]}, {"ru": "Никто ещё не ответил на эту жалобу.", "answers": ["No one has responded to this complaint yet."]}, {"ru": "Мы имеем много общего.", "answers": ["We have much in common."]}, {"ru": "Он хочет получить эту работу любой ценой и уже подал заявку.", "answers": ["He wants to get this job at any cost and has already applied."]}, {"ru": "На что он жалуется?", "answers": ["What does he complain about?"]}, {"ru": "Он зол из-за этой ситуации.", "answers": ["He is angry about this situation."]}, {"ru": "В любом случае ты можешь рассчитывать на меня.", "answers": ["In any case you can count on me."]}, {"ru": "Сделай это сразу.", "answers": ["Do it at once."]}, {"ru": "Я полностью доволен результатами.", "answers": ["I am fully satisfied with the results."]}, {"ru": "Его слова повлияли на моё решение, и я изменил своё отношение.", "answers": ["His words influenced my decision, and I changed my attitude."]}, {"ru": "Я очень обеспокоен своим будущим.", "answers": ["I am very worried about my future."]}, {"ru": "Какую музыку ты предпочитаешь слушать?", "answers": ["What kind of music do you prefer to listen to?"]}, {"ru": "Я думаю, у нас много общего.", "answers": ["I think we have much in common."]}, {"ru": "Эта вещь сделана из хлопка и подходит для детей.", "answers": ["This thing is made of cotton and is suitable for children."]}, {"ru": "Ей не хватает денег.", "answers": ["She is short of money."]}, {"ru": "Что с ним случилось?", "answers": ["What happened to him?"]}, {"ru": "Я был в растерянности и не мог найти решение этой проблемы.", "answers": ["I was at a loss and could not find a solution to this problem."]}, {"ru": "Ей не хватает опыта работы.", "answers": ["She lacks work experience."]}, {"ru": "Она заботится о своих родителях.", "answers": ["She cares about her parents."]}, {"ru": "Я боюсь делать это.", "answers": ["I am afraid of doing it."]}, {"ru": "Ей нужно время, чтобы восстановиться после операции.", "answers": ["She needs some time to recover from the operation."]}, {"ru": "Мы не можем работать без перерыва.", "answers": ["We cannot work without a break."]}, {"ru": "Я вижу несколько преимуществ работы здесь.", "answers": ["I see several advantages of working here."]}, {"ru": "Ей нужно время, чтобы восстановиться после операции.", "answers": ["She needs some time to recover from the operation."]}, {"ru": "Он недоволен результатами, но не собирается жаловаться.", "answers": ["He is dissatisfied with the results, but he is not going to complain."]}, {"ru": "Кому принадлежит эта книга?", "answers": ["Who does this book belong to?"]}, {"ru": "Чем ты интересуешься?", "answers": ["What are you interested in?"]}, {"ru": "Она не способна сделать это одна, поэтому попросила меня о помощи.", "answers": ["She is incapable of doing it alone, so she asked me for help."]}, {"ru": "Он хочет представить её своей семье.", "answers": ["He wants to introduce her to his family."]}, {"ru": "Я жду его и уже устал ждать.", "answers": ["I am waiting for him and I am already tired of waiting."]}, {"ru": "Он боится выступать на публике, потому что не привык к этому.", "answers": ["He is afraid of speaking in public because he is not used to it."]}, {"ru": "Я был удивлён её реакцией на эту новость.", "answers": ["I was surprised by her reaction to this news."]}, {"ru": "У нас нет ничего общего.", "answers": ["We have nothing in common."]}, {"ru": "Что ты ищешь?", "answers": ["What are you searching for?"]}, {"ru": "Он был виновен в этом преступлении.", "answers": ["He was guilty of this crime."]}, {"ru": "Он часто ссылается на этот источник.", "answers": ["He often refers to this source."]}, {"ru": "Я сделал это по ошибке.", "answers": ["I did it by mistake."]}, {"ru": "Он полон энтузиазма и очень увлечён этим проектом.", "answers": ["He is full of enthusiasm and very enthusiastic about this project."]}, {"ru": "Что не так с двигателем?", "answers": ["What is wrong with the engine?"]}, {"ru": "Я не думаю, что он способен сделать это.", "answers": ["I do not think he is capable of doing it."]}, {"ru": "Я быстро привык к этой погоде.", "answers": ["I got used to this weather quickly."]}, {"ru": "Я очень увлекаюсь английским и уделяю ему много времени.", "answers": ["I am very keen on English and I devote a lot of time to it."]}, {"ru": "Он отвечает за проект, и я думаю, что он способен справиться с этой работой.", "answers": ["He is responsible for the project, and I think he is capable of doing this work."]}, {"ru": "Я был вдохновлён этой речью.", "answers": ["I was inspired by this speech."]}, {"ru": "Она ищет новую работу и уже подала заявку на две позиции.", "answers": ["She is searching for a new job and has already applied for two positions."]}, {"ru": "Я могу рассчитывать на его поддержку.", "answers": ["I can count on his support."]}, {"ru": "Она недовольна качеством этой услуги.", "answers": ["She is dissatisfied with the quality of this service."]}, {"ru": "Почему они смеются над этим?", "answers": ["Why are they laughing at it?"]}, {"ru": "Я никогда не думал об этом.", "answers": ["I have never thought about it."]}, {"ru": "Тебе нужно быть осторожнее, потому что ситуация выходит из-под контроля.", "answers": ["You need to be more careful because the situation is getting out of control."]}, {"ru": "Я не одобряю эту идею.", "answers": ["I do not approve of this idea."]}, {"ru": "Он не боится трудностей и готов к худшему.", "answers": ["He is not afraid of difficulties and is prepared for the worst."]}, {"ru": "Кто указал на эту ошибку?", "answers": ["Who pointed out this mistake?"]}, {"ru": "Эта вещь ассоциируется с богатством и успехом.", "answers": ["This thing is associated with wealth and success."]}, {"ru": "Я разделил презентацию на три части.", "answers": ["I divided my presentation into three parts."]}, {"ru": "Все мои усилия были напрасны, и я был в растерянности.", "answers": ["All my efforts were in vain, and I was at a loss."]}, {"ru": "Я привык вставать рано.", "answers": ["I am used to getting up early."]}, {"ru": "Когда он окончил университет?", "answers": ["When did he graduate from university?"]}, {"ru": "Он часто ссылается на этот источник, когда отвечает на вопросы.", "answers": ["He often refers to this source when he answers questions."]}, {"ru": "Тяжёлая работа может привести к успеху.", "answers": ["Hard work can lead to success."]}, {"ru": "Я осведомлён об этих изменениях, потому что они связаны с моей работой.", "answers": ["I am aware of these changes because they are related to my work."]}, {"ru": "Я не привык делать это.", "answers": ["I am not used to doing it."]}, {"ru": "Было жестоко с его стороны так поступить.", "answers": ["It was cruel of him to behave like that."]}, {"ru": "Она права в некоторой степени.", "answers": ["She is right to a certain extent."]}, {"ru": "Ей нужно время, чтобы адаптироваться к новой работе, потому что она к ней не привыкла.", "answers": ["She needs time to adapt to the new job because she is not used to it."]}, {"ru": "Она очень чувствительна к критике, поэтому будь вежлив с ней.", "answers": ["She is very sensitive to criticism, so be polite to her."]}, {"ru": "Я устал от этой рутины.", "answers": ["I am tired of this routine."]}, {"ru": "Она уже восстановилась после операции?", "answers": ["Has she already recovered from the operation?"]}];
+
+const els = {
+  deckName: document.getElementById('deckName'),
+  fileInput: document.getElementById('fileInput'),
+  sessionSizeInput: document.getElementById('sessionSizeInput'),
+  startSessionBtn: document.getElementById('startSessionBtn'),
+  exportBtn: document.getElementById('exportBtn'),
+  resetBtn: document.getElementById('resetBtn'),
+  doneStat: document.getElementById('doneStat'),
+  leftStat: document.getElementById('leftStat'),
+  errorsStat: document.getElementById('errorsStat'),
+  streakStat: document.getElementById('streakStat'),
+  progressBar: document.getElementById('progressBar'),
+  trainer: document.getElementById('trainer'),
+  positionText: document.getElementById('positionText'),
+  prompt: document.getElementById('prompt'),
+  answerInput: document.getElementById('answerInput'),
+  checkBtn: document.getElementById('checkBtn'),
+  dontKnowBtn: document.getElementById('dontKnowBtn'),
+  acceptBtn: document.getElementById('acceptBtn'),
+  nextBtn: document.getElementById('nextBtn'),
+  feedback: document.getElementById('feedback'),
+  fbTitle: document.getElementById('fbTitle'),
+  yourRow: document.getElementById('yourRow'),
+  yourAnswer: document.getElementById('yourAnswer'),
+  correctAnswer: document.getElementById('correctAnswer'),
+  repeatInfo: document.getElementById('repeatInfo'),
+  complete: document.getElementById('complete'),
+  newRoundBtn: document.getElementById('newRoundBtn'),
+  problems: document.getElementById('problems')
+};
+
+let deck = [];
+let deckTitle = 'Bebris B1 — встроенные 1000 карточек · фиксированный порядок';
+let state = null;
+let current = null;
+let awaitingNext = false;
+let lastWasWrong = false;
+
+function hashString(str) {
+  let h = 2166136261;
+  for (let i = 0; i < str.length; i++) {
+    h ^= str.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return (h >>> 0).toString(16);
+}
+
+function cardKey(card) {
+  return hashString(card.ru + '||' + card.answers.join('||'));
+}
+
+function deckKey(cards) {
+  return hashString(cards.map(c => c.ru + '\t' + c.answers.join('||')).join('\n'));
+}
+
+function storageKey() {
+  return 'english-drill:' + deckKey(deck);
+}
+
+function clampSessionSize(value) {
+  const n = Math.floor(Number(value) || 20);
+  return Math.max(1, Math.min(n, deck.length));
+}
+
+function makeSessionIndices(size) {
+  const n = clampSessionSize(size);
+  return Array.from({length: n}, (_, i) => i);
+}
+
+function blankState() {
+  const sessionSize = clampSessionSize(20);
+  const sessionIndices = makeSessionIndices(sessionSize);
+  return {
+    queue: [...sessionIndices],
+    sessionIndices,
+    sessionSize,
+    mastered: {},
+    attempts: {},
+    errors: {},
+    accepted: {},
+    pendingRepeats: {},
+    totalErrors: 0,
+    streak: 0,
+    bestStreak: 0,
+    round: 1
+  };
+}
+
+function loadState() {
+  try {
+    const saved = localStorage.getItem(storageKey());
+    state = saved ? JSON.parse(saved) : blankState();
+    if (!Array.isArray(state.queue)) state.queue = deck.map((_, i) => i);
+
+    // Migration from the first version: preserve the current queue as one session.
+    if (!Array.isArray(state.sessionIndices)) {
+      const fromQueue = [...new Set(state.queue.filter(i => Number.isInteger(i) && i >= 0 && i < deck.length))];
+      state.sessionIndices = fromQueue.length ? fromQueue : deck.map((_, i) => i);
+      state.sessionSize = state.sessionIndices.length;
+    }
+
+    state.sessionIndices = state.sessionIndices.filter(i => Number.isInteger(i) && i >= 0 && i < deck.length);
+    if (!state.sessionIndices.length) {
+      state.sessionSize = clampSessionSize(state.sessionSize || 20);
+      state.sessionIndices = makeSessionIndices(state.sessionSize);
+      state.queue = [...state.sessionIndices];
+    }
+
+    state.sessionSize = clampSessionSize(state.sessionSize || state.sessionIndices.length || 20);
+    state.mastered ||= {};
+    state.attempts ||= {};
+    state.errors ||= {};
+    state.accepted ||= {};
+    state.pendingRepeats ||= {};
+    state.totalErrors ||= 0;
+    state.streak ||= 0;
+    state.bestStreak ||= 0;
+    state.round ||= 1;
+    els.sessionSizeInput.max = deck.length;
+    els.sessionSizeInput.value = state.sessionSize;
+  } catch {
+    state = blankState();
+    els.sessionSizeInput.max = deck.length;
+    els.sessionSizeInput.value = state.sessionSize;
+  }
+}
+
+function saveState() {
+  localStorage.setItem(storageKey(), JSON.stringify(state));
+}
+
+function expandContractions(s) {
+  return s
+    .replace(/\b(i)'m\b/g, 'i am')
+    .replace(/\b(you|we|they)'re\b/g, '$1 are')
+    .replace(/\b(he|she|it)'s been\b/g, '$1 has been')
+    .replace(/\b(he|she|it)'s\b/g, '$1 is')
+    .replace(/\b(i|you|we|they)'ve\b/g, '$1 have')
+    .replace(/\b(he|she|it)'ll\b/g, '$1 will')
+    .replace(/\b(i|you|we|they)'ll\b/g, '$1 will')
+    .replace(/\bcan't\b/g, 'cannot')
+    .replace(/\bwon't\b/g, 'will not')
+    .replace(/\bdon't\b/g, 'do not')
+    .replace(/\bdoesn't\b/g, 'does not')
+    .replace(/\bdidn't\b/g, 'did not')
+    .replace(/\bisn't\b/g, 'is not')
+    .replace(/\baren't\b/g, 'are not')
+    .replace(/\bwasn't\b/g, 'was not')
+    .replace(/\bweren't\b/g, 'were not')
+    .replace(/\bhaven't\b/g, 'have not')
+    .replace(/\bhasn't\b/g, 'has not')
+    .replace(/\bhadn't\b/g, 'had not')
+    .replace(/\bshouldn't\b/g, 'should not')
+    .replace(/\bwouldn't\b/g, 'would not')
+    .replace(/\bcouldn't\b/g, 'could not')
+    .replace(/\bmustn't\b/g, 'must not')
+    .replace(/\bneedn't\b/g, 'need not');
+}
+
+function normalize(s) {
+  return expandContractions(
+    String(s)
+      .toLowerCase()
+      .replace(/[’‘`]/g, "'")
+      .replace(/[“”]/g, '"')
+      .trim()
+  )
+  .replace(/[.,!?;:"()[\]{}]/g, '')
+  .replace(/\s+/g, ' ')
+  .trim();
+}
+
+function validAnswers(card) {
+  const key = cardKey(card);
+  return [...card.answers, ...(state.accepted[key] || [])];
+}
+
+function isCorrect(user, card) {
+  const u = normalize(user);
+  return validAnswers(card).some(a => normalize(a) === u);
+}
+
+function pickNext() {
+  if (state.queue.length === 0) {
+    showComplete();
+    return;
+  }
+  current = state.queue.shift();
+  awaitingNext = false;
+  lastWasWrong = false;
+  els.prompt.textContent = deck[current].ru;
+  els.positionText.textContent = `сессия ${state.round} · осталось ${state.queue.length + 1}`;
+  els.answerInput.value = '';
+  els.answerInput.disabled = false;
+  els.answerInput.classList.remove('hidden');
+  els.checkBtn.classList.remove('hidden');
+  els.dontKnowBtn.classList.remove('hidden');
+  els.acceptBtn.classList.add('hidden');
+  els.nextBtn.classList.add('hidden');
+  els.feedback.className = 'feedback';
+  els.complete.classList.add('hidden');
+  els.answerInput.focus();
+  updateStats();
+}
+
+function removePendingOccurrences(index) {
+  state.queue = state.queue.filter(i => i !== index);
+}
+
+function randomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function scheduleReinforcement(index) {
+  // Чтобы одна карточка не размножалась бесконечно:
+  // при новой ошибке удаляем старые запланированные повторы
+  // и создаём новый двухступенчатый цикл.
+  removePendingOccurrences(index);
+
+  const firstGap = Math.min(randomInt(5, 10), state.queue.length);
+  const firstPos = Math.min(firstGap, state.queue.length);
+  state.queue.splice(firstPos, 0, index);
+
+  const secondGap = randomInt(10, 15);
+  const secondPos = Math.min(firstPos + 1 + secondGap, state.queue.length);
+  state.queue.splice(secondPos, 0, index);
+
+  state.pendingRepeats[index] = 2;
+  delete state.mastered[index];
+
+  return {
+    first: firstPos + 1,
+    secondAfterFirst: Math.max(1, secondPos - firstPos)
+  };
+}
+
+function markAttempt(error) {
+  const key = cardKey(deck[current]);
+  state.attempts[key] = (state.attempts[key] || 0) + 1;
+  if (error) {
+    state.errors[key] = (state.errors[key] || 0) + 1;
+    state.totalErrors += 1;
+    state.streak = 0;
+  } else {
+    state.streak += 1;
+    state.bestStreak = Math.max(state.bestStreak, state.streak);
+  }
+}
+
+function submitAnswer() {
+  if (awaitingNext) {
+    nextCard();
+    return;
+  }
+
+  const userText = els.answerInput.value.trim();
+  if (!userText) return;
+
+  const pendingBefore = state.pendingRepeats[current] || 0;
+
+  if (isCorrect(userText, deck[current])) {
+    markAttempt(false);
+
+    if (pendingBefore > 0) {
+      state.pendingRepeats[current] = pendingBefore - 1;
+
+      if (state.pendingRepeats[current] <= 0) {
+        delete state.pendingRepeats[current];
+        state.mastered[current] = true;
+        showFeedback('ok', '✓ Закреплено', userText, 'Оба контрольных повтора пройдены правильно.');
+      } else {
+        delete state.mastered[current];
+        showFeedback('ok', '✓ Правильно', userText, 'Хорошо. Позже будет ещё один контрольный повтор.');
+      }
+    } else {
+      state.mastered[current] = true;
+      showFeedback('ok', '✓ Правильно', userText, 'Карточка выполнена в этой сессии.');
+    }
+
+    awaitingNext = true;
+    lastWasWrong = false;
+    els.acceptBtn.classList.add('hidden');
+  } else {
+    markAttempt(true);
+    const timing = scheduleReinforcement(current);
+    showFeedback(
+      'bad',
+      '✕ Пока не совпало',
+      userText,
+      `Первый повтор примерно через ${timing.first} заданий, второй — ещё через ${timing.secondAfterFirst} после него.`
+    );
+    awaitingNext = true;
+    lastWasWrong = true;
+    els.acceptBtn.classList.remove('hidden');
+  }
+
+  finishAttemptUI();
+  saveState();
+  updateStats();
+}
+
+function dontKnow() {
+  if (awaitingNext) return;
+
+  markAttempt(true);
+  const timing = scheduleReinforcement(current);
+
+  showFeedback(
+    'warn',
+    'Показываю ответ',
+    '',
+    `Первый повтор примерно через ${timing.first} заданий, второй — ещё через ${timing.secondAfterFirst} после него.`
+  );
+
+  awaitingNext = true;
+  lastWasWrong = true;
+  els.acceptBtn.classList.add('hidden');
+  finishAttemptUI();
+  saveState();
+  updateStats();
+}
+
+function finishAttemptUI() {
+  els.answerInput.disabled = true;
+  els.checkBtn.classList.add('hidden');
+  els.dontKnowBtn.classList.add('hidden');
+  els.nextBtn.classList.remove('hidden');
+}
+
+function showFeedback(kind, title, user, info) {
+  const card = deck[current];
+  els.feedback.className = 'feedback ' + kind;
+  els.fbTitle.textContent = title;
+  els.correctAnswer.textContent = card.answers.join('  /  ');
+  els.repeatInfo.textContent = info;
+  if (user) {
+    els.yourRow.classList.remove('hidden');
+    els.yourAnswer.textContent = user;
+  } else {
+    els.yourRow.classList.add('hidden');
+  }
+}
+
+function acceptCurrentAnswer() {
+  const val = els.answerInput.value.trim();
+  if (!val || current === null) return;
+
+  const key = cardKey(deck[current]);
+  state.accepted[key] ||= [];
+
+  if (!state.accepted[key].some(x => normalize(x) === normalize(val))) {
+    state.accepted[key].push(val);
+  }
+
+  removePendingOccurrences(current);
+  delete state.pendingRepeats[current];
+  state.mastered[current] = true;
+  lastWasWrong = false;
+
+  els.feedback.className = 'feedback ok';
+  els.fbTitle.textContent = '✓ Засчитано как допустимый вариант';
+  els.repeatInfo.textContent = 'Этот вариант сохранён в браузере и в следующий раз будет приниматься автоматически.';
+  els.acceptBtn.classList.add('hidden');
+
+  saveState();
+  updateStats();
+}
+
+function nextCard() {
+  if (!awaitingNext) return;
+  pickNext();
+}
+
+function showComplete() {
+  current = null;
+  els.prompt.textContent = 'Все карточки выполнены.';
+  els.answerInput.classList.add('hidden');
+  els.checkBtn.classList.add('hidden');
+  els.dontKnowBtn.classList.add('hidden');
+  els.acceptBtn.classList.add('hidden');
+  els.nextBtn.classList.add('hidden');
+  els.feedback.className = 'feedback';
+  els.complete.classList.remove('hidden');
+  els.positionText.textContent = `сессия ${state.round} завершена`;
+  updateStats();
+}
+
+function startNewSession() {
+  const size = clampSessionSize(els.sessionSizeInput.value);
+  els.sessionSizeInput.value = size;
+  state.sessionSize = size;
+  state.sessionIndices = makeSessionIndices(size);
+  state.queue = [...state.sessionIndices];
+  state.mastered = {};
+  state.pendingRepeats = {};
+  state.streak = 0;
+  state.round += 1;
+  saveState();
+  pickNext();
+}
+
+function newRound() {
+  startNewSession();
+}
+
+function resetRound() {
+  if (!confirm('Перезапустить текущую сессию с первой карточки? История ошибок сохранится.')) return;
+  state.queue = [...state.sessionIndices];
+  state.mastered = {};
+  state.pendingRepeats = {};
+  state.streak = 0;
+  saveState();
+  pickNext();
+}
+
+function updateStats() {
+  const activeSet = new Set(state.sessionIndices || []);
+  const done = Object.keys(state.mastered)
+    .filter(k => state.mastered[k] && activeSet.has(Number(k))).length;
+  const sessionTotal = activeSet.size;
+  const leftUnique = Math.max(sessionTotal - done, 0);
+  els.doneStat.textContent = done;
+  els.leftStat.textContent = leftUnique;
+  els.errorsStat.textContent = state.totalErrors;
+  els.streakStat.textContent = state.streak;
+  els.progressBar.style.width = (sessionTotal ? (done / sessionTotal * 100) : 0) + '%';
+
+  const ranked = Object.entries(state.errors)
+    .sort((a,b) => b[1] - a[1])
+    .slice(0,5);
+
+  els.problems.innerHTML = '';
+  if (!ranked.length) {
+    els.problems.innerHTML = '<div class="mini">Ошибок пока нет. Так держать.</div>';
+  } else {
+    for (const [key, count] of ranked) {
+      const card = deck.find(c => cardKey(c) === key);
+      if (!card) continue;
+      const row = document.createElement('div');
+      row.className = 'problem';
+      const left = document.createElement('span');
+      left.textContent = card.ru;
+      const right = document.createElement('strong');
+      right.textContent = count + '×';
+      row.append(left, right);
+      els.problems.appendChild(row);
+    }
+  }
+}
+
+function parseDeck(text) {
+  const cards = [];
+  for (const raw of text.split(/\r?\n/)) {
+    const line = raw.trim();
+    if (!line) continue;
+    let parts = raw.split('\t');
+    if (parts.length < 2) parts = raw.split(';');
+    if (parts.length < 2) continue;
+    const ru = parts[0].trim();
+    const answerText = parts.slice(1).join('\t').trim();
+    const answers = answerText.split('||').map(x => x.trim()).filter(Boolean);
+    if (ru && answers.length) cards.push({ru, answers});
+  }
+  return cards;
+}
+
+async function importFile(file) {
+  const text = await file.text();
+  const cards = parseDeck(text);
+  if (!cards.length) {
+    alert('Не удалось найти пары. Нужен формат: русский<TAB>английский. Можно добавить варианты ответа через ||');
+    return;
+  }
+  deck = cards;
+  deckTitle = file.name + ` — ${cards.length} карточек`;
+  els.deckName.textContent = deckTitle;
+  els.sessionSizeInput.max = deck.length;
+  loadState();
+  if (state.sessionIndices.some(i => i >= deck.length)) {
+    state = blankState();
+  }
+  els.sessionSizeInput.value = Math.min(state.sessionSize || 20, deck.length);
+  pickNext();
+}
+
+function exportProgress() {
+  const payload = {
+    deckTitle,
+    exportedAt: new Date().toISOString(),
+    deckKey: deckKey(deck),
+    state
+  };
+  const blob = new Blob([JSON.stringify(payload, null, 2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'english-drill-progress.json';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+els.startSessionBtn.addEventListener('click', () => {
+  if (state && (state.queue.length || Object.keys(state.mastered || {}).length)) {
+    if (!confirm('Начать новую сессию с первых выбранных карточек? Текущий прогресс этой сессии будет сброшен, история ошибок сохранится.')) return;
+  }
+  startNewSession();
+});
+els.sessionSizeInput.addEventListener('change', () => {
+  els.sessionSizeInput.value = clampSessionSize(els.sessionSizeInput.value);
+});
+els.checkBtn.addEventListener('click', submitAnswer);
+els.dontKnowBtn.addEventListener('click', dontKnow);
+els.nextBtn.addEventListener('click', nextCard);
+els.acceptBtn.addEventListener('click', acceptCurrentAnswer);
+els.newRoundBtn.addEventListener('click', newRound);
+els.resetBtn.addEventListener('click', resetRound);
+els.exportBtn.addEventListener('click', exportProgress);
+els.fileInput.addEventListener('change', e => {
+  const file = e.target.files?.[0];
+  if (file) importFile(file);
+  e.target.value = '';
+});
+els.answerInput.addEventListener('keydown', e => {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    if (awaitingNext) nextCard();
+    else submitAnswer();
+  }
+});
+
+deck = BUILTIN_DECK;
+loadState();
+pickNext();
+</script>
+</body>
+</html>
