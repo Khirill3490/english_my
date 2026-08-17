@@ -64,13 +64,37 @@
     .session-control{
       display:flex;align-items:center;gap:7px;
       border:1px solid var(--line);background:var(--panel-solid);
-      border-radius:12px;padding:5px 6px 5px 10px;
+      border-radius:12px;padding:5px 8px 5px 10px;
     }
     .session-control span{font-size:12px;color:var(--muted);white-space:nowrap}
-    .session-control input{
-      width:74px;border:0;outline:none;background:transparent;color:var(--text);
+    .session-control input[type="number"]{
+      width:64px;border:0;outline:none;background:transparent;color:var(--text);
       font-weight:750;text-align:center;padding:5px 2px;
     }
+    .shuffle-control{
+      display:flex;align-items:center;gap:8px;
+      border:1px solid var(--line);background:var(--panel-solid);
+      border-radius:12px;padding:10px 12px;
+      font-size:12px;color:var(--muted);font-weight:650;
+      user-select:none;
+    }
+    .shuffle-control input{accent-color:var(--accent)}
+    .weak-count{
+      display:inline-flex;min-width:20px;height:20px;align-items:center;justify-content:center;
+      padding:0 6px;border-radius:999px;background:rgba(127,127,127,.12);
+      color:var(--text);font-size:11px;font-weight:800;
+    }
+    .eyebrow-right{display:flex;align-items:center;justify-content:flex-end;gap:9px;flex-wrap:wrap}
+    .status-badge{
+      display:inline-flex;align-items:center;gap:5px;
+      padding:5px 8px;border:1px solid var(--line);border-radius:999px;
+      font-size:11px;letter-spacing:0;text-transform:none;font-weight:800;
+      background:var(--panel-solid);white-space:nowrap;
+    }
+    .status-new{color:var(--muted)}
+    .status-learning{color:var(--warn)}
+    .status-weak{color:var(--bad)}
+    .status-strong{color:var(--ok)}
     .btn{
       border:1px solid var(--line);
       background:var(--panel-solid);
@@ -84,6 +108,45 @@
     .btn.primary{background:var(--accent);color:var(--bg);border-color:var(--accent)}
     @media (prefers-color-scheme: dark){.btn.primary{color:#111318}}
     .btn.danger{color:var(--bad)}
+    .mode-switch{
+      display:flex;gap:6px;margin:0 0 14px;
+      padding:5px;border:1px solid var(--line);
+      background:var(--panel);border-radius:14px;
+      width:max-content;
+    }
+    .mode-btn{
+      border:0;background:transparent;color:var(--muted);
+      border-radius:10px;padding:9px 14px;font-weight:750;
+    }
+    .mode-btn.active{
+      background:var(--accent);color:var(--bg);
+    }
+    @media (prefers-color-scheme: dark){
+      .mode-btn.active{color:#111318}
+    }
+    .oral-answer{
+      margin-top:20px;border-radius:16px;padding:18px;
+      border:1px solid var(--line);background:var(--panel-solid);
+    }
+    .oral-answer .label{
+      display:block;font-size:12px;color:var(--muted);
+      margin-bottom:7px;
+    }
+    .oral-answer .value{
+      font-size:20px;line-height:1.45;font-weight:750;
+    }
+    .oral-actions{
+      display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;
+    }
+    .oral-actions .btn{padding:12px 16px}
+    .tts-row{
+      display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:13px
+    }
+    .tts-row select{
+      border:1px solid var(--line);background:var(--panel-solid);color:var(--text);
+      border-radius:10px;padding:8px 9px;font:inherit;font-size:12px;font-weight:700;
+    }
+    .speak-btn{padding:8px 11px!important;font-size:12px}
     .stats{
       display:grid;
       grid-template-columns:repeat(4,1fr);
@@ -154,6 +217,18 @@
     .fb-row{margin-top:7px;line-height:1.5}
     .fb-label{font-size:12px;color:var(--muted);display:block;margin-bottom:2px}
     .english{font-size:17px;font-weight:650}
+    .diff-bad{
+      color:var(--bad);background:rgba(180,35,24,.10);
+      text-decoration:line-through;text-decoration-thickness:1.5px;
+      border-radius:5px;padding:1px 3px;
+    }
+    .diff-good{
+      color:var(--ok);background:rgba(15,122,66,.10);
+      border-radius:5px;padding:1px 3px;
+    }
+    .feedback-speak-row{
+      display:flex;align-items:center;justify-content:space-between;gap:10px
+    }
     .mini{font-size:13px;color:var(--muted)}
     .bottom{
       margin-top:14px;display:grid;grid-template-columns:1.3fr .7fr;gap:14px
@@ -176,10 +251,58 @@
       text-align:center;padding:25px 0 8px
     }
     .complete .big{font-size:46px;margin-bottom:8px}
+    .report-grid{
+      display:grid;grid-template-columns:repeat(4,1fr);gap:9px;
+      max-width:720px;margin:20px auto 14px;text-align:left
+    }
+    .report-item{
+      border:1px solid var(--line);background:var(--panel-solid);
+      border-radius:14px;padding:12px 13px
+    }
+    .report-item .rn{font-size:22px;font-weight:850}
+    .report-item .rl{font-size:11px;color:var(--muted);margin-top:2px}
+    .report-problems{
+      max-width:720px;margin:14px auto 18px;text-align:left;
+      border:1px solid var(--line);background:var(--panel-solid);
+      border-radius:14px;padding:14px 16px
+    }
+    .report-problems h4{font-size:13px;margin:0 0 8px}
+    .report-problem{
+      display:flex;justify-content:space-between;gap:12px;
+      padding:7px 0;border-top:1px solid var(--line);font-size:12px
+    }
+    .report-problem:first-child{border-top:0}
     .hidden{display:none!important}
     input[type=file]{display:none}
     .kbd{
       border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;padding:1px 6px;font-size:11px;color:var(--muted)
+    }
+    details.how-details{
+      padding:0;
+      overflow:hidden;
+    }
+    details.how-details summary{
+      list-style:none;
+      cursor:pointer;
+      padding:18px 20px;
+      font-weight:800;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      user-select:none;
+    }
+    details.how-details summary::-webkit-details-marker{display:none}
+    details.how-details summary::after{
+      content:"▾";
+      color:var(--muted);
+      transition:transform .18s ease;
+    }
+    details.how-details[open] summary::after{transform:rotate(180deg)}
+    .how-content{
+      padding:0 20px 20px;
+      border-top:1px solid var(--line);
+      padding-top:16px;
     }
     @media (max-width:700px){
       .wrap{padding:18px 12px 36px}
@@ -189,6 +312,9 @@
       .prompt{margin:27px 0 22px;min-height:75px}
       .bottom{grid-template-columns:1fr}
       .actions .btn{flex:1}
+      .report-grid{grid-template-columns:repeat(2,1fr)}
+      .eyebrow{align-items:flex-start}
+      .eyebrow-right{justify-content:flex-end}
     }
   </style>
 </head>
@@ -197,19 +323,35 @@
     <div class="topbar">
       <div>
         <div class="brand">English Drill</div>
-        <div class="subtle" id="deckName">Bebris B1 — встроенные 1000 карточек · фиксированный порядок</div>
+        <div class="subtle" id="deckName">Bebris B1 — встроенные 1000 карточек · умная тренировка</div>
       </div>
       <div class="toolbar">
         <div class="session-control">
-          <span>Первые</span>
-          <input id="sessionSizeInput" type="number" min="1" step="1" value="20" title="Использовать первые N карточек из базы">
+          <span>С</span>
+          <input id="rangeFromInput" type="number" min="1" step="1" value="1" title="Номер первой карточки">
+          <span>по</span>
+          <input id="rangeToInput" type="number" min="1" step="1" value="20" title="Номер последней карточки">
         </div>
+        <label class="shuffle-control">
+          <input id="shuffleRangeInput" type="checkbox">
+          Перемешать
+        </label>
+        <label class="shuffle-control" title="Оставить в выбранном диапазоне только карточки со статусом «Слабая»">
+          <input id="weakOnlyInput" type="checkbox">
+          Только слабые
+          <span class="weak-count" id="weakCount">0</span>
+        </label>
         <button class="btn primary" id="startSessionBtn">Начать</button>
         <label class="btn" for="fileInput">Импорт .txt</label>
         <input id="fileInput" type="file" accept=".txt,.tsv,.csv,text/plain">
         <button class="btn" id="exportBtn">Экспорт прогресса</button>
         <button class="btn danger" id="resetBtn">Перезапустить сессию</button>
       </div>
+    </div>
+
+    <div class="mode-switch" aria-label="Режим тренировки">
+      <button class="mode-btn active" id="writtenModeBtn" type="button">Письменно</button>
+      <button class="mode-btn" id="oralModeBtn" type="button">Устно</button>
     </div>
 
     <div class="stats">
@@ -223,26 +365,57 @@
     <main class="card" id="trainer">
       <div class="eyebrow">
         <span>Переведи на английский</span>
-        <span id="positionText">карточка</span>
+        <div class="eyebrow-right">
+          <span class="status-badge status-new" id="cardStatusBadge">⚪ Новая</span>
+          <span id="positionText">карточка</span>
+        </div>
       </div>
 
       <div class="prompt" id="prompt">Загрузка…</div>
 
-      <input
-        id="answerInput"
-        class="answer"
-        type="text"
-        autocomplete="off"
-        autocapitalize="sentences"
-        spellcheck="false"
-        placeholder="Введите перевод и нажмите Enter"
-      >
+      <div id="writtenModePanel">
+        <input
+          id="answerInput"
+          class="answer"
+          type="text"
+          autocomplete="off"
+          autocapitalize="sentences"
+          spellcheck="false"
+          placeholder="Введите перевод и нажмите Enter"
+        >
 
-      <div class="actions">
-        <button class="btn primary" id="checkBtn">Проверить</button>
-        <button class="btn" id="dontKnowBtn">Не знаю</button>
-        <button class="btn hidden" id="acceptBtn">Засчитать мой вариант</button>
-        <button class="btn hidden" id="nextBtn">Дальше</button>
+        <div class="actions">
+          <button class="btn primary" id="checkBtn">Проверить</button>
+          <button class="btn" id="dontKnowBtn">Не знаю</button>
+          <button class="btn hidden" id="acceptBtn">Засчитать мой вариант</button>
+          <button class="btn hidden" id="nextBtn">Дальше</button>
+        </div>
+      </div>
+
+      <div id="oralModePanel" class="hidden">
+        <button class="btn primary" id="oralCheckBtn">Проверить ответ</button>
+
+        <div class="oral-answer hidden" id="oralAnswerBox">
+          <span class="label">Правильный вариант</span>
+          <div class="value" id="oralCorrectAnswer"></div>
+          <div class="tts-row">
+            <button class="btn speak-btn" id="oralSpeakBtn" type="button">🔊 Прослушать</button>
+            <select id="ttsAccentSelect" title="Вариант английского">
+              <option value="en-US">🇺🇸 US</option>
+              <option value="en-GB">🇬🇧 UK</option>
+            </select>
+            <select id="ttsRateSelect" title="Скорость произношения">
+              <option value="0.8">0.8×</option>
+              <option value="1">1×</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="oral-actions hidden" id="oralDecisionButtons">
+          <button class="btn danger" id="oralDontKnowBtn">Не знал</button>
+          <button class="btn" id="oralAlmostBtn">Почти / ошибся</button>
+          <button class="btn primary" id="oralKnowBtn">Знал</button>
+        </div>
       </div>
 
       <div class="feedback" id="feedback">
@@ -252,7 +425,10 @@
           <span class="english" id="yourAnswer"></span>
         </div>
         <div class="fb-row">
-          <span class="fb-label">Эталон</span>
+          <div class="feedback-speak-row">
+            <span class="fb-label">Эталон</span>
+            <button class="btn speak-btn" id="feedbackSpeakBtn" type="button">🔊</button>
+          </div>
           <span class="english" id="correctAnswer"></span>
         </div>
         <div class="mini" id="repeatInfo" style="margin-top:10px"></div>
@@ -261,7 +437,25 @@
       <div class="complete hidden" id="complete">
         <div class="big">✓</div>
         <h2>Сессия завершена</h2>
-        <p class="subtle">Все выбранные карточки этой сессии выполнены, включая контрольные повторы после ошибок.</p>
+        <p class="subtle" id="reportSubtitle">Результаты первой попытки по каждой выбранной карточке.</p>
+
+        <div class="report-grid">
+          <div class="report-item"><div class="rn" id="reportTotal">0</div><div class="rl">карточек</div></div>
+          <div class="report-item"><div class="rn" id="reportKnown">0</div><div class="rl">сразу верно / знал</div></div>
+          <div class="report-item"><div class="rn" id="reportAlmost">0</div><div class="rl">почти / ошибка</div></div>
+          <div class="report-item"><div class="rn" id="reportUnknown">0</div><div class="rl">не знал</div></div>
+        </div>
+
+        <div class="report-grid" style="grid-template-columns:repeat(2,1fr);max-width:360px">
+          <div class="report-item"><div class="rn" id="reportAccuracy">0%</div><div class="rl">сразу правильно</div></div>
+          <div class="report-item"><div class="rn" id="reportAttempts">0</div><div class="rl">всего попыток</div></div>
+        </div>
+
+        <div class="report-problems hidden" id="sessionProblemBox">
+          <h4>Что давалось труднее всего в этой сессии</h4>
+          <div id="sessionProblems"></div>
+        </div>
+
         <button class="btn primary" id="newRoundBtn">Начать новую сессию</button>
       </div>
     </main>
@@ -271,18 +465,29 @@
         <h3>Самые проблемные карточки</h3>
         <div class="problems" id="problems"></div>
       </section>
-      <section class="panel">
-        <h3>Как работает</h3>
-        <div class="mini" style="line-height:1.65">
-          В поле «Первые» введите любое число: например 20, 37, 100 или 250.<br>
-          «Первые N» всегда означает одни и те же карточки с начала базы — случайной выборки и перемешивания нет.<br>
-          Правильно с первой попытки → карточка уходит из текущей сессии.<br>
-          Ошибка / «Не знаю» → карточка возвращается дважды: первый раз через 5–10 заданий, второй — ещё через 10–15 заданий после первого.<br>
-          Если на повторе снова ошибиться, цикл закрепления для этой карточки запускается заново.<br>
-          Ваш корректный альтернативный перевод можно сохранить кнопкой «Засчитать мой вариант».<br><br>
+      <details class="panel how-details">
+        <summary>Как это работает</summary>
+        <div class="mini how-content" style="line-height:1.65">
+          Укажите диапазон: например «с 15 по 20» — будут выбраны карточки №15–20 включительно.<br>
+          Без галочки они идут строго по порядку. С галочкой «Перемешать» меняется только порядок внутри выбранного диапазона.<br>
+          «Только слабые» оставляет в диапазоне карточки, которые приложение определило как проблемные по вашей истории ответов.<br>
+          Статус каждой карточки обновляется автоматически: ⚪ новая, 🟡 изучается, 🔴 слабая, 🟢 хорошо знаю.<br><br>
+
+          <b>Письменно:</b> вводите перевод, приложение проверяет его автоматически. При ошибке различия с эталоном подсвечиваются.<br>
+          Кнопка 🔊 произносит правильный английский вариант.<br>
+          Ошибка / «Не знаю» запускают два возврата: через 5–10 заданий и ещё через 10–15 после первого.<br><br>
+
+          <b>Устно:</b> произнесите перевод и нажмите «Проверить ответ». После сравнения с эталоном выберите:<br>
+          <b>Не знал</b> — усиленное закрепление: три возврата примерно через 3–5, затем 5–8 и затем 10–15 заданий.<br>
+          <b>Почти / ошибся</b> — два обычных возврата: через 5–10 и затем ещё через 10–15 заданий.<br>
+          <b>Знал</b> — перейти дальше. Если это контрольный повтор, он считается успешно пройденным.<br><br>
+
+          При новой ошибке цикл повторов для этой карточки запускается заново, без накопления лишних копий.
+          Ваш корректный альтернативный письменный перевод можно сохранить кнопкой «Засчитать мой вариант».<br><br>
           <span class="pill"><span class="kbd">Enter</span> проверить / дальше</span>
+          <span class="pill"><span class="kbd">Space</span> показать ответ устно</span>
         </div>
-      </section>
+      </details>
     </div>
   </div>
 
@@ -292,7 +497,11 @@ const BUILTIN_DECK = [{"ru": "Он уделяет этому слишком мн
 const els = {
   deckName: document.getElementById('deckName'),
   fileInput: document.getElementById('fileInput'),
-  sessionSizeInput: document.getElementById('sessionSizeInput'),
+  rangeFromInput: document.getElementById('rangeFromInput'),
+  rangeToInput: document.getElementById('rangeToInput'),
+  shuffleRangeInput: document.getElementById('shuffleRangeInput'),
+  weakOnlyInput: document.getElementById('weakOnlyInput'),
+  weakCount: document.getElementById('weakCount'),
   startSessionBtn: document.getElementById('startSessionBtn'),
   exportBtn: document.getElementById('exportBtn'),
   resetBtn: document.getElementById('resetBtn'),
@@ -303,25 +512,50 @@ const els = {
   progressBar: document.getElementById('progressBar'),
   trainer: document.getElementById('trainer'),
   positionText: document.getElementById('positionText'),
+  cardStatusBadge: document.getElementById('cardStatusBadge'),
   prompt: document.getElementById('prompt'),
+  writtenModeBtn: document.getElementById('writtenModeBtn'),
+  oralModeBtn: document.getElementById('oralModeBtn'),
+  writtenModePanel: document.getElementById('writtenModePanel'),
+  oralModePanel: document.getElementById('oralModePanel'),
   answerInput: document.getElementById('answerInput'),
   checkBtn: document.getElementById('checkBtn'),
   dontKnowBtn: document.getElementById('dontKnowBtn'),
   acceptBtn: document.getElementById('acceptBtn'),
   nextBtn: document.getElementById('nextBtn'),
+  oralCheckBtn: document.getElementById('oralCheckBtn'),
+  oralAnswerBox: document.getElementById('oralAnswerBox'),
+  oralCorrectAnswer: document.getElementById('oralCorrectAnswer'),
+  oralSpeakBtn: document.getElementById('oralSpeakBtn'),
+  ttsAccentSelect: document.getElementById('ttsAccentSelect'),
+  ttsRateSelect: document.getElementById('ttsRateSelect'),
+  oralDecisionButtons: document.getElementById('oralDecisionButtons'),
+  oralDontKnowBtn: document.getElementById('oralDontKnowBtn'),
+  oralAlmostBtn: document.getElementById('oralAlmostBtn'),
+  oralKnowBtn: document.getElementById('oralKnowBtn'),
   feedback: document.getElementById('feedback'),
   fbTitle: document.getElementById('fbTitle'),
   yourRow: document.getElementById('yourRow'),
   yourAnswer: document.getElementById('yourAnswer'),
   correctAnswer: document.getElementById('correctAnswer'),
+  feedbackSpeakBtn: document.getElementById('feedbackSpeakBtn'),
   repeatInfo: document.getElementById('repeatInfo'),
   complete: document.getElementById('complete'),
+  reportSubtitle: document.getElementById('reportSubtitle'),
+  reportTotal: document.getElementById('reportTotal'),
+  reportKnown: document.getElementById('reportKnown'),
+  reportAlmost: document.getElementById('reportAlmost'),
+  reportUnknown: document.getElementById('reportUnknown'),
+  reportAccuracy: document.getElementById('reportAccuracy'),
+  reportAttempts: document.getElementById('reportAttempts'),
+  sessionProblemBox: document.getElementById('sessionProblemBox'),
+  sessionProblems: document.getElementById('sessionProblems'),
   newRoundBtn: document.getElementById('newRoundBtn'),
   problems: document.getElementById('problems')
 };
 
 let deck = [];
-let deckTitle = 'Bebris B1 — встроенные 1000 карточек · фиксированный порядок';
+let deckTitle = 'Bebris B1 — встроенные 1000 карточек · умная тренировка';
 let state = null;
 let current = null;
 let awaitingNext = false;
@@ -348,23 +582,64 @@ function storageKey() {
   return 'english-drill:' + deckKey(deck);
 }
 
-function clampSessionSize(value) {
-  const n = Math.floor(Number(value) || 20);
+function clampCardNumber(value, fallback) {
+  const n = Math.floor(Number(value) || fallback);
   return Math.max(1, Math.min(n, deck.length));
 }
 
-function makeSessionIndices(size) {
-  const n = clampSessionSize(size);
-  return Array.from({length: n}, (_, i) => i);
+function normalizeRangeInputs() {
+  let from = clampCardNumber(els.rangeFromInput.value, 1);
+  let to = clampCardNumber(els.rangeToInput.value, Math.min(20, deck.length));
+
+  if (from > to) {
+    const tmp = from;
+    from = to;
+    to = tmp;
+  }
+
+  els.rangeFromInput.value = from;
+  els.rangeToInput.value = to;
+  return { from, to };
+}
+
+function makeSessionIndices(from, to, shuffle) {
+  const indices = [];
+  for (let n = from; n <= to; n++) {
+    indices.push(n - 1);
+  }
+
+  if (shuffle) {
+    for (let i = indices.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const tmp = indices[i];
+      indices[i] = indices[j];
+      indices[j] = tmp;
+    }
+  }
+
+  return indices;
 }
 
 function blankState() {
-  const sessionSize = clampSessionSize(20);
-  const sessionIndices = makeSessionIndices(sessionSize);
+  const rangeFrom = 1;
+  const rangeTo = Math.min(20, deck.length);
+  const shuffleRange = false;
+  const sessionIndices = makeSessionIndices(rangeFrom, rangeTo, shuffleRange);
+
   return {
     queue: [...sessionIndices],
     sessionIndices,
-    sessionSize,
+    rangeFrom,
+    rangeTo,
+    shuffleRange,
+    weakOnly: false,
+    practiceMode: 'written',
+    ttsAccent: 'en-US',
+    ttsRate: 1,
+    cardStats: {},
+    sessionFirstResult: {},
+    sessionErrorsByIndex: {},
+    sessionAttemptCount: 0,
     mastered: {},
     attempts: {},
     errors: {},
@@ -381,23 +656,52 @@ function loadState() {
   try {
     const saved = localStorage.getItem(storageKey());
     state = saved ? JSON.parse(saved) : blankState();
-    if (!Array.isArray(state.queue)) state.queue = deck.map((_, i) => i);
 
-    // Migration from the first version: preserve the current queue as one session.
-    if (!Array.isArray(state.sessionIndices)) {
-      const fromQueue = [...new Set(state.queue.filter(i => Number.isInteger(i) && i >= 0 && i < deck.length))];
-      state.sessionIndices = fromQueue.length ? fromQueue : deck.map((_, i) => i);
-      state.sessionSize = state.sessionIndices.length;
+    if (!Array.isArray(state.queue)) {
+      state.queue = [];
     }
 
-    state.sessionIndices = state.sessionIndices.filter(i => Number.isInteger(i) && i >= 0 && i < deck.length);
-    if (!state.sessionIndices.length) {
-      state.sessionSize = clampSessionSize(state.sessionSize || 20);
-      state.sessionIndices = makeSessionIndices(state.sessionSize);
+    // Миграция со старой версии "Первые N".
+    if (!Array.isArray(state.sessionIndices) || !state.sessionIndices.length) {
+      const legacySize = Math.max(1, Math.min(Number(state.sessionSize) || 20, deck.length));
+      state.sessionIndices = makeSessionIndices(1, legacySize, false);
       state.queue = [...state.sessionIndices];
     }
 
-    state.sessionSize = clampSessionSize(state.sessionSize || state.sessionIndices.length || 20);
+    state.sessionIndices = state.sessionIndices.filter(
+      i => Number.isInteger(i) && i >= 0 && i < deck.length
+    );
+
+    if (!state.sessionIndices.length) {
+      state.sessionIndices = makeSessionIndices(1, Math.min(20, deck.length), false);
+      state.queue = [...state.sessionIndices];
+    }
+
+    if (!state.rangeFrom || !state.rangeTo) {
+      const minIndex = Math.min.apply(null, state.sessionIndices);
+      const maxIndex = Math.max.apply(null, state.sessionIndices);
+      state.rangeFrom = minIndex + 1;
+      state.rangeTo = maxIndex + 1;
+    }
+
+    state.rangeFrom = clampCardNumber(state.rangeFrom, 1);
+    state.rangeTo = clampCardNumber(state.rangeTo, Math.min(20, deck.length));
+
+    if (state.rangeFrom > state.rangeTo) {
+      const tmp = state.rangeFrom;
+      state.rangeFrom = state.rangeTo;
+      state.rangeTo = tmp;
+    }
+
+    state.shuffleRange = Boolean(state.shuffleRange);
+    state.weakOnly = Boolean(state.weakOnly);
+    state.practiceMode = state.practiceMode === 'oral' ? 'oral' : 'written';
+    state.ttsAccent = state.ttsAccent === 'en-GB' ? 'en-GB' : 'en-US';
+    state.ttsRate = Number(state.ttsRate) === 0.8 ? 0.8 : 1;
+    state.cardStats ||= {};
+    state.sessionFirstResult ||= {};
+    state.sessionErrorsByIndex ||= {};
+    state.sessionAttemptCount ||= 0;
     state.mastered ||= {};
     state.attempts ||= {};
     state.errors ||= {};
@@ -407,12 +711,29 @@ function loadState() {
     state.streak ||= 0;
     state.bestStreak ||= 0;
     state.round ||= 1;
-    els.sessionSizeInput.max = deck.length;
-    els.sessionSizeInput.value = state.sessionSize;
+
+    els.rangeFromInput.max = deck.length;
+    els.rangeToInput.max = deck.length;
+    els.rangeFromInput.value = state.rangeFrom;
+    els.rangeToInput.value = state.rangeTo;
+    els.shuffleRangeInput.checked = state.shuffleRange;
+    els.weakOnlyInput.checked = state.weakOnly;
+    els.ttsAccentSelect.value = state.ttsAccent;
+    els.ttsRateSelect.value = String(state.ttsRate);
+    applyPracticeMode(state.practiceMode, false);
+    updateWeakCount();
   } catch {
     state = blankState();
-    els.sessionSizeInput.max = deck.length;
-    els.sessionSizeInput.value = state.sessionSize;
+    els.rangeFromInput.max = deck.length;
+    els.rangeToInput.max = deck.length;
+    els.rangeFromInput.value = state.rangeFrom;
+    els.rangeToInput.value = state.rangeTo;
+    els.shuffleRangeInput.checked = state.shuffleRange;
+    els.weakOnlyInput.checked = state.weakOnly;
+    els.ttsAccentSelect.value = state.ttsAccent;
+    els.ttsRateSelect.value = String(state.ttsRate);
+    applyPracticeMode(state.practiceMode, false);
+    updateWeakCount();
   }
 }
 
@@ -471,6 +792,303 @@ function isCorrect(user, card) {
   return validAnswers(card).some(a => normalize(a) === u);
 }
 
+function ensureCardStats(card) {
+  const key = cardKey(card);
+  if (!state.cardStats[key]) {
+    state.cardStats[key] = {
+      correct: 0,
+      almost: 0,
+      unknown: 0,
+      consecutiveCorrect: 0,
+      consecutiveWrong: 0,
+      lastResult: ''
+    };
+  }
+  return state.cardStats[key];
+}
+
+function recordOutcome(result) {
+  if (current === null || current === undefined) return;
+
+  const card = deck[current];
+  const stats = ensureCardStats(card);
+
+  if (result === 'known') {
+    stats.correct += 1;
+    stats.consecutiveCorrect += 1;
+    stats.consecutiveWrong = 0;
+  } else if (result === 'unknown') {
+    stats.unknown += 1;
+    stats.consecutiveWrong += 1;
+    stats.consecutiveCorrect = 0;
+  } else {
+    stats.almost += 1;
+    stats.consecutiveWrong += 1;
+    stats.consecutiveCorrect = 0;
+  }
+  stats.lastResult = result;
+
+  if (state.sessionFirstResult[current] === undefined) {
+    state.sessionFirstResult[current] = result;
+  }
+  if (result !== 'known') {
+    state.sessionErrorsByIndex[current] = (state.sessionErrorsByIndex[current] || 0) + 1;
+  }
+  state.sessionAttemptCount += 1;
+}
+
+function cardStatus(card) {
+  const key = cardKey(card);
+  const rich = state.cardStats[key] || {};
+  const attempts = Math.max(
+    state.attempts[key] || 0,
+    (rich.correct || 0) + (rich.almost || 0) + (rich.unknown || 0)
+  );
+  const errors = Math.max(
+    state.errors[key] || 0,
+    (rich.almost || 0) + (rich.unknown || 0)
+  );
+  const unknown = rich.unknown || 0;
+  const consecutiveCorrect = rich.consecutiveCorrect || 0;
+  const consecutiveWrong = rich.consecutiveWrong || 0;
+
+  if (attempts === 0) {
+    return { id:'new', label:'⚪ Новая', className:'status-new' };
+  }
+
+  const errorRate = errors / Math.max(attempts, 1);
+
+  if (
+    unknown >= 1 ||
+    consecutiveWrong >= 2 ||
+    errors >= 3 ||
+    (attempts >= 3 && errorRate >= 0.5)
+  ) {
+    return { id:'weak', label:'🔴 Слабая', className:'status-weak' };
+  }
+
+  if (
+    attempts >= 4 &&
+    consecutiveCorrect >= 3 &&
+    errorRate <= 0.20
+  ) {
+    return { id:'strong', label:'🟢 Хорошо знаю', className:'status-strong' };
+  }
+
+  return { id:'learning', label:'🟡 Изучается', className:'status-learning' };
+}
+
+function updateCurrentCardStatus() {
+  if (current === null || current === undefined || !deck[current]) return;
+  const status = cardStatus(deck[current]);
+  els.cardStatusBadge.textContent = status.label;
+  els.cardStatusBadge.className = 'status-badge ' + status.className;
+}
+
+function weakIndicesInRange(from, to) {
+  const result = [];
+  for (let n = from; n <= to; n++) {
+    const index = n - 1;
+    if (deck[index] && cardStatus(deck[index]).id === 'weak') {
+      result.push(index);
+    }
+  }
+  return result;
+}
+
+function updateWeakCount() {
+  if (!state || !deck.length || !els.rangeFromInput || !els.rangeToInput) return;
+  let from = clampCardNumber(els.rangeFromInput.value, 1);
+  let to = clampCardNumber(els.rangeToInput.value, Math.min(20, deck.length));
+  if (from > to) {
+    const tmp = from;
+    from = to;
+    to = tmp;
+  }
+  els.weakCount.textContent = weakIndicesInRange(from, to).length;
+}
+
+function shuffledCopy(indices) {
+  const copy = [...indices];
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const tmp = copy[i];
+    copy[i] = copy[j];
+    copy[j] = tmp;
+  }
+  return copy;
+}
+
+function tokeniseForDiff(value) {
+  return String(value).match(/[A-Za-z0-9]+(?:['’][A-Za-z0-9]+)*|[^\s]/g) || [];
+}
+
+function diffTokenKey(token) {
+  return token.toLowerCase().replace(/[’]/g, "'");
+}
+
+function computeTokenDiff(userText, expectedText) {
+  const a = tokeniseForDiff(userText);
+  const b = tokeniseForDiff(expectedText);
+  const m = a.length;
+  const n = b.length;
+  const dp = Array.from({length:m + 1}, () => Array(n + 1).fill(0));
+
+  for (let i = m - 1; i >= 0; i--) {
+    for (let j = n - 1; j >= 0; j--) {
+      if (diffTokenKey(a[i]) === diffTokenKey(b[j])) {
+        dp[i][j] = dp[i + 1][j + 1] + 1;
+      } else {
+        dp[i][j] = Math.max(dp[i + 1][j], dp[i][j + 1]);
+      }
+    }
+  }
+
+  const userParts = [];
+  const expectedParts = [];
+  let i = 0;
+  let j = 0;
+
+  while (i < m || j < n) {
+    if (i < m && j < n && diffTokenKey(a[i]) === diffTokenKey(b[j])) {
+      userParts.push({text:a[i], kind:'same'});
+      expectedParts.push({text:b[j], kind:'same'});
+      i++;
+      j++;
+    } else if (i < m && (j >= n || dp[i + 1][j] >= dp[i][j + 1])) {
+      userParts.push({text:a[i], kind:'bad'});
+      i++;
+    } else if (j < n) {
+      expectedParts.push({text:b[j], kind:'good'});
+      j++;
+    }
+  }
+
+  return { userParts, expectedParts };
+}
+
+function appendDiffParts(el, parts) {
+  el.textContent = '';
+  parts.forEach((part, idx) => {
+    if (idx > 0) el.appendChild(document.createTextNode(' '));
+    if (part.kind === 'same') {
+      el.appendChild(document.createTextNode(part.text));
+    } else {
+      const span = document.createElement('span');
+      span.className = part.kind === 'bad' ? 'diff-bad' : 'diff-good';
+      span.textContent = part.text;
+      el.appendChild(span);
+    }
+  });
+}
+
+function tokenDistance(a, b) {
+  const aa = tokeniseForDiff(a).map(diffTokenKey);
+  const bb = tokeniseForDiff(b).map(diffTokenKey);
+  const dp = Array.from({length:aa.length + 1}, (_, i) =>
+    Array.from({length:bb.length + 1}, (_, j) => i === 0 ? j : (j === 0 ? i : 0))
+  );
+
+  for (let i = 1; i <= aa.length; i++) {
+    for (let j = 1; j <= bb.length; j++) {
+      const cost = aa[i - 1] === bb[j - 1] ? 0 : 1;
+      dp[i][j] = Math.min(
+        dp[i - 1][j] + 1,
+        dp[i][j - 1] + 1,
+        dp[i - 1][j - 1] + cost
+      );
+    }
+  }
+  return dp[aa.length][bb.length];
+}
+
+function closestReference(userText, card) {
+  let best = card.answers[0] || '';
+  let bestDistance = Infinity;
+  card.answers.forEach(answer => {
+    const d = tokenDistance(userText, answer);
+    if (d < bestDistance) {
+      bestDistance = d;
+      best = answer;
+    }
+  });
+  return best;
+}
+
+function speakEnglish(textToSpeak) {
+  if (!('speechSynthesis' in window) || !window.SpeechSynthesisUtterance) {
+    alert('На этом устройстве браузер не поддерживает встроенное озвучивание.');
+    return;
+  }
+
+  const value = String(textToSpeak || '').trim();
+  if (!value) return;
+
+  window.speechSynthesis.cancel();
+
+  const utter = new SpeechSynthesisUtterance(value);
+  utter.lang = state.ttsAccent || 'en-US';
+  utter.rate = Number(state.ttsRate) || 1;
+
+  const voices = window.speechSynthesis.getVoices();
+  const langPrefix = utter.lang.toLowerCase();
+  const exactVoice = voices.find(v => String(v.lang).toLowerCase() === langPrefix);
+  const broadVoice = voices.find(v => String(v.lang).toLowerCase().startsWith(langPrefix.slice(0, 2)));
+  if (exactVoice || broadVoice) utter.voice = exactVoice || broadVoice;
+
+  window.speechSynthesis.speak(utter);
+}
+
+function speakCurrentReference() {
+  if (current === null || current === undefined || !deck[current]) return;
+  speakEnglish(deck[current].answers[0]);
+}
+
+function applyPracticeMode(mode, persist = true) {
+  const normalized = mode === 'oral' ? 'oral' : 'written';
+
+  if (state) {
+    state.practiceMode = normalized;
+  }
+
+  const oral = normalized === 'oral';
+  els.writtenModeBtn.classList.toggle('active', !oral);
+  els.oralModeBtn.classList.toggle('active', oral);
+  els.writtenModePanel.classList.toggle('hidden', oral);
+  els.oralModePanel.classList.toggle('hidden', !oral);
+
+  if (persist && state) {
+    saveState();
+  }
+
+  if (current !== null && current !== undefined) {
+    resetQuestionUIForMode();
+  }
+}
+
+function resetQuestionUIForMode() {
+  const oral = state && state.practiceMode === 'oral';
+
+  els.feedback.className = 'feedback';
+  els.complete.classList.add('hidden');
+
+  if (oral) {
+    els.oralCheckBtn.classList.remove('hidden');
+    els.oralAnswerBox.classList.add('hidden');
+    els.oralDecisionButtons.classList.add('hidden');
+    els.oralCorrectAnswer.textContent = '';
+  } else {
+    els.answerInput.value = '';
+    els.answerInput.disabled = false;
+    els.answerInput.classList.remove('hidden');
+    els.checkBtn.classList.remove('hidden');
+    els.dontKnowBtn.classList.remove('hidden');
+    els.acceptBtn.classList.add('hidden');
+    els.nextBtn.classList.add('hidden');
+    setTimeout(() => els.answerInput.focus(), 0);
+  }
+}
+
 function pickNext() {
   if (state.queue.length === 0) {
     showComplete();
@@ -480,17 +1098,10 @@ function pickNext() {
   awaitingNext = false;
   lastWasWrong = false;
   els.prompt.textContent = deck[current].ru;
-  els.positionText.textContent = `сессия ${state.round} · осталось ${state.queue.length + 1}`;
-  els.answerInput.value = '';
-  els.answerInput.disabled = false;
-  els.answerInput.classList.remove('hidden');
-  els.checkBtn.classList.remove('hidden');
-  els.dontKnowBtn.classList.remove('hidden');
-  els.acceptBtn.classList.add('hidden');
-  els.nextBtn.classList.add('hidden');
-  els.feedback.className = 'feedback';
-  els.complete.classList.add('hidden');
-  els.answerInput.focus();
+  const scopeLabel = state.weakOnly ? `слабые ${state.rangeFrom}–${state.rangeTo}` : `карточки ${state.rangeFrom}–${state.rangeTo}`;
+  els.positionText.textContent = `${scopeLabel} · осталось ${state.queue.length + 1}`;
+  updateCurrentCardStatus();
+  resetQuestionUIForMode();
   updateStats();
 }
 
@@ -525,6 +1136,33 @@ function scheduleReinforcement(index) {
   };
 }
 
+function scheduleIntensiveReinforcement(index) {
+  // "Не знал": более плотное закрепление тремя контрольными повторами.
+  // Старые запланированные копии удаляются, чтобы очередь не разрасталась.
+  removePendingOccurrences(index);
+
+  const firstGap = Math.min(randomInt(3, 5), state.queue.length);
+  const firstPos = Math.min(firstGap, state.queue.length);
+  state.queue.splice(firstPos, 0, index);
+
+  const secondGap = randomInt(5, 8);
+  const secondPos = Math.min(firstPos + 1 + secondGap, state.queue.length);
+  state.queue.splice(secondPos, 0, index);
+
+  const thirdGap = randomInt(10, 15);
+  const thirdPos = Math.min(secondPos + 1 + thirdGap, state.queue.length);
+  state.queue.splice(thirdPos, 0, index);
+
+  state.pendingRepeats[index] = 3;
+  delete state.mastered[index];
+
+  return {
+    first: firstPos + 1,
+    secondAfterFirst: Math.max(1, secondPos - firstPos),
+    thirdAfterSecond: Math.max(1, thirdPos - secondPos)
+  };
+}
+
 function markAttempt(error) {
   const key = cardKey(deck[current]);
   state.attempts[key] = (state.attempts[key] || 0) + 1;
@@ -551,6 +1189,7 @@ function submitAnswer() {
 
   if (isCorrect(userText, deck[current])) {
     markAttempt(false);
+    recordOutcome('known');
 
     if (pendingBefore > 0) {
       state.pendingRepeats[current] = pendingBefore - 1;
@@ -573,6 +1212,7 @@ function submitAnswer() {
     els.acceptBtn.classList.add('hidden');
   } else {
     markAttempt(true);
+    recordOutcome('almost');
     const timing = scheduleReinforcement(current);
     showFeedback(
       'bad',
@@ -594,6 +1234,7 @@ function dontKnow() {
   if (awaitingNext) return;
 
   markAttempt(true);
+  recordOutcome('unknown');
   const timing = scheduleReinforcement(current);
 
   showFeedback(
@@ -611,6 +1252,63 @@ function dontKnow() {
   updateStats();
 }
 
+function revealOralAnswer() {
+  if (!state || state.practiceMode !== 'oral' || current === null) return;
+
+  const card = deck[current];
+  els.oralCorrectAnswer.textContent = card.answers.join('  /  ');
+  els.oralAnswerBox.classList.remove('hidden');
+  els.oralDecisionButtons.classList.remove('hidden');
+  els.oralCheckBtn.classList.add('hidden');
+}
+
+function markOralKnown() {
+  if (!state || state.practiceMode !== 'oral' || current === null) return;
+
+  const pendingBefore = state.pendingRepeats[current] || 0;
+  markAttempt(false);
+  recordOutcome('known');
+
+  if (pendingBefore > 0) {
+    state.pendingRepeats[current] = pendingBefore - 1;
+
+    if (state.pendingRepeats[current] <= 0) {
+      delete state.pendingRepeats[current];
+      state.mastered[current] = true;
+    } else {
+      delete state.mastered[current];
+    }
+  } else {
+    state.mastered[current] = true;
+  }
+
+  saveState();
+  updateStats();
+  pickNext();
+}
+
+function markOralAlmost() {
+  if (!state || state.practiceMode !== 'oral' || current === null) return;
+
+  markAttempt(true);
+  recordOutcome('almost');
+  scheduleReinforcement(current);
+  saveState();
+  updateStats();
+  pickNext();
+}
+
+function markOralDontKnow() {
+  if (!state || state.practiceMode !== 'oral' || current === null) return;
+
+  markAttempt(true);
+  recordOutcome('unknown');
+  scheduleIntensiveReinforcement(current);
+  saveState();
+  updateStats();
+  pickNext();
+}
+
 function finishAttemptUI() {
   els.answerInput.disabled = true;
   els.checkBtn.classList.add('hidden');
@@ -622,13 +1320,23 @@ function showFeedback(kind, title, user, info) {
   const card = deck[current];
   els.feedback.className = 'feedback ' + kind;
   els.fbTitle.textContent = title;
-  els.correctAnswer.textContent = card.answers.join('  /  ');
   els.repeatInfo.textContent = info;
+
   if (user) {
     els.yourRow.classList.remove('hidden');
-    els.yourAnswer.textContent = user;
+
+    if (kind === 'bad') {
+      const reference = closestReference(user, card);
+      const diff = computeTokenDiff(user, reference);
+      appendDiffParts(els.yourAnswer, diff.userParts);
+      appendDiffParts(els.correctAnswer, diff.expectedParts);
+    } else {
+      els.yourAnswer.textContent = user;
+      els.correctAnswer.textContent = card.answers.join('  /  ');
+    }
   } else {
     els.yourRow.classList.add('hidden');
+    els.correctAnswer.textContent = card.answers.join('  /  ');
   }
 }
 
@@ -662,6 +1370,54 @@ function nextCard() {
   pickNext();
 }
 
+function renderSessionReport() {
+  const total = (state.sessionIndices || []).length;
+  const values = Object.values(state.sessionFirstResult || {});
+  const known = values.filter(v => v === 'known').length;
+  const almost = values.filter(v => v === 'almost').length;
+  const unknown = values.filter(v => v === 'unknown').length;
+  const accuracy = total ? Math.round((known / total) * 100) : 0;
+
+  els.reportTotal.textContent = total;
+  els.reportKnown.textContent = known;
+  els.reportAlmost.textContent = almost;
+  els.reportUnknown.textContent = unknown;
+  els.reportAccuracy.textContent = accuracy + '%';
+  els.reportAttempts.textContent = state.sessionAttemptCount || 0;
+
+  const modeName = state.practiceMode === 'oral' ? 'устной' : 'письменной';
+  const weakText = state.weakOnly ? ' · режим «Только слабые»' : '';
+  els.reportSubtitle.textContent = `Итоги ${modeName} сессии${weakText}. Считается первая попытка по каждой карточке.`;
+
+  const ranked = Object.entries(state.sessionErrorsByIndex || {})
+    .map(([index, count]) => [Number(index), Number(count)])
+    .filter(([index]) => deck[index])
+    .sort((a,b) => b[1] - a[1])
+    .slice(0,5);
+
+  els.sessionProblems.textContent = '';
+
+  if (!ranked.length) {
+    els.sessionProblemBox.classList.add('hidden');
+  } else {
+    els.sessionProblemBox.classList.remove('hidden');
+
+    ranked.forEach(([index, count]) => {
+      const row = document.createElement('div');
+      row.className = 'report-problem';
+
+      const left = document.createElement('span');
+      left.textContent = `№${index + 1} · ${deck[index].ru}`;
+
+      const right = document.createElement('strong');
+      right.textContent = count + '×';
+
+      row.append(left, right);
+      els.sessionProblems.appendChild(row);
+    });
+  }
+}
+
 function showComplete() {
   current = null;
   els.prompt.textContent = 'Все карточки выполнены.';
@@ -670,24 +1426,53 @@ function showComplete() {
   els.dontKnowBtn.classList.add('hidden');
   els.acceptBtn.classList.add('hidden');
   els.nextBtn.classList.add('hidden');
+  els.oralCheckBtn.classList.add('hidden');
+  els.oralAnswerBox.classList.add('hidden');
+  els.oralDecisionButtons.classList.add('hidden');
   els.feedback.className = 'feedback';
   els.complete.classList.remove('hidden');
   els.positionText.textContent = `сессия ${state.round} завершена`;
+  renderSessionReport();
+  updateWeakCount();
   updateStats();
 }
 
 function startNewSession() {
-  const size = clampSessionSize(els.sessionSizeInput.value);
-  els.sessionSizeInput.value = size;
-  state.sessionSize = size;
-  state.sessionIndices = makeSessionIndices(size);
-  state.queue = [...state.sessionIndices];
+  const range = normalizeRangeInputs();
+  const shuffle = els.shuffleRangeInput.checked;
+  const weakOnly = els.weakOnlyInput.checked;
+
+  let indices = makeSessionIndices(range.from, range.to, false);
+
+  if (weakOnly) {
+    indices = indices.filter(index => cardStatus(deck[index]).id === 'weak');
+    if (!indices.length) {
+      alert('В выбранном диапазоне пока нет карточек со статусом «Слабая».');
+      return false;
+    }
+  }
+
+  if (shuffle) {
+    indices = shuffledCopy(indices);
+  }
+
+  state.rangeFrom = range.from;
+  state.rangeTo = range.to;
+  state.shuffleRange = shuffle;
+  state.weakOnly = weakOnly;
+  state.sessionIndices = indices;
+  state.queue = [...indices];
   state.mastered = {};
   state.pendingRepeats = {};
+  state.sessionFirstResult = {};
+  state.sessionErrorsByIndex = {};
+  state.sessionAttemptCount = 0;
   state.streak = 0;
   state.round += 1;
+
   saveState();
   pickNext();
+  return true;
 }
 
 function newRound() {
@@ -695,17 +1480,24 @@ function newRound() {
 }
 
 function resetRound() {
-  if (!confirm('Перезапустить текущую сессию с первой карточки? История ошибок сохранится.')) return;
+  if (!confirm('Перезапустить текущую сессию? Будет использован тот же диапазон и тот же текущий порядок карточек. История ошибок сохранится.')) return;
+
   state.queue = [...state.sessionIndices];
   state.mastered = {};
   state.pendingRepeats = {};
+  state.sessionFirstResult = {};
+  state.sessionErrorsByIndex = {};
+  state.sessionAttemptCount = 0;
   state.streak = 0;
+
   saveState();
   pickNext();
 }
 
 function updateStats() {
   const activeSet = new Set(state.sessionIndices || []);
+  updateWeakCount();
+  if (current !== null && current !== undefined) updateCurrentCardStatus();
   const done = Object.keys(state.mastered)
     .filter(k => state.mastered[k] && activeSet.has(Number(k))).length;
   const sessionTotal = activeSet.size;
@@ -765,12 +1557,21 @@ async function importFile(file) {
   deck = cards;
   deckTitle = file.name + ` — ${cards.length} карточек`;
   els.deckName.textContent = deckTitle;
-  els.sessionSizeInput.max = deck.length;
+  els.rangeFromInput.max = deck.length;
+  els.rangeToInput.max = deck.length;
   loadState();
+
   if (state.sessionIndices.some(i => i >= deck.length)) {
     state = blankState();
   }
-  els.sessionSizeInput.value = Math.min(state.sessionSize || 20, deck.length);
+
+  els.rangeFromInput.value = state.rangeFrom || 1;
+  els.rangeToInput.value = Math.min(state.rangeTo || 20, deck.length);
+  els.shuffleRangeInput.checked = Boolean(state.shuffleRange);
+  els.weakOnlyInput.checked = Boolean(state.weakOnly);
+  els.ttsAccentSelect.value = state.ttsAccent || 'en-US';
+  els.ttsRateSelect.value = String(state.ttsRate || 1);
+  updateWeakCount();
   pickNext();
 }
 
@@ -789,15 +1590,56 @@ function exportProgress() {
   URL.revokeObjectURL(a.href);
 }
 
+els.writtenModeBtn.addEventListener('click', () => applyPracticeMode('written'));
+els.oralModeBtn.addEventListener('click', () => applyPracticeMode('oral'));
+
+els.oralSpeakBtn.addEventListener('click', speakCurrentReference);
+els.feedbackSpeakBtn.addEventListener('click', speakCurrentReference);
+
+els.ttsAccentSelect.addEventListener('change', () => {
+  state.ttsAccent = els.ttsAccentSelect.value === 'en-GB' ? 'en-GB' : 'en-US';
+  saveState();
+});
+
+els.ttsRateSelect.addEventListener('change', () => {
+  state.ttsRate = Number(els.ttsRateSelect.value) === 0.8 ? 0.8 : 1;
+  saveState();
+});
+
+els.oralCheckBtn.addEventListener('click', revealOralAnswer);
+els.oralDontKnowBtn.addEventListener('click', markOralDontKnow);
+els.oralAlmostBtn.addEventListener('click', markOralAlmost);
+els.oralKnowBtn.addEventListener('click', markOralKnown);
+
 els.startSessionBtn.addEventListener('click', () => {
-  if (state && (state.queue.length || Object.keys(state.mastered || {}).length)) {
-    if (!confirm('Начать новую сессию с первых выбранных карточек? Текущий прогресс этой сессии будет сброшен, история ошибок сохранится.')) return;
+  const range = normalizeRangeInputs();
+  const totalCount = range.to - range.from + 1;
+  const weakCount = weakIndicesInRange(range.from, range.to).length;
+  const count = els.weakOnlyInput.checked ? weakCount : totalCount;
+  const orderText = els.shuffleRangeInput.checked ? 'перемешанно' : 'по порядку';
+  const weakText = els.weakOnlyInput.checked ? ', только слабые' : '';
+
+  if (els.weakOnlyInput.checked && weakCount === 0) {
+    alert('В выбранном диапазоне пока нет карточек со статусом «Слабая».');
+    return;
   }
+
+  if (state && (state.queue.length || Object.keys(state.mastered || {}).length)) {
+    if (!confirm(`Начать сессию ${range.from}–${range.to} (${count} карточек, ${orderText}${weakText})? Текущий прогресс сессии будет сброшен, история ошибок сохранится.`)) return;
+  }
+
   startNewSession();
 });
-els.sessionSizeInput.addEventListener('change', () => {
-  els.sessionSizeInput.value = clampSessionSize(els.sessionSizeInput.value);
+
+els.rangeFromInput.addEventListener('change', () => {
+  normalizeRangeInputs();
+  updateWeakCount();
 });
+els.rangeToInput.addEventListener('change', () => {
+  normalizeRangeInputs();
+  updateWeakCount();
+});
+els.weakOnlyInput.addEventListener('change', updateWeakCount);
 els.checkBtn.addEventListener('click', submitAnswer);
 els.dontKnowBtn.addEventListener('click', dontKnow);
 els.nextBtn.addEventListener('click', nextCard);
@@ -815,6 +1657,15 @@ els.answerInput.addEventListener('keydown', e => {
     e.preventDefault();
     if (awaitingNext) nextCard();
     else submitAnswer();
+  }
+});
+
+document.addEventListener('keydown', e => {
+  if (!state || state.practiceMode !== 'oral') return;
+
+  if (e.code === 'Space' && !els.oralCheckBtn.classList.contains('hidden')) {
+    e.preventDefault();
+    revealOralAnswer();
   }
 });
 
