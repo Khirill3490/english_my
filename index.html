@@ -67,6 +67,25 @@
       border-radius:12px;padding:5px 8px 5px 10px;
     }
     .session-control span{font-size:12px;color:var(--muted);white-space:nowrap}
+    .lesson-control{
+      display:flex;align-items:center;gap:7px;
+      border:1px solid var(--line);background:var(--panel-solid);
+      border-radius:12px;padding:5px 8px 5px 10px;
+    }
+    .lesson-control span{font-size:12px;color:var(--muted);white-space:nowrap}
+    .lesson-control select{
+      min-width:150px;max-width:230px;border:0;outline:none;
+      background:transparent;color:var(--text);font-weight:750;padding:5px 3px;
+    }
+    .btn.small{padding:9px 11px;font-size:12px}
+    .btn.active-toggle{
+      background:var(--accent);color:var(--bg);border-color:var(--accent);
+    }
+    @media (prefers-color-scheme: dark){
+      .btn.active-toggle{color:#111318}
+    }
+    .session-control.full-mode{opacity:.72}
+    .session-control input:disabled{opacity:.65;cursor:not-allowed}
     .session-control input[type="number"]{
       width:64px;border:0;outline:none;background:transparent;color:var(--text);
       font-weight:750;text-align:center;padding:5px 2px;
@@ -326,12 +345,20 @@
         <div class="subtle" id="deckName">Bebris B1 — встроенные 1000 карточек · умная тренировка</div>
       </div>
       <div class="toolbar">
-        <div class="session-control">
+        <div class="lesson-control">
+          <span>Урок</span>
+          <select id="lessonSelect" title="Выберите урок">
+            <option value="builtin">Встроенная колода</option>
+          </select>
+          <span class="weak-count" id="lessonCardCount">0</span>
+        </div>
+        <div class="session-control" id="rangeControl">
           <span>С</span>
           <input id="rangeFromInput" type="number" min="1" step="1" value="1" title="Номер первой карточки">
           <span>по</span>
           <input id="rangeToInput" type="number" min="1" step="1" value="20" title="Номер последней карточки">
         </div>
+        <button class="btn small" id="fullLessonBtn" type="button" aria-pressed="false" title="Использовать все карточки выбранного урока">Весь урок</button>
         <label class="shuffle-control">
           <input id="shuffleRangeInput" type="checkbox">
           Перемешать
@@ -468,8 +495,10 @@
       <details class="panel how-details">
         <summary>Как это работает</summary>
         <div class="mini how-content" style="line-height:1.65">
+          Выберите нужный урок из списка. Карточки загружаются из папки <b>lessons</b> в репозитории.<br>
           Укажите диапазон: например «с 15 по 20» — будут выбраны карточки №15–20 включительно.<br>
-          Без галочки они идут строго по порядку. С галочкой «Перемешать» меняется только порядок внутри выбранного диапазона.<br>
+          Кнопка <b>«Весь урок»</b> отключает диапазон и выбирает все карточки текущего урока.<br>
+          Без галочки они идут строго по порядку. С галочкой «Перемешать» меняется только порядок внутри выбранного диапазона или всего урока.<br>
           «Только слабые» оставляет в диапазоне карточки, которые приложение определило как проблемные по вашей истории ответов.<br>
           Статус каждой карточки обновляется автоматически: ⚪ новая, 🟡 изучается, 🔴 слабая, 🟢 хорошо знаю.<br><br>
 
@@ -497,6 +526,10 @@ const BUILTIN_DECK = [{"ru": "Он уделяет этому слишком мн
 const els = {
   deckName: document.getElementById('deckName'),
   fileInput: document.getElementById('fileInput'),
+  lessonSelect: document.getElementById('lessonSelect'),
+  lessonCardCount: document.getElementById('lessonCardCount'),
+  rangeControl: document.getElementById('rangeControl'),
+  fullLessonBtn: document.getElementById('fullLessonBtn'),
   rangeFromInput: document.getElementById('rangeFromInput'),
   rangeToInput: document.getElementById('rangeToInput'),
   shuffleRangeInput: document.getElementById('shuffleRangeInput'),
@@ -556,6 +589,8 @@ const els = {
 
 let deck = [];
 let deckTitle = 'Bebris B1 — встроенные 1000 карточек · умная тренировка';
+let lessonCatalog = [];
+let activeLessonId = 'builtin';
 let state = null;
 let current = null;
 let awaitingNext = false;
@@ -587,7 +622,44 @@ function clampCardNumber(value, fallback) {
   return Math.max(1, Math.min(n, deck.length));
 }
 
+function syncFullLessonUI() {
+  const full = Boolean(state && state.fullLesson);
+  els.fullLessonBtn.classList.toggle('active-toggle', full);
+  els.fullLessonBtn.setAttribute('aria-pressed', full ? 'true' : 'false');
+  els.rangeControl.classList.toggle('full-mode', full);
+  els.rangeFromInput.disabled = full;
+  els.rangeToInput.disabled = full;
+
+  if (full && deck.length) {
+    els.rangeFromInput.value = 1;
+    els.rangeToInput.value = deck.length;
+  }
+}
+
+function setFullLessonMode(enabled, persist = true) {
+  if (!state) return;
+  state.fullLesson = Boolean(enabled);
+
+  if (state.fullLesson) {
+    state.rangeFrom = 1;
+    state.rangeTo = deck.length;
+    state.weakOnly = false;
+    els.weakOnlyInput.checked = false;
+  }
+
+  syncFullLessonUI();
+  updateWeakCount();
+  if (persist) saveState();
+}
+
 function normalizeRangeInputs() {
+  if (state && state.fullLesson) {
+    const fullRange = { from: 1, to: Math.max(1, deck.length) };
+    els.rangeFromInput.value = fullRange.from;
+    els.rangeToInput.value = fullRange.to;
+    return fullRange;
+  }
+
   let from = clampCardNumber(els.rangeFromInput.value, 1);
   let to = clampCardNumber(els.rangeToInput.value, Math.min(20, deck.length));
 
@@ -632,6 +704,7 @@ function blankState() {
     rangeFrom,
     rangeTo,
     shuffleRange,
+    fullLesson: false,
     weakOnly: false,
     practiceMode: 'written',
     ttsAccent: 'en-US',
@@ -694,6 +767,12 @@ function loadState() {
     }
 
     state.shuffleRange = Boolean(state.shuffleRange);
+    state.fullLesson = Boolean(state.fullLesson);
+    if (state.fullLesson) {
+      state.rangeFrom = 1;
+      state.rangeTo = deck.length;
+      state.weakOnly = false;
+    }
     state.weakOnly = Boolean(state.weakOnly);
     state.practiceMode = state.practiceMode === 'oral' ? 'oral' : 'written';
     state.ttsAccent = state.ttsAccent === 'en-GB' ? 'en-GB' : 'en-US';
@@ -720,6 +799,8 @@ function loadState() {
     els.weakOnlyInput.checked = state.weakOnly;
     els.ttsAccentSelect.value = state.ttsAccent;
     els.ttsRateSelect.value = String(state.ttsRate);
+    els.lessonCardCount.textContent = deck.length;
+    syncFullLessonUI();
     applyPracticeMode(state.practiceMode, false);
     updateWeakCount();
   } catch {
@@ -732,6 +813,8 @@ function loadState() {
     els.weakOnlyInput.checked = state.weakOnly;
     els.ttsAccentSelect.value = state.ttsAccent;
     els.ttsRateSelect.value = String(state.ttsRate);
+    els.lessonCardCount.textContent = deck.length;
+    syncFullLessonUI();
     applyPracticeMode(state.practiceMode, false);
     updateWeakCount();
   }
@@ -1098,7 +1181,9 @@ function pickNext() {
   awaitingNext = false;
   lastWasWrong = false;
   els.prompt.textContent = deck[current].ru;
-  const scopeLabel = state.weakOnly ? `слабые ${state.rangeFrom}–${state.rangeTo}` : `карточки ${state.rangeFrom}–${state.rangeTo}`;
+  const scopeLabel = state.fullLesson
+    ? `весь урок · ${deck.length} карточек`
+    : (state.weakOnly ? `слабые ${state.rangeFrom}–${state.rangeTo}` : `карточки ${state.rangeFrom}–${state.rangeTo}`);
   els.positionText.textContent = `${scopeLabel} · осталось ${state.queue.length + 1}`;
   updateCurrentCardStatus();
   resetQuestionUIForMode();
@@ -1438,9 +1523,9 @@ function showComplete() {
 }
 
 function startNewSession() {
-  const range = normalizeRangeInputs();
+  const range = state.fullLesson ? { from: 1, to: deck.length } : normalizeRangeInputs();
   const shuffle = els.shuffleRangeInput.checked;
-  const weakOnly = els.weakOnlyInput.checked;
+  const weakOnly = state.fullLesson ? false : els.weakOnlyInput.checked;
 
   let indices = makeSessionIndices(range.from, range.to, false);
 
@@ -1547,6 +1632,120 @@ function parseDeck(text) {
   return cards;
 }
 
+function applyLoadedDeck(cards, title, lessonId = 'manual') {
+  if (!cards.length) return false;
+
+  deck = cards;
+  deckTitle = `${title} — ${cards.length} карточек`;
+  activeLessonId = lessonId;
+  els.deckName.textContent = deckTitle;
+  els.lessonCardCount.textContent = deck.length;
+  els.rangeFromInput.max = deck.length;
+  els.rangeToInput.max = deck.length;
+
+  loadState();
+
+  if (state.sessionIndices.some(i => i >= deck.length)) {
+    state = blankState();
+  }
+
+  if (state.fullLesson) {
+    state.rangeFrom = 1;
+    state.rangeTo = deck.length;
+  }
+
+  els.rangeFromInput.value = state.rangeFrom || 1;
+  els.rangeToInput.value = state.fullLesson ? deck.length : Math.min(state.rangeTo || 20, deck.length);
+  els.shuffleRangeInput.checked = Boolean(state.shuffleRange);
+  els.weakOnlyInput.checked = Boolean(state.weakOnly);
+  els.ttsAccentSelect.value = state.ttsAccent || 'en-US';
+  els.ttsRateSelect.value = String(state.ttsRate || 1);
+  syncFullLessonUI();
+  updateWeakCount();
+  pickNext();
+  return true;
+}
+
+function ensureManualLessonOption(label) {
+  let option = els.lessonSelect.querySelector('option[value="manual"]');
+  if (!option) {
+    option = document.createElement('option');
+    option.value = 'manual';
+    els.lessonSelect.appendChild(option);
+  }
+  option.textContent = `Импорт: ${label}`;
+  els.lessonSelect.value = 'manual';
+}
+
+async function loadLessonById(lessonId, remember = true) {
+  if (lessonId === 'builtin') {
+    applyLoadedDeck(BUILTIN_DECK, 'Встроенная колода', 'builtin');
+    els.lessonSelect.value = 'builtin';
+    if (remember) localStorage.setItem('english-drill:selected-lesson', 'builtin');
+    return true;
+  }
+
+  const lesson = lessonCatalog.find(item => String(item.id) === String(lessonId));
+  if (!lesson) return false;
+
+  try {
+    const fileName = String(lesson.file || '').trim();
+    if (!fileName) throw new Error('Не указан файл урока');
+
+    const response = await fetch(`./lessons/${encodeURIComponent(fileName)}`, { cache: 'no-store' });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+    const text = await response.text();
+    const cards = parseDeck(text);
+    if (!cards.length) throw new Error('В файле нет карточек');
+
+    applyLoadedDeck(cards, lesson.title || `Урок ${lesson.id}`, String(lesson.id));
+    els.lessonSelect.value = String(lesson.id);
+    if (remember) localStorage.setItem('english-drill:selected-lesson', String(lesson.id));
+    return true;
+  } catch (error) {
+    alert(`Не удалось загрузить урок ${lesson.title || lesson.id}: ${error.message}`);
+    return false;
+  }
+}
+
+async function loadLessonCatalog() {
+  try {
+    const response = await fetch('./lessons/lessons.json', { cache: 'no-store' });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+    const rawCatalog = await response.json();
+    lessonCatalog = Array.isArray(rawCatalog) ? rawCatalog.filter(item => item && item.id && item.file) : [];
+
+    els.lessonSelect.innerHTML = '';
+
+    lessonCatalog.forEach(item => {
+      const option = document.createElement('option');
+      option.value = String(item.id);
+      option.textContent = item.title || `Урок ${item.id}`;
+      els.lessonSelect.appendChild(option);
+    });
+
+    const builtinOption = document.createElement('option');
+    builtinOption.value = 'builtin';
+    builtinOption.textContent = 'Встроенная колода (старая)';
+    els.lessonSelect.appendChild(builtinOption);
+
+    const savedLesson = localStorage.getItem('english-drill:selected-lesson');
+    const preferred = lessonCatalog.some(item => String(item.id) === savedLesson)
+      ? savedLesson
+      : (lessonCatalog[0] ? String(lessonCatalog[0].id) : 'builtin');
+
+    const loaded = await loadLessonById(preferred, false);
+    if (!loaded) await loadLessonById('builtin', false);
+  } catch (error) {
+    lessonCatalog = [];
+    els.lessonSelect.innerHTML = '<option value="builtin">Встроенная колода</option>';
+    await loadLessonById('builtin', false);
+    console.warn('Каталог lessons/lessons.json не загружен:', error);
+  }
+}
+
 async function importFile(file) {
   const text = await file.text();
   const cards = parseDeck(text);
@@ -1554,25 +1753,9 @@ async function importFile(file) {
     alert('Не удалось найти пары. Нужен формат: русский<TAB>английский. Можно добавить варианты ответа через ||');
     return;
   }
-  deck = cards;
-  deckTitle = file.name + ` — ${cards.length} карточек`;
-  els.deckName.textContent = deckTitle;
-  els.rangeFromInput.max = deck.length;
-  els.rangeToInput.max = deck.length;
-  loadState();
 
-  if (state.sessionIndices.some(i => i >= deck.length)) {
-    state = blankState();
-  }
-
-  els.rangeFromInput.value = state.rangeFrom || 1;
-  els.rangeToInput.value = Math.min(state.rangeTo || 20, deck.length);
-  els.shuffleRangeInput.checked = Boolean(state.shuffleRange);
-  els.weakOnlyInput.checked = Boolean(state.weakOnly);
-  els.ttsAccentSelect.value = state.ttsAccent || 'en-US';
-  els.ttsRateSelect.value = String(state.ttsRate || 1);
-  updateWeakCount();
-  pickNext();
+  ensureManualLessonOption(file.name);
+  applyLoadedDeck(cards, file.name, 'manual');
 }
 
 function exportProgress() {
@@ -1612,34 +1795,53 @@ els.oralAlmostBtn.addEventListener('click', markOralAlmost);
 els.oralKnowBtn.addEventListener('click', markOralKnown);
 
 els.startSessionBtn.addEventListener('click', () => {
-  const range = normalizeRangeInputs();
+  const range = state.fullLesson ? { from: 1, to: deck.length } : normalizeRangeInputs();
   const totalCount = range.to - range.from + 1;
   const weakCount = weakIndicesInRange(range.from, range.to).length;
-  const count = els.weakOnlyInput.checked ? weakCount : totalCount;
+  const weakMode = !state.fullLesson && els.weakOnlyInput.checked;
+  const count = weakMode ? weakCount : totalCount;
   const orderText = els.shuffleRangeInput.checked ? 'перемешанно' : 'по порядку';
-  const weakText = els.weakOnlyInput.checked ? ', только слабые' : '';
+  const weakText = weakMode ? ', только слабые' : '';
+  const scopeText = state.fullLesson ? `весь урок (${count} карточек, ${orderText})` : `${range.from}–${range.to} (${count} карточек, ${orderText}${weakText})`;
 
-  if (els.weakOnlyInput.checked && weakCount === 0) {
+  if (weakMode && weakCount === 0) {
     alert('В выбранном диапазоне пока нет карточек со статусом «Слабая».');
     return;
   }
 
   if (state && (state.queue.length || Object.keys(state.mastered || {}).length)) {
-    if (!confirm(`Начать сессию ${range.from}–${range.to} (${count} карточек, ${orderText}${weakText})? Текущий прогресс сессии будет сброшен, история ошибок сохранится.`)) return;
+    if (!confirm(`Начать сессию: ${scopeText}? Текущий прогресс сессии будет сброшен, история ошибок сохранится.`)) return;
   }
 
   startNewSession();
 });
 
 els.rangeFromInput.addEventListener('change', () => {
+  if (state.fullLesson) setFullLessonMode(false, false);
   normalizeRangeInputs();
   updateWeakCount();
+  saveState();
 });
 els.rangeToInput.addEventListener('change', () => {
+  if (state.fullLesson) setFullLessonMode(false, false);
   normalizeRangeInputs();
   updateWeakCount();
+  saveState();
 });
-els.weakOnlyInput.addEventListener('change', updateWeakCount);
+els.fullLessonBtn.addEventListener('click', () => {
+  setFullLessonMode(!state.fullLesson);
+});
+els.weakOnlyInput.addEventListener('change', () => {
+  if (els.weakOnlyInput.checked && state.fullLesson) setFullLessonMode(false, false);
+  state.weakOnly = Boolean(els.weakOnlyInput.checked);
+  updateWeakCount();
+  saveState();
+});
+els.lessonSelect.addEventListener('change', async () => {
+  const lessonId = els.lessonSelect.value;
+  if (lessonId === 'manual') return;
+  await loadLessonById(lessonId, true);
+});
 els.checkBtn.addEventListener('click', submitAnswer);
 els.dontKnowBtn.addEventListener('click', dontKnow);
 els.nextBtn.addEventListener('click', nextCard);
@@ -1670,8 +1872,7 @@ document.addEventListener('keydown', e => {
 });
 
 deck = BUILTIN_DECK;
-loadState();
-pickNext();
+loadLessonCatalog();
 </script>
 </body>
 </html>
