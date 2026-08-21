@@ -1,1 +1,210 @@
-
+Это типично для него.	It is typical of him.
+Она ревнует своего мужа.	She is jealous of her husband.
+Он очень хорошо играет на гитаре.	He is very good at playing the guitar.
+Я плохо запоминаю имена.	I am bad at remembering names.
+Он ужасно играет в теннис.	He is terrible at playing tennis.
+Она отлично разбирается в языках.	She is excellent at languages.
+Она блестяще играет на пианино.	She is brilliant at playing the piano.
+Я совершенно безнадёжен в рисовании.	I am absolutely hopeless at drawing.
+Кто отвечает за этот проект?	Who is responsible for this project?
+Я особенно увлекаюсь иностранными языками.	I am particularly keen on foreign languages.
+Он готов к худшему.	He is prepared for the worst.
+Это связано с нашей последней встречей.	This is related to our last meeting.
+Эта проблема связана с новым обновлением.	This problem is connected with the new update.
+Это имя мне знакомо.	This name is familiar to me.
+Я знаком с этой системой.	I am familiar with this system.
+Я был шокирован этой новостью.	I was shocked by the news.
+Я был удивлён её ответом.	I was surprised by her answer.
+Он был впечатлён её красотой.	He was impressed by her beauty.
+Она очень зла на него.	She is very angry with him.
+Он зол из-за этой ситуации.	He is angry about this situation.
+Она очень тревожится о своём будущем.	She is very anxious about her future.
+Я очень беспокоюсь о своём будущем.	I am very worried about my future.
+Я устал от этой рутины.	I am tired of this routine.
+Она сыта по горло этой рутиной.	She is fed up with this routine.
+Мои идеи похожи на её.	My ideas are similar to hers.
+Я очень чувствителен к холоду.	I am very sensitive to cold.
+Он способен решить эту проблему.	He is capable of solving this problem.
+Он не способен сделать такую вещь.	He is incapable of doing such a thing.
+Я боюсь это делать.	I am afraid of doing it.
+Эта вещь ассоциируется с богатством и успехом.	This thing is associated with wealth and success.
+Его обвинили в преступлении.	He was accused of a crime.
+Я привык к этому.	I am used to it.
+Я быстро привык к этой погоде.	I quickly got used to this weather.
+Я привык к этому.	I am accustomed to it.
+Раньше я тратил на это больше времени.	I used to spend more time on it.
+Такое поведение довольно типично для подростков.	This kind of behaviour is quite typical of teenagers.||This kind of behavior is quite typical of teenagers.
+Ты ревнуешь его к новой коллеге?	Are you jealous of his new colleague?
+Ты хорошо умеешь объяснять сложные вещи?	Are you good at explaining difficult things?
+Он плохо играет в футбол.	He is bad at playing football.
+Я ужасно ориентируюсь без карты.	I am terrible at finding my way without a map.
+Он отлично решает логические задачи.	He is excellent at solving logic problems.
+Он блестяще умеет объяснять сложные идеи.	He is brilliant at explaining complicated ideas.
+Она безнадёжна в катании на коньках.	She is hopeless at skating.
+Она отвечает за обучение новых сотрудников.	She is responsible for training new employees.
+Она увлекается чтением иностранной литературы.	She is keen on reading foreign literature.
+Ты хорошо подготовлен к собеседованию?	Are you well prepared for the interview?
+Эти две проблемы тесно связаны друг с другом.	These two problems are closely related to each other.
+Эти две вещи тесно связаны друг с другом.	These two things are closely connected with each other.
+Его лицо кажется мне знакомым.	His face seems familiar to me.
+Ты знаком с правилами?	Are you familiar with the rules?
+Мы все были шокированы его внезапной смертью.	We were all shocked by his sudden death.
+Она была приятно удивлена результатом.	She was pleasantly surprised by the result.
+Я был впечатлён красотой этого места.	I was impressed by the beauty of this place.
+Почему ты злишься на меня?	Why are you angry with me?
+Почему она так злится из-за задержки?	Why is she so angry about the delay?
+Ты беспокоишься о предстоящем экзамене?	Are you anxious about the upcoming exam?
+Она беспокоится о результатах экзамена.	She is worried about the exam results.
+Он устал делать одно и то же снова и снова.	He is tired of doing the same thing again and again.
+Я сыт по горло постоянными жалобами.	I am fed up with the constant complaints.
+Её точка зрения похожа на мою.	Her point of view is similar to mine.
+Некоторые мои коллеги очень чувствительны к критике.	Some of my colleagues are very sensitive to criticism.
+Она способна работать самостоятельно.	She is capable of working independently.
+Я уверен, что он не способен солгать.	I am sure that he is incapable of telling a lie.
+Она боится искать новую работу.	She is afraid of looking for a new job.
+Деньги часто ассоциируются со счастьем.	Money is often associated with happiness.
+Её обвинили во лжи.	She was accused of lying.
+Я привык работать под давлением.	I am used to working under pressure.
+Она привыкла вставать рано.	She got used to getting up early.
+Он привык поздно ложиться.	He is accustomed to going to bed late.
+Раньше она жила рядом с офисом.	She used to live near the office.
+Это совсем не типично для неё.	It is not typical of her at all.
+Он никогда не ревновал своих друзей к их успеху.	He has never been jealous of his friends' success.
+Я никогда не был особенно хорош в математике.	I have never been particularly good at maths.||I have never been particularly good at math.
+Ты всегда был плох в рисовании?	Have you always been bad at drawing?
+Она всегда была ужасна в готовке.	She has always been terrible at cooking.
+Ты всегда был так хорош в математике?	Have you always been excellent at maths?||Have you always been excellent at math?
+Ты правда так хорош в шахматах?	Are you really brilliant at chess?
+Ты всегда был так плох в запоминании дат?	Have you always been hopeless at remembering dates?
+Я не хочу отвечать за всё в одиночку.	I do not want to be responsible for everything on my own.
+Ты увлекаешься фотографией?	Are you keen on photography?
+Мы не были готовы к такому резкому изменению.	We were not prepared for such a sudden change.
+Это совсем не связано с моей работой.	This is not related to my work at all.
+Это никак не связано с твоим решением.	This is not connected with your decision in any way.
+Эта мелодия тебе знакома?	Is this tune familiar to you?
+Она не очень хорошо знакома с этим районом.	She is not very familiar with this area.
+Ты был шокирован их решением?	Were you shocked by their decision?
+Ты удивлён этой ценой?	Are you surprised by this price?
+Ты был впечатлён его презентацией?	Were you impressed by his presentation?
+Я больше не сержусь на него.	I am not angry with him anymore.
+Мы не сердимся из-за результата.	We are not angry about the result.
+Он не особенно тревожится из-за результатов.	He is not particularly anxious about the results.
+Почему ты так переживаешь из-за этой ошибки?	Why are you so worried about this mistake?
+Ты не устал ждать?	Are you not tired of waiting?
+Ты уже сыт по горло ожиданием?	Are you fed up with waiting already?
+Эти две модели очень похожи друг на друга.	These two models are very similar to each other.
+Ты чувствителен к громким звукам?	Are you sensitive to loud noises?
+Ты думаешь, он способен на такое?	Do you think he is capable of doing something like that?
+Она неспособна признать свою ошибку.	She is incapable of admitting her mistake.
+Ты боишься выступать на публике?	Are you afraid of speaking in public?
+Этот цвет обычно ассоциируется с опасностью.	This colour is usually associated with danger.||This color is usually associated with danger.
+Их обвинили в совершении этого преступления.	They were accused of committing this crime.
+Она не привыкла вставать так рано.	She is not used to getting up so early.
+Ты скоро к этому привыкнешь.	You will soon get used to it.
+Я не привык выступать на публике.	I am not accustomed to speaking in public.
+Ты раньше играл на гитаре?	Did you use to play the guitar?
+Такой ответ типичен для неопытного человека.	An answer like that is typical of an inexperienced person.
+Не понимаю, почему она так его ревнует.	I do not understand why she is so jealous of him.
+Она хорошо запоминает новые слова.	She is good at remembering new words.
+Она плохо планирует своё время.	She is bad at planning her time.
+Почему ты думаешь, что плохо разбираешься в цифрах?	Why do you think you are terrible at dealing with figures?
+Моя коллега отлично организует встречи.	My colleague is excellent at organising meetings.||My colleague is excellent at organizing meetings.
+Мой брат всегда был блестящим в работе с цифрами.	My brother has always been brilliant at working with figures.
+Он думал, что безнадёжен в изучении языков.	He thought that he was hopeless at learning languages.
+Он уже несколько лет отвечает за бюджет.	He has been responsible for the budget for several years.
+Он никогда особенно не увлекался спортом.	He has never been particularly keen on sport.||He has never been particularly keen on sports.
+Она уже подготовлена к экзамену.	She is already prepared for the exam.
+Мне нужно сказать кое-что, связанное с новым проектом.	I need to say something related to the new project.
+Полиция считает, что эти два случая связаны.	The police believe that the two cases are connected.
+Этот голос был мне очень знаком.	This voice was very familiar to me.
+Мы уже знакомы с этим методом.	We are already familiar with this method.
+Она всё ещё шокирована тем, что произошло.	She is still shocked by what happened.
+Мы совсем не были удивлены его решением.	We were not surprised by his decision at all.
+Нас особенно впечатлило качество работы.	We were particularly impressed by the quality of the work.
+Он был зол на своего коллегу из-за ошибки.	He was angry with his colleague because of the mistake.
+Клиенты были злы из-за повышения цены.	The customers were angry about the price increase.
+Я чувствовал сильное беспокойство из-за собеседования.	I felt very anxious about the interview.
+Мы не слишком беспокоимся из-за задержки.	We are not too worried about the delay.
+Мы уже устали от постоянных задержек.	We are already tired of the constant delays.
+Мы были сыты по горло одними и теми же проблемами.	We were fed up with the same problems.
+Новая версия совсем не похожа на старую.	The new version is not similar to the old one at all.
+Она всегда была чувствительна к изменениям температуры.	She has always been sensitive to changes in temperature.
+Я не знал, что она способна принимать такие трудные решения.	I did not know that she was capable of making such difficult decisions.
+Ты действительно считаешь его неспособным работать самостоятельно?	Do you really think he is incapable of working independently?
+Он больше не боится летать.	He is not afraid of flying anymore.
+Я никогда не ассоциировал эту марку с высоким качеством.	I have never associated this brand with high quality.
+Его не обвиняли в убийстве.	He was not accused of murder.
+Ты привык выступать на публике?	Are you used to speaking in public?
+Мне было трудно привыкнуть работать по ночам.	It was difficult for me to get used to working at night.
+Она привыкла работать под давлением.	She is accustomed to working under pressure.
+Я раньше не пил столько кофе.	I did not use to drink so much coffee.
+Для него типично принимать решения очень быстро.	It is typical of him to make decisions very quickly.
+Она призналась, что ревновала сестру.	She admitted that she was jealous of her sister.
+Мы стали лучше работать в команде.	We have become better at working as a team.
+Я не настолько плох в английском, как раньше.	I am not as bad at English as I used to be.
+Он признал, что ужасно планирует поездки.	He admitted that he was terrible at planning trips.
+Он оказался отличным специалистом по работе с клиентами.	He turned out to be excellent at dealing with clients.
+Она стала очень хороша в решении технических проблем.	She has become brilliant at solving technical problems.
+Я раньше считал себя совершенно безнадёжным в готовке.	I used to think that I was absolutely hopeless at cooking.
+Ты будешь отвечать за подготовку итогового отчёта.	You will be responsible for preparing the final report.
+В последнее время я очень увлёкся изучением истории.	Lately, I have become very keen on learning about history.
+Нам нужно быть готовыми к возможным задержкам.	We need to be prepared for possible delays.
+Мы обсуждали несколько вопросов, связанных с безопасностью.	We discussed several issues related to safety.
+Мы ищем информацию, связанную с этой компанией.	We are looking for information connected with this company.
+Новая версия выглядит знакомой старым пользователям.	The new version looks familiar to existing users.
+Он хорошо знаком с основными требованиями.	He is familiar with the main requirements.
+Все были шокированы масштабом проблемы.	Everyone was shocked by the scale of the problem.
+Я был действительно удивлён тем, как быстро всё изменилось.	I was really surprised by how quickly everything changed.
+Она была впечатлена тем, насколько уверенно он говорил.	She was impressed by how confidently he spoke.
+Она всё ещё сердится на себя.	She is still angry with herself.
+Я всё ещё злюсь из-за того, как с нами обошлись.	I am still angry about the way we were treated.
+Родители часто тревожатся о безопасности своих детей.	Parents are often anxious about their children's safety.
+Он беспокоился о своём здоровье уже несколько недель.	He had been worried about his health for several weeks.
+Она сказала, что устала слушать одни и те же оправдания.	She said that she was tired of hearing the same excuses.
+Он сказал, что сыт по горло тем, что приходится всё делать самому.	He said that he was fed up with having to do everything himself.
+Результат оказался похож на то, что мы ожидали.	The result turned out to be similar to what we expected.
+Он слишком чувствителен к чужому мнению.	He is too sensitive to other people's opinions.
+Он доказал, что способен работать под давлением.	He has proved that he is capable of working under pressure.
+Они думали, что он неспособен принять решение без помощи.	They thought that he was incapable of making a decision without help.
+Я всегда боялся совершить серьёзную ошибку.	I have always been afraid of making a serious mistake.
+Какие риски связаны с этой работой?	What risks are associated with this job?
+Почему его обвинили в краже денег?	Why was he accused of stealing the money?
+Мы уже привыкли к холодной погоде.	We are already used to the cold weather.
+Мы постепенно привыкаем к новому графику.	We are gradually getting used to the new schedule.
+Он уже привык убирать комнату два раза в неделю.	He is already accustomed to cleaning his room twice a week.
+Раньше я думал, что безнадёжен в изучении языков.	I used to think that I was hopeless at learning languages.
+То, что он не попросил помощи, довольно типично для него.	The fact that he did not ask for help is quite typical of him.
+Он иногда ревнует жену, хотя у него нет для этого причины.	He is sometimes jealous of his wife, although he has no reason to be.
+Если ты хорош в решении проблем, эта работа может тебе подойти.	If you are good at solving problems, this job may suit you.
+Если ты плохо выступаешь на публике, это можно улучшить практикой.	If you are bad at speaking in public, you can improve with practice.
+Я раньше ужасно говорил по-французски, но сейчас стало лучше.	I used to be terrible at speaking French, but I am better now.
+Если она так же хороша в переговорах, как в презентациях, у неё всё получится.	If she is as excellent at negotiating as she is at giving presentations, she will do well.
+Хотя он блестяще выступает на публике, он всё равно нервничает перед презентациями.	Although he is brilliant at speaking in public, he still gets nervous before presentations.
+Даже если ты сейчас безнадёжен в произношении, регулярная практика поможет.	Even if you are hopeless at pronunciation now, regular practice will help.
+Если что-то пойдёт не так, кто будет отвечать за последствия?	If something goes wrong, who will be responsible for the consequences?
+Хотя раньше она не интересовалась технологиями, сейчас она очень ими увлечена.	Although she was not keen on technology before, she is very keen on it now.
+Если ты хорошо подготовлен к трудным вопросам, собеседование будет проще.	If you are well prepared for difficult questions, the interview will be easier.
+Если эти события связаны друг с другом, нам нужно выяснить причину.	If these events are related to each other, we need to find out the reason.
+Оказалось, что ошибка была связана с неправильными настройками.	It turned out that the error was connected with the wrong settings.
+Когда я увидел фотографию, место показалось мне знакомым.	When I saw the photo, the place seemed familiar to me.
+Если ты знаком с этой программой, тебе будет легче выполнить задание.	If you are familiar with this program, it will be easier for you to complete the task.
+Когда нам сообщили результаты, мы были действительно шокированы ими.	When we were told the results, we were really shocked by them.
+Хотя я ожидал трудного экзамена, я был удивлён некоторыми вопросами.	Although I expected a difficult exam, I was surprised by some of the questions.
+Хотя отель был дорогим, мы были впечатлены уровнем обслуживания.	Although the hotel was expensive, we were impressed by the level of service.
+Если ты злишься на него, лучше прямо объясни ему причину.	If you are angry with him, it is better to explain the reason to him directly.
+Хотя он злится из-за решения, он понимает, почему его приняли.	Although he is angry about the decision, he understands why it was made.
+Даже если ты тревожишься из-за поездки, хорошая подготовка поможет.	Even if you are anxious about the trip, good preparation will help.
+Если ты беспокоишься о собеседовании, давай подготовимся к нему вместе.	If you are worried about the interview, let us prepare for it together.
+Если ты устал от этой работы, возможно, пора что-то изменить.	If you are tired of this job, perhaps it is time to change something.
+Если она настолько сыта по горло этой работой, ей стоит поискать другую.	If she is so fed up with this job, she should look for another one.
+Хотя наши ситуации похожи, решения могут быть совершенно разными.	Although our situations are similar to each other, the solutions may be completely different.
+Если ты чувствителен к кофеину, не пей кофе поздно вечером.	If you are sensitive to caffeine, do not drink coffee late in the evening.
+Если она способна объяснить это новичку, она действительно хорошо понимает тему.	If she is capable of explaining it to a beginner, she really understands the topic well.
+Хотя он умён, иногда кажется, что он совершенно неспособен слушать других.	Although he is intelligent, he sometimes seems completely incapable of listening to other people.
+Если ты боишься задавать вопросы, тебе будет труднее учиться.	If you are afraid of asking questions, it will be harder for you to learn.
+Хотя высокая цена часто ассоциируется с качеством, это не всегда так.	Although a high price is often associated with quality, this is not always the case.
+Он утверждал, что невиновен, хотя его обвинили в совершении серьёзного преступления.	He claimed that he was innocent, although he had been accused of committing a serious crime.
+Хотя сначала это было трудно, теперь я привык работать из дома.	Although it was difficult at first, I am used to working from home now.
+Если ты будешь использовать английский каждый день, ты быстро привыкнешь говорить на нём.	If you use English every day, you will quickly get used to speaking it.
+Хотя такая нагрузка кажется тяжёлой, она привыкла работать в таком темпе.	Although this workload seems heavy, she is accustomed to working at this pace.
+Мы раньше встречались каждую неделю, но теперь у всех слишком мало времени.	We used to meet every week, but now everyone has too little time.
