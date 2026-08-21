@@ -159,20 +159,12 @@
     }
     .oral-actions{
       display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
-      gap:10px;margin-top:14px;width:100%;
+      gap:10px;margin-top:10px;width:100%;
     }
     .oral-actions .btn{
       width:100%;min-width:0;min-height:52px;padding:12px 10px;
       white-space:normal;line-height:1.25;
     }
-    .tts-row{
-      display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:13px
-    }
-    .tts-row select{
-      border:1px solid var(--line);background:var(--panel-solid);color:var(--text);
-      border-radius:10px;padding:8px 9px;font:inherit;font-size:12px;font-weight:700;
-    }
-    .speak-btn{padding:8px 11px!important;font-size:12px}
     .stats{
       display:grid;
       grid-template-columns:repeat(4,1fr);
@@ -251,9 +243,6 @@
     .diff-good{
       color:var(--ok);background:rgba(15,122,66,.10);
       border-radius:5px;padding:1px 3px;
-    }
-    .feedback-speak-row{
-      display:flex;align-items:center;justify-content:space-between;gap:10px
     }
     .mini{font-size:13px;color:var(--muted)}
     .bottom{
@@ -355,13 +344,20 @@
       .report-grid{grid-template-columns:repeat(2,1fr)}
       .eyebrow{align-items:flex-start}
       .eyebrow-right{justify-content:flex-end}
-      .tts-row{align-items:stretch}
-      .tts-row select{flex:1;min-width:0}
     }
     @media (max-width:520px){
       .mode-switch,#resetBtn{grid-column:1 / -1;width:100%}
-      .oral-actions{grid-template-columns:1fr}
-      .oral-actions .btn{min-height:50px}
+      .oral-answer{margin-top:12px;padding:12px 13px}
+      .oral-answer .label{margin-bottom:4px}
+      .oral-answer .value{font-size:17px;line-height:1.35}
+      .oral-actions{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:8px}
+      .oral-actions .btn{
+        min-height:46px;
+        padding:8px 4px;
+        font-size:12px;
+        line-height:1.15;
+        white-space:normal;
+      }
       .prompt{font-size:clamp(23px,7vw,31px)}
     }
   </style>
@@ -441,22 +437,11 @@
         <div class="oral-answer hidden" id="oralAnswerBox">
           <span class="label">Правильный вариант</span>
           <div class="value" id="oralCorrectAnswer"></div>
-          <div class="tts-row">
-            <button class="btn speak-btn" id="oralSpeakBtn" type="button">🔊 Прослушать</button>
-            <select id="ttsAccentSelect" title="Вариант английского">
-              <option value="en-US">🇺🇸 US</option>
-              <option value="en-GB">🇬🇧 UK</option>
-            </select>
-            <select id="ttsRateSelect" title="Скорость произношения">
-              <option value="0.8">0.8×</option>
-              <option value="1">1×</option>
-            </select>
-          </div>
         </div>
 
         <div class="oral-actions hidden" id="oralDecisionButtons">
           <button class="btn danger" id="oralDontKnowBtn">Не знал</button>
-          <button class="btn" id="oralAlmostBtn">Почти / ошибся</button>
+          <button class="btn" id="oralAlmostBtn">Почти</button>
           <button class="btn primary" id="oralKnowBtn">Знал</button>
         </div>
       </div>
@@ -468,10 +453,7 @@
           <span class="english" id="yourAnswer"></span>
         </div>
         <div class="fb-row">
-          <div class="feedback-speak-row">
-            <span class="fb-label">Эталон</span>
-            <button class="btn speak-btn" id="feedbackSpeakBtn" type="button">🔊</button>
-          </div>
+          <span class="fb-label">Эталон</span>
           <span class="english" id="correctAnswer"></span>
         </div>
         <div class="mini" id="repeatInfo" style="margin-top:10px"></div>
@@ -518,7 +500,6 @@
           Статус каждой карточки обновляется автоматически: ⚪ новая, 🟡 изучается, 🔴 слабая, 🟢 хорошо знаю.<br><br>
 
           <b>Письменно:</b> вводите перевод, приложение проверяет его автоматически. При ошибке различия с эталоном подсвечиваются.<br>
-          Кнопка 🔊 произносит правильный английский вариант.<br>
           Ошибка / «Не знаю» запускают два возврата: через 5–10 заданий и ещё через 10–15 после первого.<br><br>
 
           <b>Устно:</b> произнесите перевод и нажмите «Проверить ответ». После сравнения с эталоном выберите:<br>
@@ -567,9 +548,6 @@ const els = {
   oralCheckBtn: document.getElementById('oralCheckBtn'),
   oralAnswerBox: document.getElementById('oralAnswerBox'),
   oralCorrectAnswer: document.getElementById('oralCorrectAnswer'),
-  oralSpeakBtn: document.getElementById('oralSpeakBtn'),
-  ttsAccentSelect: document.getElementById('ttsAccentSelect'),
-  ttsRateSelect: document.getElementById('ttsRateSelect'),
   oralDecisionButtons: document.getElementById('oralDecisionButtons'),
   oralDontKnowBtn: document.getElementById('oralDontKnowBtn'),
   oralAlmostBtn: document.getElementById('oralAlmostBtn'),
@@ -579,7 +557,6 @@ const els = {
   yourRow: document.getElementById('yourRow'),
   yourAnswer: document.getElementById('yourAnswer'),
   correctAnswer: document.getElementById('correctAnswer'),
-  feedbackSpeakBtn: document.getElementById('feedbackSpeakBtn'),
   repeatInfo: document.getElementById('repeatInfo'),
   complete: document.getElementById('complete'),
   reportSubtitle: document.getElementById('reportSubtitle'),
@@ -710,8 +687,6 @@ function blankState() {
     shuffleRange,
     fullLesson: false,
     practiceMode: 'written',
-    ttsAccent: 'en-US',
-    ttsRate: 1,
     cardStats: {},
     sessionFirstResult: {},
     sessionErrorsByIndex: {},
@@ -776,8 +751,6 @@ function loadState() {
       state.rangeTo = deck.length;
     }
     state.practiceMode = state.practiceMode === 'oral' ? 'oral' : 'written';
-    state.ttsAccent = state.ttsAccent === 'en-GB' ? 'en-GB' : 'en-US';
-    state.ttsRate = Number(state.ttsRate) === 0.8 ? 0.8 : 1;
     state.cardStats ||= {};
     state.sessionFirstResult ||= {};
     state.sessionErrorsByIndex ||= {};
@@ -797,8 +770,6 @@ function loadState() {
     els.rangeFromInput.value = state.rangeFrom;
     els.rangeToInput.value = state.rangeTo;
     els.shuffleRangeInput.checked = state.shuffleRange;
-    els.ttsAccentSelect.value = state.ttsAccent;
-    els.ttsRateSelect.value = String(state.ttsRate);
     els.lessonCardCount.textContent = deck.length;
     syncFullLessonUI();
     applyPracticeMode(state.practiceMode, false);
@@ -809,8 +780,6 @@ function loadState() {
     els.rangeFromInput.value = state.rangeFrom;
     els.rangeToInput.value = state.rangeTo;
     els.shuffleRangeInput.checked = state.shuffleRange;
-    els.ttsAccentSelect.value = state.ttsAccent;
-    els.ttsRateSelect.value = String(state.ttsRate);
     els.lessonCardCount.textContent = deck.length;
     syncFullLessonUI();
     applyPracticeMode(state.practiceMode, false);
@@ -1073,34 +1042,6 @@ function closestReference(userText, card) {
   return best;
 }
 
-function speakEnglish(textToSpeak) {
-  if (!('speechSynthesis' in window) || !window.SpeechSynthesisUtterance) {
-    alert('На этом устройстве браузер не поддерживает встроенное озвучивание.');
-    return;
-  }
-
-  const value = String(textToSpeak || '').trim();
-  if (!value) return;
-
-  window.speechSynthesis.cancel();
-
-  const utter = new SpeechSynthesisUtterance(value);
-  utter.lang = state.ttsAccent || 'en-US';
-  utter.rate = Number(state.ttsRate) || 1;
-
-  const voices = window.speechSynthesis.getVoices();
-  const langPrefix = utter.lang.toLowerCase();
-  const exactVoice = voices.find(v => String(v.lang).toLowerCase() === langPrefix);
-  const broadVoice = voices.find(v => String(v.lang).toLowerCase().startsWith(langPrefix.slice(0, 2)));
-  if (exactVoice || broadVoice) utter.voice = exactVoice || broadVoice;
-
-  window.speechSynthesis.speak(utter);
-}
-
-function speakCurrentReference() {
-  if (current === null || current === undefined || !deck[current]) return;
-  speakEnglish(deck[current].answers[0]);
-}
 
 function applyPracticeMode(mode, persist = true) {
   const normalized = mode === 'oral' ? 'oral' : 'written';
@@ -1617,8 +1558,6 @@ function applyLoadedDeck(cards, title, lessonId = 'manual') {
   els.rangeFromInput.value = state.rangeFrom || 1;
   els.rangeToInput.value = state.fullLesson ? deck.length : Math.min(state.rangeTo || 20, deck.length);
   els.shuffleRangeInput.checked = Boolean(state.shuffleRange);
-  els.ttsAccentSelect.value = state.ttsAccent || 'en-US';
-  els.ttsRateSelect.value = String(state.ttsRate || 1);
   syncFullLessonUI();
   pickNext();
   return true;
@@ -1701,18 +1640,7 @@ async function loadLessonCatalog() {
 els.writtenModeBtn.addEventListener('click', () => applyPracticeMode('written'));
 els.oralModeBtn.addEventListener('click', () => applyPracticeMode('oral'));
 
-els.oralSpeakBtn.addEventListener('click', speakCurrentReference);
-els.feedbackSpeakBtn.addEventListener('click', speakCurrentReference);
 
-els.ttsAccentSelect.addEventListener('change', () => {
-  state.ttsAccent = els.ttsAccentSelect.value === 'en-GB' ? 'en-GB' : 'en-US';
-  saveState();
-});
-
-els.ttsRateSelect.addEventListener('change', () => {
-  state.ttsRate = Number(els.ttsRateSelect.value) === 0.8 ? 0.8 : 1;
-  saveState();
-});
 
 els.oralCheckBtn.addEventListener('click', revealOralAnswer);
 els.oralDontKnowBtn.addEventListener('click', markOralDontKnow);
