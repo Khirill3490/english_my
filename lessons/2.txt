@@ -1,37 +1,37 @@
 Я готов к этому.	I am ready for it.
 Она замужем за моим другом.	She is married to my friend.
 Он был виновен в убийстве.	He was guilty of murder.
-Руководство знает об этих проблемах.	The management are aware of these problems.
+Руководство осведомлено об этих проблемах.	The management are aware of these problems.
 Он должен стыдиться этого.	He must be ashamed of it.
 Это очень вредно для твоего здоровья.	It is very harmful to your health.
 Это очень эгоистично с его стороны.	It is very selfish of him.
 Он занят домашним заданием.	He is busy with his homework.
 Это очень жестоко с его стороны.	It is very cruel of him.
-Я не рад этим результатам.	I am not happy about these results.
+Я не рад этим результатам.	I am not happy about these results.||I am not happy with these results.
 Я был поражён красотой этого места.	I was amazed by the beauty of this place.
 Тебе нужно быть осторожнее с этим.	You need to be more careful with it.
 Они были действительно вдохновлены его словами.	They were really inspired by his words.
-Эти две вещи тесно связаны друг с другом.	These two things are closely connected with each other.
-Он очень увлечён этой идеей.	He is very enthusiastic about this idea.
+Эти две вещи тесно связаны друг с другом.	These two things are closely connected with each other.||These two things are closely related to each other.
+Он очень воодушевлён этой идеей.	He is very enthusiastic about this idea.
 Что-то не так с двигателем.	Something is wrong with the engine.
 Он очень успешен в бизнесе.	He is very successful in business.
 Город всегда переполнен туристами.	The city is always crowded with tourists.
 Я полностью доволен этими результатами.	I am fully satisfied with these results.
-Наш начальник очень дружелюбен со своими сотрудниками.	Our boss is very friendly with his employees.
+Наш начальник в дружеских отношениях со своими сотрудниками.	Our boss is very friendly with his employees.
 Эта книга подходит для начинающих.	This book is suitable for beginners.
 Кто отвечает за всё это?	Who is responsible for all this?
 Он очень жесток к этому бедному человеку.	He is very cruel to this poor man.
-Он боится неизвестности.	He is scared of the unknown.
-Он недоволен результатами теста.	He is dissatisfied with the results of the test.
+Он боится неизвестности.	He is scared of the unknown.||He is afraid of the unknown.||He is frightened of the unknown.
+Он недоволен результатами теста.	He is dissatisfied with the results of the test.||He is not satisfied with the results of the test.
 Она очень подозрительно относится к нему.	She is very suspicious of him.
 Это близко к этому месту.	It is close to this place.
 Он очень вежлив с ней.	He is very polite to her.
 Чем ты интересуешься?	What are you interested in?
 О чём ты беспокоишься?	What are you worried about?
-Чем ты увлекаешься?	What are you keen on?
-Чем ты увлекаешься?	What are you fond of?
-Я действительно боюсь пауков.	I am really afraid of spiders.
-Чего он боялся?	What was he frightened of?
+Чем ты увлекаешься?	What are you keen on?||What are you interested in?||What are you fond of?
+Что ты любишь делать?	What are you fond of doing?
+Я действительно боюсь пауков.	I am really afraid of spiders.||I am really scared of spiders.||I am really frightened of spiders.
+Чего он боялся?	What was he frightened of?||What was he afraid of?||What was he scared of?
 Из-за чего она злится?	What is she angry about?
 Она злится на меня?	Is she angry with me?
 Чем они были удивлены?	What were they surprised by?
@@ -44,38 +44,38 @@
 Это очень эгоистично с его стороны так себя вести.	It is very selfish of him to behave like that.
 Он очень занят этой работой.	He is very busy with this work.
 С её стороны было жестоко сказать такое.	It was cruel of her to say that.
-Он действительно рад этому.	He is really happy about it.
+Он действительно рад этому.	He is really happy about it.||He is really glad about it.
 Я был поражён своими результатами.	I was amazed by my results.
 Будь осторожен с этим ножом.	Be careful with this knife.
 Я был очень вдохновлён этой речью.	I was really inspired by this speech.
-Эта проблема связана с моей работой.	This problem is connected with my work.
+Эта проблема связана с моей работой.	This problem is connected with my work.||This problem is related to my work.
 Я вижу, что ты очень увлечён этим проектом.	I see that you are very enthusiastic about this project.
 Что не так с этим?	What is wrong with it?
 Она успешна в своей профессии.	She is successful in her profession.
 Это место переполнено туристами.	This place is crowded with tourists.
 Я был полностью доволен результатами теста.	I was fully satisfied with the results of the test.
-Она всегда была дружелюбна со мной.	She has always been friendly with me.
+Она всегда была в дружеских отношениях со мной.	She has always been friendly with me.
 Эта программа не подходит для детей.	This program is not suitable for children.||This programme is not suitable for children.
 Она отвечает за результаты команды.	She is responsible for the team's results.
 Не будь жесток к животным.	Do not be cruel to animals.
-Он ничего не боится.	He is not scared of anything.
-Я недоволен качеством этой услуги.	I am dissatisfied with the quality of this service.
+Он ничего не боится.	He is not scared of anything.||He is not afraid of anything.||He is not frightened of anything.
+Я недоволен качеством этой услуги.	I am dissatisfied with the quality of this service.||I am not satisfied with the quality of this service.
 Он с подозрением относится к другим людям.	He is very suspicious of other people.
-Она живёт рядом с ним.	She lives close to him.
+Она живёт близко к нему.	She lives close to him.
 Тебе нужно быть вежливее с ним.	You need to be more polite to him.
 Я интересуюсь современными технологиями.	I am interested in modern technology.
 Ты беспокоишься о результате этого теста?	Are you worried about the result of this test?
 Я увлекаюсь чтением на английском.	I am keen on reading in English.
 Я люблю читать на английском.	I am fond of reading in English.
-Ты боишься пауков?	Are you afraid of spiders?
-Он боялся этого?	Was he frightened of it?
+Ты боишься пауков?	Are you afraid of spiders?||Are you scared of spiders?||Are you frightened of spiders?
+Он боялся этого?	Was he frightened of it?||Was he afraid of it?||Was he scared of it?
 Из-за чего он злится?	What is he angry about?
 Я больше не злюсь на тебя.	I am not angry with you anymore.
 Я был удивлён её ответом.	I was surprised by her answer.
 Ты готов к экзамену?	Are you ready for the exam?
 Он женат на ней уже пять лет.	He has been married to her for five years.
 Ты считаешь его виновным в том, что произошло?	Do you think he is guilty of what happened?
-Ты знаешь об этих изменениях?	Are you aware of these changes?
+Ты осведомлён об этих изменениях?	Are you aware of these changes?
 Чего она стыдится?	What is she ashamed of?
 Курение очень вредно для здоровья людей.	Smoking is very harmful to people's health.
 С её стороны было эгоистично не подумать о других.	It was selfish of her not to think about other people.
@@ -85,27 +85,27 @@
 Ты был поражён их успехом?	Were you amazed by their success?
 Ты всегда так осторожен с деньгами?	Are you always so careful with money?
 Он был вдохновлён достижениями своего друга.	He was inspired by his friend's achievements.
-Это никак не связано с нашим решением.	This is not connected with our decision in any way.
-Ты действительно так увлечён новой работой?	Are you really so enthusiastic about the new job?
+Это никак не связано с нашим решением.	This is not connected with our decision in any way.||This is not related to our decision in any way.
+Ты действительно так воодушевлён новой работой?	Are you really so enthusiastic about the new job?
 Мне кажется, с ним что-то не так.	I think something is wrong with him.
 Ты считаешь себя успешным в работе?	Do you consider yourself successful in your work?
 Автобус был переполнен людьми.	The bus was crowded with people.
 Ты доволен качеством этой услуги?	Are you satisfied with the quality of this service?
-Ты дружелюбен со своими новыми коллегами?	Are you friendly with your new colleagues?
+Ты в дружеских отношениях со своими новыми коллегами?	Are you friendly with your new colleagues?
 Эти материалы подходят и для начинающих, и для более высокого уровня.	These materials are suitable for beginners and higher levels as well.
 Ты отвечаешь за этот проект?	Are you responsible for this project?
 Почему она так жестока к нему?	Why is she so cruel to him?
-Я боюсь темноты.	I am scared of the dark.||I am scared of darkness.
-Я не доволен качеством этих продуктов.	I am dissatisfied with the quality of these products.
+Я боюсь темноты.	I am scared of the dark.||I am scared of darkness.||I am afraid of the dark.||I am frightened of the dark.||I am afraid of darkness.||I am frightened of darkness.
+Я не доволен качеством этих продуктов.	I am dissatisfied with the quality of these products.||I am not satisfied with the quality of these products.
 Почему ты так подозрительно относишься ко мне?	Why are you so suspicious of me?
-Они живут рядом со мной.	They live close to me.
+Они живут близко ко мне.	They live close to me.
 Тебе следует быть вежливее со своими коллегами.	You should be more polite to your colleagues.
 Она не интересуется политикой.	She is not interested in politics.
 Я не беспокоюсь о своих результатах.	I am not worried about my results.
 Она очень увлекается иностранными языками.	She is very keen on foreign languages.
 Она очень любит музыку.	She is very fond of music.
-Чего ты боишься?	What are you afraid of?
-Она боится темноты.	She is frightened of the dark.
+Чего ты боишься?	What are you afraid of?||What are you scared of?||What are you frightened of?
+Она боится темноты.	She is frightened of the dark.||She is afraid of the dark.||She is scared of the dark.
 Я злюсь из-за этой ситуации.	I am angry about this situation.
 Почему он злится на своего коллегу?	Why is he angry with his colleague?
 Она была удивлена результатами.	She was surprised by the results.
@@ -122,17 +122,17 @@
 Она была поражена тем, насколько быстро всё изменилось.	She was amazed by how quickly everything changed.
 Она была очень осторожна с новым оборудованием.	She was very careful with the new equipment.
 Ты когда-нибудь был вдохновлён чьей-нибудь историей?	Have you ever been inspired by someone's story?
-Ты уверен, что эти события связаны друг с другом?	Are you sure that these events are connected with each other?
+Ты уверен, что эти события связаны друг с другом?	Are you sure that these events are connected with each other?||Are you sure that these events are related to each other?
 Она не особенно воодушевлена этим предложением.	She is not particularly enthusiastic about this offer.
 С лифтом что-то не так.	Something is wrong with the lift.||Something is wrong with the elevator.
 Компания была очень успешна на этом рынке.	The company was very successful in this market.
 Пляж сегодня переполнен отдыхающими.	The beach is crowded with holidaymakers.
 Мы пока не полностью довольны результатом.	We are not fully satisfied with the result yet.
-Он старался быть дружелюбным со всеми.	He tried to be friendly with everyone.
+Он старался поддерживать дружеские отношения со всеми коллегами.	He tried to be friendly with all his colleagues.
 Эта работа подходит для человека без опыта?	Is this job suitable for someone without experience?
 Он не хочет отвечать за чужие ошибки.	He does not want to be responsible for other people's mistakes.
 Они никогда не были жестоки к своим детям.	They have never been cruel to their children.
-Чего ты больше всего боишься?	What are you most scared of?
+Чего ты больше всего боишься?	What are you most scared of?||What are you most afraid of?||What are you most frightened of?
 Почему клиент недоволен результатом?	Why is the customer dissatisfied with the result?
 Полиция начала подозрительно относиться к его объяснению.	The police became suspicious of his explanation.
 Она живёт ближе к этому парку.	She lives closer to this park.
@@ -141,15 +141,15 @@
 Она очень беспокоится о своём будущем.	She is very worried about her future.
 Он никогда особенно не увлекался спортом.	He has never been particularly keen on sport.||He has never been particularly keen on sports.
 Он не особенно любит готовить.	He is not particularly fond of cooking.
-Она боится неизвестности.	She is afraid of the unknown.
-Я никогда не боялся собак.	I have never been frightened of dogs.
+Она боится неизвестности.	She is afraid of the unknown.||She is scared of the unknown.||She is frightened of the unknown.
+Я никогда не боялся собак.	I have never been frightened of dogs.||I have never been afraid of dogs.||I have never been scared of dogs.
 Они были очень злы из-за задержки.	They were very angry about the delay.
 Она всё ещё злится на него.	She is still angry with him.
 Ты был удивлён этой новостью?	Were you surprised by the news?
 Она сказала, что не готова к такому разговору.	She said that she was not ready for such a conversation.
 Я не знал, что он женат на моей бывшей коллеге.	I did not know that he was married to my former colleague.
 Она чувствовала себя виноватой в том, что солгала ему.	She felt guilty of lying to him.
-Он прекрасно понимает последствия своего решения.	He is fully aware of the consequences of his decision.
+Он полностью осведомлён о последствиях своего решения.	He is fully aware of the consequences of his decision.
 Мне было стыдно за свою ошибку.	I was ashamed of my mistake.
 Они не осознавали, насколько это вредно для окружающей среды.	They were not aware of how harmful it was to the environment.
 С моей стороны было бы эгоистично просить тебя об этом.	It would be selfish of me to ask you to do this.
@@ -159,18 +159,18 @@
 Мы были действительно поражены качеством работы.	We were really amazed by the quality of the work.
 Нам нужно быть особенно осторожными с этой информацией.	We need to be particularly careful with this information.
 Она сказала, что была вдохновлена их примером.	She said that she had been inspired by their example.
-Полиция считает, что этот случай связан с предыдущим.	The police believe that this case is connected with the previous one.
+Полиция считает, что этот случай связан с предыдущим.	The police believe that this case is connected with the previous one.||The police believe that this case is related to the previous one.
 Мы все были очень воодушевлены новой возможностью.	We were all very enthusiastic about the new opportunity.
 С ней всё в порядке?	Is there anything wrong with her?||Is anything wrong with her?
 Он стал успешным в бизнесе благодаря многолетнему опыту.	He became successful in business because of years of experience.
 Когда мы приехали, площадь была переполнена людьми.	When we arrived, the square was crowded with people.
 Она сказала, что довольна тем, как прошла встреча.	She said that she was satisfied with the way the meeting went.
-Она быстро стала дружелюбна с новыми соседями.	She quickly became friendly with the new neighbours.||She quickly became friendly with the new neighbors.
+Она быстро наладила дружеские отношения с новыми соседями.	She quickly became friendly with the new neighbours.||She quickly became friendly with the new neighbors.
 Мы ищем место, которое подходит для большой группы.	We are looking for a place that is suitable for a large group.
 Она уже несколько лет отвечает за обучение новых сотрудников.	She has been responsible for training new employees for several years.
 Он пожалел, что был так жесток к своему другу.	He regretted being so cruel to his friend.
-Она призналась, что боялась остаться одна.	She admitted that she was scared of being alone.
-Она сказала, что была недовольна обслуживанием.	She said that she was dissatisfied with the service.
+Она призналась, что боялась остаться одна.	She admitted that she was scared of being alone.||She admitted that she was afraid of being alone.||She admitted that she was frightened of being alone.
+Она сказала, что была недовольна обслуживанием.	She said that she was dissatisfied with the service.||She said that she was not satisfied with the service.
 Она всегда с подозрением относилась к незнакомцам.	She has always been suspicious of strangers.
 Наш отель находится близко к центру города.	Our hotel is close to the city centre.||Our hotel is close to the city center.
 Почему он не был вежлив с тобой?	Why was he not polite to you?
@@ -178,8 +178,8 @@
 Мы начали беспокоиться о нём, когда он перестал отвечать.	We started to worry about him when he stopped replying.
 В последнее время я увлёкся фотографией.	Recently, I have become keen on photography.
 Я всегда любил долгие прогулки.	I have always been fond of long walks.
-Я всегда боялся совершить серьёзную ошибку.	I have always been afraid of making a serious mistake.
-Ребёнок испугался громкого шума.	The child was frightened of the loud noise.
+Я всегда боялся совершить серьёзную ошибку.	I have always been afraid of making a serious mistake.||I have always been scared of making a serious mistake.||I have always been frightened of making a serious mistake.
+Ребёнок испугался громкого шума.	The child was frightened of the loud noise.||The child was afraid of the loud noise.||The child was scared of the loud noise.
 Она всё ещё злится из-за того, что произошло вчера.	She is still angry about what happened yesterday.
 Я не ожидал, что начальник будет так зол на нас.	I did not expect the boss to be so angry with us.
 Мы были действительно удивлены тем, как быстро всё закончилось.	We were really surprised by how quickly everything ended.
@@ -196,27 +196,5 @@
 Хотя я многое слышал об этом месте, я всё равно был поражён его красотой.	Although I had heard a lot about this place, I was still amazed by its beauty.
 Если ты не будешь осторожен с этим устройством, ты можешь его повредить.	If you are not careful with this device, you may damage it.
 После поездки я был настолько вдохновлён увиденным, что решил начать новый проект.	After the trip, I was so inspired by what I had seen that I decided to start a new project.
-Позже выяснилось, что ошибка была связана с неправильными настройками.	It later turned out that the error was connected with the wrong settings.
-Хотя сначала он сомневался, теперь он очень увлечён этой идеей.	Although he had doubts at first, he is very enthusiastic about this idea now.
-Если с устройством что-то не так, не пытайся ремонтировать его сам.	If something is wrong with the device, do not try to repair it yourself.
-Чтобы быть успешным в этой области, недостаточно просто много работать.	To be successful in this field, it is not enough just to work hard.
-Летом этот район настолько переполнен туристами, что здесь трудно спокойно гулять.	In summer, this area is so crowded with tourists that it is difficult to walk around peacefully.
-Если клиент не будет доволен качеством продукта, мы вернём ему деньги.	If the customer is not satisfied with the quality of the product, we will give them a refund.
-Хотя начальник требовательный, он довольно дружелюбен со своими сотрудниками.	Although the boss is demanding, he is quite friendly with his employees.
-Если этот курс слишком сложный, возможно, он пока не подходит для твоего уровня.	If this course is too difficult, it may not be suitable for your level yet.
-Если что-то пойдёт не так, кто будет отвечать за последствия?	If something goes wrong, who will be responsible for the consequences?
-Даже если ты злишься, это не повод быть жестоким к другим людям.	Even if you are angry, that is no reason to be cruel to other people.
-Хотя она очень боится неизвестности, она всё равно решила попробовать.	Although she is very scared of the unknown, she decided to try anyway.
-Если ты недоволен качеством товара, ты можешь попросить вернуть деньги.	If you are dissatisfied with the quality of the product, you can ask for a refund.
-Я бы тоже отнёсся к нему с подозрением, если бы его история постоянно менялась.	I would be suspicious of him too if his story kept changing.
-Если мы найдём квартиру близко к работе, мне не придётся долго ездить.	If we find a flat close to work, I will not have to travel for long.||If we find an apartment close to work, I will not have to travel for long.
-Даже если ты не согласен с человеком, всё равно нужно быть с ним вежливым.	Even if you disagree with someone, you still need to be polite to them.
-Если ты интересуешься английским, тебе будет легче заниматься регулярно.	If you are interested in English, it will be easier for you to study regularly.
-Если ты беспокоишься о собеседовании, давай ещё раз всё повторим.	If you are worried about the interview, let us go over everything once more.
-Хотя раньше он не интересовался чтением, теперь он очень им увлечён.	Although he was not keen on reading before, he is very keen on it now.
-Когда я был моложе, я очень любил смотреть исторические фильмы.	When I was younger, I was very fond of watching historical films.
-Если ты боишься задавать вопросы, тебе будет труднее понять тему.	If you are afraid of asking questions, it will be harder for you to understand the topic.
-Хотя он был напуган возможными последствиями, он решил сказать правду.	Although he was frightened of the possible consequences, he decided to tell the truth.
-Хотя он злится из-за решения, он понимает, почему его приняли.	Although he is angry about the decision, he understands why it was made.
-Если ты злишься на меня, скажи мне прямо, в чём проблема.	If you are angry with me, tell me directly what the problem is.
-Хотя я ожидал сложного теста, я был удивлён некоторыми вопросами.	Although I expected a difficult test, I was surprised by some of the questions.
+Позже выяснилось, что ошибка была связана с неправильными настройками.	It later turned out that the error was connected with the wrong settings.||It later turned out that the error was related to the wrong settings.
+Хотя сначала он сомневался, теперь он очень воодушевлён этой идеей.	Although he had doubts at first, he is very enthusiastic about this idea now.
