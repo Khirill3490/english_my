@@ -1,0 +1,100 @@
+Это будет зависеть от него.	It'll depend on him.
+Она ответила на твоё письмо?	Did she reply to your letter?
+Ты мог бы объяснить мне эту вещь?	Could you explain this thing to me?
+Я участвовал в этом чемпионате.	I participated in this championship.
+Как ты на это ответил?	How did you answer it?
+Он уехал в другую страну.	He left for another country.
+Как ты ответил на такой сложный вопрос?	How did you answer such a difficult question?
+Он прибыл на конференцию на час позже.	He arrived at the conference an hour later.
+Это сильно повлияло на меня.	It influenced me a lot.
+Эти события повлияли на моё решение.	These events influenced my decision.
+Он уехал в Англию на прошлой неделе.	He left for England last week.
+Это сильно повлияло на мою жизнь.	It influenced my life greatly.
+Она покинула это место.	She left this place.
+Как ты ответил на этот вопрос?	How did you answer this question?
+Я могу объяснить тебе эту вещь.	I can explain this thing to you.
+Он уделяет этому слишком много времени.	He devotes too much time to it.
+Мне нужно подготовиться к этому тесту.	I need to prepare for this test.
+Я подписан на эти каналы.	I'm subscribed to these channels.
+Он хочет подать заявку на эту работу.	He wants to apply for this job.
+Ты можешь положиться на меня.	You can rely on me.
+Почему ты смеёшься над этим?	Why are you laughing at it?
+Кто указал на твои ошибки?	Who pointed out your mistakes?
+Что он ищет?	What is he looking for?
+Он попросил её о помощи.	He asked her for help.
+Он уделяет слишком много времени этому хобби.	He devotes too much time to this hobby.
+Что ты ищешь?	What are you searching for?
+Она подала заявление на визу.	She applied for a visa.
+Я хотел бы поговорить с тобой.	I would like to talk to you.
+Когда он окончил университет?	When did he graduate from university?
+Он участвовал в этом турнире.	He participated in this tournament.
+Он ещё не заплатил за это.	He has not paid for it yet.
+Как она отреагировала на твои слова?	How did she react to your words?
+Он прибыл в конце вечеринки.	He arrived at the end of the party.
+Он внезапно улыбнулся ей.	He smiled at her suddenly.
+Я работаю над новым проектом.	I'm working on a new project.
+Он страдает от этой болезни.	He suffers from this disease.
+Она никогда не жалуется на это.	She never complains about it.
+Как он на это отреагировал?	How did he react to it?
+Он всегда заботится о ней.	He always cares about her.
+Его обвинили в совершении преступления.	He was accused of committing a crime.
+Я хочу поздравить тебя со сдачей экзамена.	I want to congratulate you on passing the exam.
+Он живёт, надеясь на лучшее, но ожидая худшего.	He lives hoping for the best but expecting the worst.
+О чём говорят те женщины?	What are those women talking about?
+Им не удалось сбежать от полиции.	They didn't manage to escape from the police.
+Я твёрдо верю, что упорный труд может привести нас к успеху.	I firmly believe hard work can lead us to success.
+Его обвинили в краже этих денег.	He was accused of stealing this money.
+Я хотел бы поздравить тебя со сдачей такого сложного теста.	I would like to congratulate you on passing such a difficult test.
+Я хочу сказать, что ты всегда можешь рассчитывать на мою помощь.	I want to say that you can always count on my help.
+О чём вы говорили, когда он позвонил тебе?	What were you talking about when he called you?
+Мы хотели бы поздравить тебя с днём рождения.	We'd like to congratulate you on your birthday.
+Почему он уехал из города?	Why did he leave the city?
+Он винит её во всём.	He blames her for everything.
+Ты всегда можешь рассчитывать на нашу поддержку.	You can always count on our support.
+Их обвинили в преступлении.	They were accused of a crime.
+Они часто спорят о неважных вещах.	They often argue about unimportant things.
+Они всегда спорят только о важных вещах.	They always argue only about important things.
+Они иногда спорят об этих вещах.	They sometimes argue about these things.
+Почему ты его не слушаешь?	Why don't you listen to him?
+Я её не слушаю.	I don't listen to her.
+Почему ты меня не слушаешь?	Why don't you listen to me?
+О чём ты думаешь?	What are you thinking about?
+Я думаю об этом прямо сейчас.	I'm thinking about it right now.
+Я никогда об этом не думал.	I've never thought about it.
+Он решил подать заявку на эту работу.	He decided to apply for this job.
+Он подал заявление на визу.	He applied for a visa.
+Он подал заявку на ту работу?	Did he apply for that job?
+Она уехала из этой страны по многим причинам.	She left this country for many reasons.
+Она ушла с этой работы без причины.	She left this job for no reason.
+Она уехала в эту страну по многим причинам.	She left for this country for many reasons.
+Мне пришлось адаптироваться к тем условиям.	I had to adapt to those conditions.
+Я уже адаптировался к этим условиям.	I've already adapted to these conditions.
+Мне нужно немного времени, чтобы адаптироваться к этим условиям.	I need some time to adapt to these conditions.
+О чём говорят эти мужчины?	What are these men talking about?
+С кем разговаривает этот мужчина?	Who is this man talking to?
+Эти люди говорят о погоде.	These people are talking about the weather.
+Какую музыку ты слушаешь?	What kind of music do you listen to?
+Я предпочитаю слушать поп-музыку.	I prefer to listen to pop music.
+Ты слушаешь такую музыку?	Do you listen to this kind of music?
+Он винит его во всём.	He blames him for everything.
+Она винит во всём его.	She blames everything on him.
+Не вини его во всём.	Don't blame him for everything.
+О чём они спорят?	What are they arguing about?
+Они спорят об этой проблеме.	They are arguing about this problem.
+Они всё ещё спорят об этом?	Are they still arguing about it?
+Я хочу сказать, что не одобряю эту идею.	I want to say I don't approve of this idea.
+Какую музыку ты предпочитаешь слушать?	What sort of music do you prefer to listen to?
+Кому принадлежит эта вещь?	Who does this thing belong to?
+Почему он уехал из страны?	Why did he leave the country?
+Это может случиться с каждым.	It can happen to anyone.
+Не вини его в этом.	Don't blame it on him.
+Чего он ждёт?	What is he waiting for?
+Ему удалось получить эту работу.	He succeeded in getting this job.
+От чего это зависит?	What does it depend on?
+Я уже подписался на этот канал.	I've already subscribed to this channel.
+Я подписан на этот канал.	I'm subscribed to this channel.
+Это уже произошло?	Has it already happened?
+Не вини его за это.	Don't blame him for it.
+Его пригласили на эту вечеринку.	He was invited to this party.
+Кому это принадлежит?	Who does it belong to?
+От чего это будет зависеть?	What will it depend on?
