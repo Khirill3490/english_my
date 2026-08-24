@@ -3,22 +3,22 @@
 Он очень хорошо играет на гитаре.	He is very good at playing the guitar.
 Он плох в футболе.	He is bad at football.
 Он ужасно говорит по-французски.	He is terrible at speaking French.
-Он отлично владеет языками.	He is excellent at languages.
+Он отлично разбирается в языках.	He is excellent at languages.
 Она блестяще играет на пианино.	She is brilliant at playing the piano.
 Раньше я думал, что совершенно безнадёжен в изучении иностранных языков.	I used to think that I was absolutely hopeless at learning foreign languages.
 Кто за это отвечает?	Who is responsible for it?
 Я особенно увлекаюсь иностранными языками.	I am particularly keen on foreign languages.
-Он готов к худшему.	He is prepared for the worst.
+Он подготовлен к худшему.	He is prepared for the worst.
 Это относится к этому вопросу.	It is related to this issue.
 Это связано с этим вопросом.	It is connected with this issue.
 Эта вещь мне знакома.	This thing is familiar to me.
 Я знаком с этой вещью.	I am familiar with this thing.
-Я был шокирован новостью.	I was shocked by the news.
+Я был шокирован этой новостью.	I was shocked by the news.
 Я был действительно удивлён её словами.	I was really surprised by her words.
 Он был впечатлён её красотой.	He was impressed by her beauty.
 Она очень зла на него.	She is very angry with him.
 Он очень зол из-за этой ситуации.	He is very angry about this situation.
-Она очень обеспокоена своим будущим.	She feels very anxious about her future.
+Она очень тревожится о своём будущем.	She feels very anxious about her future.
 Она очень обеспокоена этой ситуацией.	She is very worried about this situation.
 Я действительно устал делать это снова и снова.	I am really tired of doing it again and again.
 Она сыта по горло этой рутиной.	She is fed up with this routine.
@@ -43,17 +43,17 @@
 Я совершенно безнадёжен в рисовании.	I am absolutely hopeless at drawing.
 Он отвечает за всё.	He is responsible for everything.
 Я особенно увлекаюсь изучением иностранных языков.	I am particularly keen on learning foreign languages.
-Я к этому не готов.	I am not prepared for it.
+Я не подготовлен к этому.	I am not prepared for it.
 Давай обсудим некоторые вещи, связанные с этой проблемой.	Let's discuss some things related to this problem.
 Эта проблема связана с новым обновлением.	This problem is connected with the new update.||This problem is related to the new update.
 Эта проблема мне знакома.	This problem is familiar to me.
 Я знаком с ним.	I am familiar with him.
-Мы все были шокированы новостями.	We were all shocked by the news.
+Мы все были шокированы этой новостью.	We were all shocked by the news.
 Я был действительно удивлён этим решением.	I was really surprised by this decision.
 Я был действительно впечатлён красотой этого места.	I was really impressed by the beauty of this place.
 Я злюсь на него.	I am angry with him.
 Я злюсь из-за этой ситуации.	I am angry about this situation.
-Она очень тревожится из-за предстоящего экзамена.	She is very anxious about the upcoming exam.||She is very worried about the upcoming exam.
+Она очень тревожится из-за предстоящего экзамена.	She is very anxious about the upcoming exam.
 Он очень беспокоится о своём будущем.	He is very worried about his future.
 Он устал делать одни и те же вещи снова и снова.	He is tired of doing the same things again and again.
 Я сыт по горло этими жалобами.	I am fed up with these complaints.
@@ -80,7 +80,7 @@
 Она увлекается чтением иностранной литературы.	She is keen on reading foreign literature.
 Мы хорошо подготовлены к экзамену.	We are well prepared for the exam.
 Мне нужно сказать кое-что, связанное с нашей последней встречей.	I need to say something related to our last meeting.
-Его решение напрямую связано с этой ситуацией.	His decision is directly connected with this situation.||His decision is directly related to this situation.
+Его решение напрямую связано с этой ситуацией.	His decision is directly connected with this situation.
 Его лицо кажется мне знакомым.	His face seems familiar to me.
 Я знаком с ней.	I am familiar with her.
 Все были шокированы его внезапной смертью.	Everyone was shocked by his sudden death.
@@ -88,7 +88,7 @@
 Я был впечатлён его презентацией.	I was impressed by his presentation.
 Почему она злится на тебя?	Why is she angry with you?
 Почему он так злится из-за задержки?	Why is he so angry about the delay?
-Я тревожусь о своём будущем.	I am anxious about my future.||I am worried about my future.
+Я тревожусь о своём будущем.	I am anxious about my future.
 Я беспокоюсь о результатах экзамена.	I am worried about the exam results.
 Я устал от этой работы.	I am tired of this work.
 Он сыт по горло ожиданием.	He is fed up with waiting.
@@ -102,12 +102,12 @@
 Я не привык выступать на публике.	I am not used to speaking in public.||I am not accustomed to speaking in public.
 Мне нужно привыкнуть к новому графику.	I need to get used to the new schedule.
 Я привык работать под давлением.	I am accustomed to working under pressure.
-Раньше она часто играла в теннис.	She used to play tennis a lot.
+Раньше она много играла в теннис.	She used to play tennis a lot.
 Такое поведение довольно типично для большинства подростков.	This behaviour is quite typical of most teenagers.
 Она никогда не ревновала своего мужа.	She has never been jealous of her husband.
 Он никогда хорошо не играл в футбол.	He has never been good at football.
 Она плохо умеет планировать своё время.	She is bad at planning her time.
-У него ужасно с иностранными языками.	He is terrible at foreign languages.
+Он ужасно разбирается в иностранных языках.	He is terrible at foreign languages.
 Он отлично решает математические задачи.	He is excellent at solving maths problems.||He is excellent at solving math problems.
 Она считает себя совершенно безнадёжной в математике.	She thinks she is absolutely hopeless at maths.||She thinks she is absolutely hopeless at math.
 Она отвечает за обучение новых сотрудников.	She is responsible for training new employees.
@@ -122,23 +122,23 @@
 Она была впечатлена качеством работы.	She was impressed by the quality of the work.
 Он больше не злится на своего брата.	He is not angry with his brother anymore.
 Она всё ещё злится из-за этого решения.	She is still angry about this decision.
-Он чувствует сильную тревогу из-за собеседования.	He feels very anxious about the interview.||He is very worried about the interview.
+Он очень тревожится из-за собеседования.	He feels very anxious about the interview.
 Она очень беспокоится о своём сыне.	She is very worried about her son.
 Она устала ждать.	She is tired of waiting.
 Она сыта по горло своей работой.	She is fed up with her job.
 Твоя идея похожа на её.	Your idea is similar to hers.
 Мой коллега очень чувствителен к критике.	My colleague is very sensitive to criticism.
 Ты считаешь её способной сделать это?	Do you think she is capable of doing it?
-Он совершенно неспособен признать свою ошибку.	He is completely incapable of admitting his mistake.||He is completely unable to admit his mistake.
+Он совершенно неспособен признать свою ошибку.	He is completely incapable of admitting his mistake.
 Он не боится это делать.	He isn't afraid of doing it.
 Успех часто ассоциируется с деньгами.	Success is often associated with money.
 Их обвинили в совершении преступления.	They were accused of committing a crime.
-Я привык вставать рано.	I am used to getting up early.||I got used to getting up early.
+Я привык вставать рано.	I am used to getting up early.
 Она быстро привыкла работать ночью.	She quickly got used to working at night.
 Он привык работать под давлением.	He is accustomed to working under pressure.||He is used to working under pressure.
 Такое поведение типично для него.	Such behaviour is typical of him.||Such behavior is typical of him.
 Почему ты так ревнуешь его?	Why are you so jealous of him?
-Он действительно хорош в математике.	He is really good at maths.
+Он действительно хорошо разбирается в математике.	He is really good at maths.
 Он плохо готовит.	He is bad at cooking.
 Я ужасно рисую.	I am terrible at drawing.
 Ты отлично умеешь объяснять правила.	You are excellent at explaining rules.
@@ -155,9 +155,9 @@
 Мы устали слышать одни и те же оправдания.	We are tired of hearing the same excuses.
 Эти две вещи очень похожи.	These two things are very similar.
 Я очень чувствителен к холоду.	I am very sensitive to cold.
-Она неспособна солгать.	She is incapable of telling a lie.||She is not capable of telling a lie.
+Она неспособна солгать.	She is incapable of telling a lie.
 Она боится летать.	She is afraid of flying.
-Это имя всегда ассоциировалось у меня с детством.	This name has always been associated with my childhood.
+Это имя всегда ассоциировалось с моим детством.	This name has always been associated with my childhood.
 Его обвинили в убийстве.	He was accused of murder.
 Я не привык просыпаться так рано.	I am not used to waking up so early.
 Ты скоро привыкнешь к этой погоде.	You will soon get used to this weather.
@@ -173,7 +173,7 @@
 Мы были шокированы тем, что произошло.	We were shocked by what happened.
 Мой ответ похож на твой.	My answer is similar to yours.
 Некоторые люди очень чувствительны к критике.	Some people are very sensitive to criticism.
-Я считаю его неспособным на такой поступок.	I think he is incapable of doing such a thing.||I do not think he is capable of doing such a thing.
+Я считаю его неспособным на такой поступок.	I think he is incapable of doing such a thing.
 Я боюсь совершить серьёзную ошибку.	I am afraid of making a serious mistake.
 Его обвинили во лжи.	He was accused of lying.
 Я не привык опаздывать на работу.	I am not used to being late for work.
@@ -183,7 +183,7 @@
 Она увлекается изучением истории.	She is keen on studying history.
 Эта информация относится к новой системе.	This information is related to the new system.
 Её голос был мне очень знаком.	Her voice was very familiar to me.
-Она хорошо знакома с этим районом.	She is very familiar with this area.
+Она очень хорошо знакома с этим районом.	She is very familiar with this area.
 Эта модель очень похожа на предыдущую.	This model is very similar to the previous one.
 Она очень чувствительна к громким звукам.	She is very sensitive to loud noises.
 Ты боишься выступать на публике?	Are you afraid of speaking in public?
@@ -195,6 +195,6 @@
 Его точка зрения похожа на мою.	His point of view is similar to mine.
 Он чувствителен к критике.	He is sensitive to criticism.
 Её обвинили в совершении серьёзного преступления.	She was accused of committing a serious crime.
-Она не привыкла к такому шуму.	She is not used to so much noise.
+Она не привыкла к такому шуму.	She is not used to this kind of noise.
 Я чувствителен к резким изменениям температуры.	I am sensitive to sudden changes in temperature.
 Ты привык вставать так рано?	Are you used to getting up so early?
