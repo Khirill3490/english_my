@@ -1,3 +1,11 @@
+Я готов к этому.	I'm ready for it.
+Она замужем за моим другом.	She is married to my friend. || She's married to my friend.
+Он был виновен в убийстве.	He was guilty of murder.
+Руководство осведомлено об этих проблемах.	The management are aware of these problems.
+Ему не было стыдно за такое поведение.	He wasn't ashamed of such behavior. || He wasn't ashamed of such behaviour.
+Он был виновен в этом преступлении.	He was guilty of this crime.
+Это очень вредно для твоего здоровья.	It's very harmful to your health. || It is very harmful to your health.
+Руководство было осведомлено об этих трудностях.	The management were aware of these difficulties.
 Это может быть очень вредно для твоего здоровья.	It can be very harmful to your health.
 Ему должно быть стыдно за это.	He must be ashamed of it.
 Он не был виновен в преступлении.	He wasn't guilty of the crime.
@@ -5,7 +13,7 @@
 Это очень эгоистично с его стороны.	It's very selfish of him.
 Он занят домашней работой.	He is busy with his homework. || He's busy with his homework.
 Это очень жестоко с его стороны.	It's very cruel of him.
-Она знает(осведомлена) об этих рисках.	She is aware of these risks. || She's aware of these risks.
+Она знает об этих рисках.	She is aware of these risks. || She's aware of these risks.
 Я не рад этим результатам.	I'm not happy about these results. || I am not happy about these results.
 Я был поражён красотой этого места.	I was amazed by the beauty of this place.
 Он действительно рад этому.	He is really happy about it. || He's really happy about it. || He's really glad about it.
@@ -87,3 +95,4 @@
 Тебе следует быть вежливее со своими коллегами.	You should be more polite to your colleagues. || You should be more polite to colleagues.
 Чем они удивлены?	What are they surprised by?
 На что он злится?	What is he angry about?
+Чем ты любишь заниматься?	What are you fond of doing?
