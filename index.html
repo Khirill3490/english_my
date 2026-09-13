@@ -3,173 +3,214 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#111827">
+  <meta name="theme-color" content="#f6f8fc">
   <title>English Drill</title>
   <link rel="icon" type="image/png" sizes="64x64" href="english-drill-favicon-64.png">
   <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
-  <div class="wrap">
-    <div class="topbar">
-      <div class="toolbar">
-        <div class="lesson-picker" id="lessonPicker">
-          <button class="lesson-picker-button" id="lessonPickerBtn" type="button" aria-expanded="false">
-            <span class="lesson-picker-label">Уроки</span>
-            <span class="lesson-picker-value" id="lessonPickerValue">Загрузка уроков…</span>
-            <span class="weak-count" id="lessonCardCount">0</span>
-            <span class="lesson-picker-arrow">▾</span>
-          </button>
-          <div class="lesson-picker-menu hidden" id="lessonPickerMenu">
-            <div class="lesson-picker-head">
-              <strong>Выберите уроки для одной сессии</strong>
-              <span class="weak-count" id="selectedLessonsCount">0</span>
+  <div class="app-shell">
+    <header class="app-header">
+      <a class="brand" href="#trainer" aria-label="English Drill">
+        <span class="brand-mark">ED</span>
+        <span class="brand-copy">
+          <strong>English Drill</strong>
+          <small>Тренажёр перевода</small>
+        </span>
+      </a>
+      <div class="header-actions">
+        <div class="mode-switch" aria-label="Режим тренировки">
+          <button class="mode-btn active" id="writtenModeBtn" type="button">⌨ Письменно</button>
+          <button class="mode-btn" id="oralModeBtn" type="button">🎙 Устно</button>
+        </div>
+        <button class="icon-btn danger-soft" id="resetBtn" type="button" title="Перезапустить текущую сессию" aria-label="Перезапустить текущую сессию">↻</button>
+      </div>
+    </header>
+
+    <main class="page">
+      <section class="setup-panel" aria-labelledby="setupTitle">
+        <div class="section-heading">
+          <div>
+            <span class="section-kicker">Настройка сессии</span>
+            <h1 id="setupTitle">Что тренируем?</h1>
+            <p>Выберите уроки, диапазон и порядок карточек.</p>
+          </div>
+          <button class="btn primary start-btn" id="startSessionBtn" type="button">▶ Начать тренировку</button>
+        </div>
+
+        <div class="setup-grid">
+          <div class="setup-field lesson-field">
+            <span class="field-label">Уроки</span>
+            <div class="lesson-picker" id="lessonPicker">
+              <button class="lesson-picker-button" id="lessonPickerBtn" type="button" aria-expanded="false">
+                <span class="lesson-picker-value" id="lessonPickerValue">Загрузка уроков…</span>
+                <span class="weak-count" id="lessonCardCount">0</span>
+                <span class="lesson-picker-arrow">▾</span>
+              </button>
+              <div class="lesson-picker-menu hidden" id="lessonPickerMenu">
+                <div class="lesson-picker-head">
+                  <div>
+                    <strong>Выберите уроки</strong>
+                    <span>Можно объединить несколько уроков в одну тренировку</span>
+                  </div>
+                  <span class="weak-count" id="selectedLessonsCount">0</span>
+                </div>
+                <div class="lesson-picker-options" id="lessonOptions"></div>
+                <div class="lesson-picker-summary" id="lessonPickerSummary">Выберите хотя бы один урок.</div>
+                <div class="lesson-picker-actions">
+                  <button class="btn" id="selectAllLessonsBtn" type="button">Выбрать все</button>
+                  <button class="btn" id="clearLessonsBtn" type="button">Очистить</button>
+                  <button class="btn primary" id="applyLessonsBtn" type="button">Применить</button>
+                </div>
+              </div>
             </div>
-            <div class="lesson-picker-options" id="lessonOptions"></div>
-            <div class="lesson-picker-summary" id="lessonPickerSummary">Выберите хотя бы один урок.</div>
-            <div class="lesson-picker-actions">
-              <button class="btn" id="selectAllLessonsBtn" type="button">Выбрать все</button>
-              <button class="btn" id="clearLessonsBtn" type="button">Очистить</button>
-              <button class="btn primary" id="applyLessonsBtn" type="button">Применить</button>
+          </div>
+
+          <div class="setup-field range-field">
+            <span class="field-label">Карточки</span>
+            <div class="range-row">
+              <div class="session-control" id="rangeControl">
+                <span>с</span>
+                <input id="rangeFromInput" type="number" min="1" step="1" value="1" title="Номер первой карточки">
+                <span>по</span>
+                <input id="rangeToInput" type="number" min="1" step="1" value="20" title="Номер последней карточки">
+              </div>
+              <button class="btn compact" id="allCardsBtn" type="button" aria-pressed="false" title="Использовать все карточки выбранных уроков">Все</button>
             </div>
+          </div>
+
+          <div class="setup-field order-field">
+            <span class="field-label">Порядок</span>
+            <label class="shuffle-control">
+              <input id="shuffleRangeInput" type="checkbox">
+              <span class="shuffle-icon">⇄</span>
+              <span>Перемешать карточки</span>
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <section class="session-overview" aria-label="Статистика сессии">
+        <div class="session-summary">
+          <div class="summary-copy">
+            <span class="lesson-source" id="lessonSource"></span>
+            <span id="positionText">карточка</span>
+          </div>
+          <div class="status-badge status-new" id="cardStatusBadge">⚪ Новая</div>
+        </div>
+        <div class="progress"><div id="progressBar"></div></div>
+        <div class="stats">
+          <div class="stat"><div class="n" id="doneStat">0</div><div class="l">пройдено</div></div>
+          <div class="stat"><div class="n" id="leftStat">0</div><div class="l">осталось</div></div>
+          <div class="stat error-stat"><div class="n" id="errorsStat">0</div><div class="l">ошибок</div></div>
+          <div class="stat streak-stat"><div class="n" id="streakStat">0</div><div class="l">серия</div></div>
+        </div>
+      </section>
+
+      <section class="trainer-card" id="trainer">
+        <div class="trainer-label">Переведи на английский</div>
+        <div class="prompt" id="prompt">Загрузка…</div>
+
+        <div id="writtenModePanel">
+          <input id="answerInput" class="answer" type="text" autocomplete="off" autocapitalize="sentences" spellcheck="false" placeholder="Введите перевод на английский…">
+          <div class="answer-hint">Enter — проверить или перейти дальше</div>
+          <div class="actions">
+            <button class="btn primary action-main" id="checkBtn" type="button">✓ Проверить</button>
+            <button class="btn secondary-action" id="dontKnowBtn" type="button">? Не знаю</button>
+            <button class="btn hidden" id="acceptBtn" type="button">Этот вариант тоже правильный</button>
+            <button class="btn primary hidden action-main" id="nextBtn" type="button">Дальше →</button>
           </div>
         </div>
 
-        <div class="session-control" id="rangeControl">
-          <span>С</span>
-          <input id="rangeFromInput" type="number" min="1" step="1" value="1" title="Номер первой карточки">
-          <span>по</span>
-          <input id="rangeToInput" type="number" min="1" step="1" value="20" title="Номер последней карточки">
-        </div>
-        <button class="btn small" id="allCardsBtn" type="button" aria-pressed="false" title="Использовать все карточки выбранных уроков">Все карточки</button>
-        <label class="shuffle-control">
-          <input id="shuffleRangeInput" type="checkbox">
-          Перемешать
-        </label>
-        <button class="btn primary" id="startSessionBtn">Начать</button>
-        <div class="mode-switch" aria-label="Режим тренировки">
-          <button class="mode-btn active" id="writtenModeBtn" type="button">Письменно</button>
-          <button class="mode-btn" id="oralModeBtn" type="button">Устно</button>
-        </div>
-        <button class="btn danger" id="resetBtn">Перезапустить сессию</button>
-      </div>
-    </div>
-
-    <div class="stats">
-      <div class="stat"><div class="n" id="doneStat">0</div><div class="l">выполнено</div></div>
-      <div class="stat"><div class="n" id="leftStat">0</div><div class="l">осталось</div></div>
-      <div class="stat"><div class="n" id="errorsStat">0</div><div class="l">ошибок</div></div>
-      <div class="stat"><div class="n" id="streakStat">0</div><div class="l">серия</div></div>
-    </div>
-    <div class="progress"><div id="progressBar"></div></div>
-
-    <main class="card" id="trainer">
-      <div class="eyebrow">
-        <span>Переведи на английский</span>
-        <div class="eyebrow-right">
-          <span class="lesson-source" id="lessonSource"></span>
-          <span class="status-badge status-new" id="cardStatusBadge">⚪ Новая</span>
-          <span id="positionText">карточка</span>
-        </div>
-      </div>
-
-      <div class="prompt" id="prompt">Загрузка…</div>
-
-      <div id="writtenModePanel">
-        <input id="answerInput" class="answer" type="text" autocomplete="off" autocapitalize="sentences" spellcheck="false" placeholder="Введите перевод и нажмите Enter">
-        <div class="actions">
-          <button class="btn primary" id="checkBtn">Проверить</button>
-          <button class="btn" id="dontKnowBtn">Не знаю</button>
-          <button class="btn hidden" id="acceptBtn">Засчитать мой вариант</button>
-          <button class="btn hidden" id="nextBtn">Дальше</button>
-        </div>
-      </div>
-
-      <div id="oralModePanel" class="hidden">
-        <button class="btn primary" id="oralCheckBtn">Проверить ответ</button>
-        <div class="oral-answer hidden" id="oralAnswerBox">
-          <span class="label">Правильный вариант</span>
-          <div class="value" id="oralCorrectAnswer"></div>
-        </div>
-        <div class="oral-actions hidden" id="oralDecisionButtons">
-          <button class="btn danger" id="oralDontKnowBtn">Не знал</button>
-          <button class="btn" id="oralAlmostBtn">Почти</button>
-          <button class="btn primary" id="oralKnowBtn">Знал</button>
-        </div>
-      </div>
-
-      <div class="feedback" id="feedback">
-        <div class="fb-title" id="fbTitle"></div>
-        <div class="fb-row hidden" id="yourRow">
-          <span class="fb-label">Ваш ответ</span>
-          <span class="english" id="yourAnswer"></span>
-        </div>
-        <div class="fb-row">
-          <span class="fb-label">Эталон</span>
-          <span class="english" id="correctAnswer"></span>
-        </div>
-        <div class="mini" id="repeatInfo" style="margin-top:10px"></div>
-      </div>
-
-      <div class="complete hidden" id="complete">
-        <div class="big">✓</div>
-        <h2>Сессия завершена</h2>
-        <p class="subtle" id="reportSubtitle">Результаты первой попытки по каждой выбранной карточке.</p>
-
-        <div class="report-grid">
-          <div class="report-item"><div class="rn" id="reportTotal">0</div><div class="rl">карточек</div></div>
-          <div class="report-item"><div class="rn" id="reportKnown">0</div><div class="rl">сразу верно / знал</div></div>
-          <div class="report-item"><div class="rn" id="reportAlmost">0</div><div class="rl">почти / ошибка</div></div>
-          <div class="report-item"><div class="rn" id="reportUnknown">0</div><div class="rl">не знал</div></div>
+        <div id="oralModePanel" class="hidden">
+          <div class="oral-intro">Скажите перевод вслух, затем откройте эталон.</div>
+          <button class="btn primary oral-main" id="oralCheckBtn" type="button">Показать ответ</button>
+          <div class="oral-answer hidden" id="oralAnswerBox">
+            <span class="label">Правильный вариант</span>
+            <div class="value" id="oralCorrectAnswer"></div>
+          </div>
+          <div class="oral-actions hidden" id="oralDecisionButtons">
+            <button class="btn oral-bad" id="oralDontKnowBtn" type="button"><strong>1</strong><span>Не знал</span></button>
+            <button class="btn oral-almost" id="oralAlmostBtn" type="button"><strong>2</strong><span>Почти</span></button>
+            <button class="btn oral-good" id="oralKnowBtn" type="button"><strong>3</strong><span>Знал</span></button>
+          </div>
         </div>
 
-        <div class="report-grid" style="grid-template-columns:repeat(2,1fr);max-width:360px">
-          <div class="report-item"><div class="rn" id="reportAccuracy">0%</div><div class="rl">сразу правильно</div></div>
-          <div class="report-item"><div class="rn" id="reportAttempts">0</div><div class="rl">всего попыток</div></div>
+        <div class="feedback" id="feedback">
+          <div class="fb-title" id="fbTitle"></div>
+          <div class="fb-row hidden" id="yourRow">
+            <span class="fb-label">Ваш ответ</span>
+            <span class="english" id="yourAnswer"></span>
+          </div>
+          <div class="fb-row">
+            <span class="fb-label">Эталон</span>
+            <span class="english" id="correctAnswer"></span>
+          </div>
+          <div class="mini" id="repeatInfo"></div>
         </div>
 
-        <div class="lesson-report hidden" id="lessonReportBox">
-          <h4>Результат по урокам</h4>
-          <div id="lessonReportRows"></div>
+        <div class="complete hidden" id="complete">
+          <div class="complete-icon">✓</div>
+          <h2>Тренировка завершена!</h2>
+          <p class="subtle" id="reportSubtitle">Результаты первой попытки по каждой выбранной карточке.</p>
+
+          <div class="report-grid">
+            <div class="report-item"><div class="rn" id="reportTotal">0</div><div class="rl">всего</div></div>
+            <div class="report-item success"><div class="rn" id="reportKnown">0</div><div class="rl">сразу верно / знал</div></div>
+            <div class="report-item warning"><div class="rn" id="reportAlmost">0</div><div class="rl">почти / ошибка</div></div>
+            <div class="report-item danger"><div class="rn" id="reportUnknown">0</div><div class="rl">не знал</div></div>
+          </div>
+
+          <div class="report-grid report-grid-small">
+            <div class="report-item"><div class="rn" id="reportAccuracy">0%</div><div class="rl">точность</div></div>
+            <div class="report-item"><div class="rn" id="reportAttempts">0</div><div class="rl">всего попыток</div></div>
+          </div>
+
+          <div class="lesson-report hidden" id="lessonReportBox">
+            <h4>Результат по урокам</h4>
+            <div id="lessonReportRows"></div>
+          </div>
+
+          <div class="report-problems hidden" id="sessionProblemBox">
+            <h4>Что давалось труднее всего</h4>
+            <div id="sessionProblems"></div>
+          </div>
+
+          <button class="btn primary new-session-btn" id="newRoundBtn" type="button">Новая тренировка</button>
         </div>
-
-        <div class="report-problems hidden" id="sessionProblemBox">
-          <h4>Что давалось труднее всего в этой сессии</h4>
-          <div id="sessionProblems"></div>
-        </div>
-
-        <button class="btn primary" id="newRoundBtn">Начать новую сессию</button>
-      </div>
-    </main>
-
-    <div class="bottom">
-      <section class="panel">
-        <h3>Самые проблемные карточки</h3>
-        <div class="problems" id="problems"></div>
       </section>
-      <details class="panel how-details">
-        <summary>Как это работает</summary>
-        <div class="mini how-content" style="line-height:1.65">
-          Выберите <b>один или несколько уроков</b>. Их карточки объединяются в одну общую колоду.<br>
-          Укажите диапазон уже внутри объединённой колоды, например «с 15 по 80», или нажмите <b>«Все карточки»</b>.<br>
-          Без галочки карточки идут по порядку уроков и файлов. С галочкой <b>«Перемешать»</b> вся выбранная колода перемешивается один раз при старте.<br>
-          Прогресс карточки хранится <b>глобально</b>: если одна и та же карточка встречается в другой комбинации уроков, её статус не обнуляется.<br>
-          Статус: ⚪ новая, 🟡 изучается, 🔴 слабая, 🟢 хорошо знаю.<br><br>
 
-          <b>Письменно:</b> вводите перевод, приложение проверяет его автоматически. При ошибке различия с эталоном подсвечиваются.<br>
-          Ошибка / «Не знаю» запускают два возврата: через 5–10 заданий и ещё через 10–15 после первого.<br><br>
-
-          <b>Устно:</b> произнесите перевод и нажмите «Проверить ответ». После сравнения с эталоном выберите:<br>
-          <b>Не знал</b> — три возврата примерно через 3–5, затем 5–8 и 10–15 заданий.<br>
-          <b>Почти</b> — два обычных возврата.<br>
-          <b>Знал</b> — перейти дальше. Если это контрольный повтор, он считается успешно пройденным.<br><br>
-
-          При новой ошибке цикл повторов карточки запускается заново, без накопления лишних копий.
-          Ваш корректный альтернативный письменный перевод можно сохранить кнопкой «Засчитать мой вариант».<br><br>
-          <span class="pill"><span class="kbd">Enter</span> проверить / дальше</span>
-          <span class="pill"><span class="kbd">Space</span> показать ответ устно</span>
+      <section class="lower-grid">
+        <div class="panel weak-panel">
+          <div class="panel-heading">
+            <div>
+              <span class="section-kicker">Повторение</span>
+              <h3>Самые проблемные карточки</h3>
+            </div>
+            <span class="target-icon">◎</span>
+          </div>
+          <div class="problems" id="problems"></div>
         </div>
-      </details>
-    </div>
+
+        <details class="panel how-details">
+          <summary>
+            <span>
+              <span class="section-kicker">Подсказка</span>
+              <strong>Как это работает</strong>
+            </span>
+          </summary>
+          <div class="mini how-content">
+            Выберите <b>один или несколько уроков</b>. Их карточки объединяются в одну общую колоду.<br><br>
+            Укажите диапазон или нажмите <b>«Все»</b>. При включённом перемешивании порядок фиксируется на старте сессии.<br><br>
+            Статус карточки хранится глобально: ⚪ новая, 🟡 изучается, 🔴 слабая, 🟢 хорошо знаю.<br><br>
+            <b>Письменно:</b> ошибка или «Не знаю» запускают контрольные возвраты карточки.<br><br>
+            <b>Устно:</b> откройте ответ и выберите «Не знал», «Почти» или «Знал».<br><br>
+            <span class="pill"><span class="kbd">Enter</span> проверить / дальше</span>
+            <span class="pill"><span class="kbd">Space</span> показать ответ устно</span>
+          </div>
+        </details>
+      </section>
+    </main>
   </div>
 
   <script type="module" src="js/app.js"></script>
