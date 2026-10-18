@@ -1,0 +1,104 @@
+За что ты заплатил?	What did you pay for?
+Он переехал в этот город в 2010 году.	He moved to this city in 2010.
+Он потерял все свои деньги, поэтому он не может купить эту вещь.	He's lost all his money so he can't buy this thing.
+Я уже окончил университет, поэтому я очень счастлив.	I've already graduated from university so I'm very happy.
+Я только что прибыл в город.	I've just arrived in the city.
+Мы уже закончили работать над этим проектом.	We've already finished working on this project.
+Ты был в Англии?	Have you been to England?
+Он ходил к стоматологу вчера.	He went to the dentist yesterday.
+Ты уже закончил свою домашнюю работу?	Have you finished your homework yet?
+Я не видел его в этом месяце.	I haven't seen him this month.
+Во сколько ты добрался до дома в прошлый раз?	What time did you get home last time?
+Я не знал, что делать в такой сложной ситуации.	I didn't know what to do in such a difficult situation.
+Я вчера ходил в парк.	I went to the park yesterday.
+Я еще не смотрел это видео.	I haven't watched this video yet.
+Где ты был в прошлые выходные?	Where were you last weekend?
+Он не знал, что делать в такой ситуации.	He didn't know what to do in such a situation.
+Я прочитал эту книгу три раза.	I've read this book three times.
+Вчера в комнате было очень холодно.	It was very cold in the room yesterday.
+Я еще не закончил читать книгу.	I haven't finished reading the book yet.
+Я только что закончил делать это.	I've just finished doing it.
+Он жил в Париже с 2015 по 2019 год.	He lived in Paris from 2015 to 2019.
+Он еще не издал книгу.	He hasn't published the book yet.
+Он был когда-нибудь в англоязычной стране?	Has he ever been to an English-speaking country?
+Что она только что сказала?	What has she just said?
+Ты был за границей?	Have you been abroad?
+Я никогда не был в Австралии.	I've never been to Australia.
+Ты видел ее сегодня?	Have you seen her today?
+Когда он пришел на работу?	When did he come to work?
+Когда ты ушел из дома?	When did you leave home?
+Он прибыл минуту назад.	He arrived a minute ago.
+Ты когда-нибудь посещал англоязычную страну?	Have you ever visited an English-speaking country?
+Он купил новую машину на этой неделе.	He's bought a new car this week.
+Где ты купил свой ноутбук?	Where did you buy your laptop?
+Он опубликовал эту книгу два месяца назад.	He published this book two months ago.
+Гонка еще не началась.	The race hasn't started yet.
+Я уже видел этот фильм.	I've already seen this movie.
+Ты видел его сегодня утром?	Have you seen him this morning?
+Он получил плохие новости на прошлой неделе.	He got some bad news last week.
+Мы еще не посетили этот старый замок.	We haven't visited this old castle yet.
+Это уже случилось?	Has it happened yet?
+Было очень холодно в здании.	It was very cold in the building.
+Я видел близнецов на прошлой неделе.	I saw the twins last week.
+Я никогда не был в США.	I've never been to the USA.
+Она ходила к стоматологу на этой неделе.	She's gone to the dentist this week.
+Я ездил на море прошлым летом.	I went to the seaside last summer.
+Ты когда-нибудь был в Китае?	Have you ever been to China?
+Полиция только что арестовала преступников.	The police have just arrested the criminals.
+Я видел это сто раз.	I've seen it a hundred times.
+Когда я добрался до дома прошлой ночью, я был чрезвычайно уставшим и пошел в кровать немедленно.	When I got home last night, I was extremely tired and went to bed immediately.
+Ты еще не был в этом месте?	Haven't you been to this place yet?
+Это первый раз, когда я вел машину.	It's the first time I've driven a car.
+Твой друг еще не звонил тебе?	Hasn't your friend called you yet?
+Она всегда хотела стать учителем.	She's always wanted to become a teacher.
+Ты уже закончил делать свое домашнее задание?	Have you already finished doing your homework?
+Он никогда не водил машину раньше.	He's never driven a car before.
+Полиция еще не прибыла сюда.	The police haven't arrived here yet.
+Я еще не достиг этого уровня, но я полагаю, я сделаю это довольно скоро.	I haven't reached this level yet but I suppose I'll do it quite soon.
+На этой неделе не шел снег.	It hasn't snowed this week.
+Я второй раз здесь.	It's the second time I've been here.
+Это лучший концерт, на котором я когда-либо был.	It is the best concert I've ever been to.
+Это самое красивое место, которое я когда-либо видел.	It's the most beautiful place I've ever seen.
+Это первый раз, когда я слышу эту песню.	It's the first time I've heard this song.
+Это первый раз, когда я смотрю этот фильм.	It's the first time I've watched this movie.
+Это первый раз, когда я сделал это.	It is the first time I've done it. || It's the first time I've done it.
+Я еще не был в этой стране, но это в моих планах.	I haven't been to this country yet but it's in my plans.
+Я никогда не был в этой стране.	I've never been to this country.
+Ты когда-нибудь был в этом городе?	Have you ever been to this city?
+Я всегда хотел сделать что-то полезное для других людей.	I've always wanted to do something useful for other people.
+Она всегда хотела сделать что-то особенное для своего мужа.	She's always wanted to do something special for her husband.
+Я никогда не хотел делать это для других людей.	I've never wanted to do it for other people.
+Я впервые здесь.	It's the first time I've been here.
+Это второй раз, когда я в Англии.	It is the second time I've been to England.
+Это третий раз, когда я был здесь.	It is the third time I've been here.
+Она только что переехала в больший город.	She's just moved to a bigger city.
+Она уже переехала в этот город?	Has she already moved to this city?
+Она еще не переехала в эту страну.	She hasn't moved to this country yet.
+Я потерял свой ключ и пытаюсь его найти.	I've lost my key and I'm trying to find it.
+Я потерял свой ключ, и я не знаю, что делать.	I've lost my key and I don't know what to do.
+Я потерял терпение и пытаюсь с этим справиться.	I've lost my patience and I'm trying to cope with it.
+Я не слышал о нем с тех пор, как он покинул город.	I haven't heard about him since he left the city.
+Я не слышал об этом с тех пор, как ушел из школы.	I haven't heard about it since I left school.
+Я никогда не слышал об этом.	I've never heard about it.
+Он был чрезвычайно измотан, работая там.	He was extremely exhausted working there.
+Он был чрезвычайно уставшим, делая это упражнение.	He was extremely tired of doing this exercise.
+Он был действительно шокирован, слушая эту новость.	He was really shocked listening to this news.
+Это лучшая книга, которую я когда-либо читал.	It's the best book I've ever read.
+Это лучшая еда, которую я когда-либо ел.	It's the best food I've ever eaten. || It's the best meal I've ever had.
+Это лучший фильм, который я когда-либо смотрел.	It's the best movie I've ever watched.
+Я не видел его с тех пор, как окончил университет.	I haven't seen him since I graduated from university.
+Я не слышал о нем с тех пор, как ушел из школы.	I haven't heard about him since I left school.
+Я не делал этого с детства.	I haven't done it since I was a child.
+Он потерял свои ключи и не может попасть в дом.	He's lost his keys and he can't get into the house.
+Я никогда не думал об этом так серьезно.	I've never thought about it so seriously.
+Ученые еще не нашли лекарство от этой болезни.	Scientists haven't found a cure for this disease yet.
+Это первый раз, когда он водит машину.	It's the first time he's driven a car.
+Она сильно изменилась с тех пор, как ушла из школы.	She's changed a lot since she left school.
+Он был чрезвычайно истощен, когда он работал там.	He was extremely exhausted when he worked there.
+Это лучший курс, который я когда-либо проходил.	It's the best course I've ever done.
+Ты уже закончил писать это письмо?	Have you already finished writing this letter?
+Сколько стран ты уже посетил?	How many countries have you already visited?
+Это первый раз, когда я его вижу.	It is the first time I've seen him.
+Это самый эффективный курс, который я когда-либо проходил.	It's the most effective course I've ever done.
+В эти дни не шел дождь.	It hasn't rained these days.
+Ты еще не слышал это?	Haven't you heard it yet?
