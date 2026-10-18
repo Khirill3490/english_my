@@ -1,0 +1,100 @@
+Я живу в этом городе в течение года.	I've been living in this city for a year.
+Я изучаю английский около полугода.	I've been learning English for about half a year.
+Как долго ты знаешь его?	How long have you known him?
+Они разговаривают по телефону почти два часа.	They've been talking on the phone for almost two hours.
+Как долго ты изучаешь этот язык?	How long have you been learning this language?
+Я делаю это целый день.	I've been doing it all day long.
+Я учу английский весь день.	I've been learning English all day.
+Они играли в футбол весь день вчера.	They were playing football all day yesterday.
+Я готовлюсь к этому тесту с понедельника.	I've been preparing for this test since Monday.
+Как долго ты работаешь в этом отделе?	How long have you been working in this department?
+Я живу здесь всю свою жизнь.	I've been living here all my life.
+Она не видела его такое долгое время.	She hasn't seen him for such a long time.
+Как долго ты думаешь об этом?	How long have you been thinking about it?
+Я работаю весь день.	I've been working all day.
+Как долго ты смотришь эту программу?	How long have you been watching this program?
+Он так давно ее не видел.	He hasn't seen her for so long.
+Она была очень занята в последнее время.	She's been very busy lately.
+Она в Италии сейчас.	She is in Italy now.
+Как долго она здесь?	How long has she been here?
+Они друзья много лет.	They've been friends for many years.
+Как давно они встречаются?	How long have they been dating?
+Она готовит с утра.	She's been cooking since morning.
+Как долго вы друг друга знаете?	How long have you known each other?
+Мы тренируемся очень интенсивно в последнее время.	We've been training very intensively lately.
+Они встречаются с августа.	They've been dating since August.
+Как давно он преподает английский?	How long has he been teaching English?
+Как долго ты разговариваешь по телефону?	How long have you been talking on the phone?
+Я не думал об этом с нашего последнего разговора.	I haven't thought about it since our last conversation.
+Я не видел его очень долгое время.	I haven't seen him for a very long time.
+Я нахожусь здесь час.	I've been staying here for an hour.
+Как давно ты работаешь менеджером?	How long have you been working as a manager?
+Я пользуюсь этим приложением несколько месяцев.	I've been using this application for several months.
+Я не видел его целую вечность.	I haven't seen him for ages.
+Они играют в футбол весь день.	They've been playing football all day.
+Я живу здесь с прошлого лета.	I've been living here since last summer.
+Она плохо спит в последнее время.	She's been sleeping badly lately.
+Она в Италии с марта.	She's been in Italy since March.
+Я еще не думал об этом.	I haven't thought about it yet.
+Я нахожусь здесь минуту.	I've been here for a minute.
+Я делаю это упражнение пять минут.	I've been doing this exercise for five minutes.
+Я использую это приложение в течение полугода, и я считаю его действительно полезным.	I've been using this application for half a year and I find it really useful.
+Чем твой друг был занят в последнее время?	What has your friend been busy with lately?
+Чем ты увлекаешься в последнее время?	What have you been keen on lately?
+Он играл в хоккей каждый раз, когда у него была эта возможность.	He played hockey every time he had this opportunity.
+Они еще не нашли решение этой проблемы.	They haven't found a solution to this problem yet.
+Чем ты был занят в последнее время?	What have you been busy with lately?
+Что Энн делает весь день?	What has Ann been doing all day?
+Они посетили этот собор во время их поездки в Италию.	They visited this cathedral during their trip to Italy.
+Со вчерашнего дня идет сильный снег.	It's been snowing a lot since yesterday.
+Чем ты интересуешься в последнее время?	What have you been interested in lately?
+Мы друзья около десяти лет.	We've been friends for about ten years.
+Когда ты начал искать свои ключи?	When did you start looking for your keys?
+Как долго ты добирался до работы?	How long did it take you to get to work?
+Как долго ты добирался до этого места?	How long did it take you to get to this place?
+Я вижу, что дождь еще не прекратился.	I see that it hasn't stopped raining yet.
+Что ты делаешь в последнее время?	What have you been doing lately?
+Что ты делаешь в течение трех часов?	What have you been doing for three hours?
+Я делаю свою домашнюю работу, с тех пор, как я пришел домой.	I've been doing my homework since I came home.
+Как долго ты ищешь свои ключи?	How long have you been looking for your keys?
+Как долго ты ищешь новую работу?	How long have you been looking for a new job?
+Как долго ты этим занимаешься?	How long have you been doing it?
+Я занимаюсь с тех пор, как он ушел из дома.	I've been studying since he left home.
+Я учусь там в течение пяти лет.	I've been studying there for five years.
+Я занимаюсь этим с тех пор, как пришел домой.	I've been doing it since I came home.
+Мы были друзьями с тех пор, как встретились.	We've been friends since we met.
+Они друзья с детства.	They've been friends since childhood.
+Мы знаем друг друга со школы.	We've known each other since school.
+Они еще не решили эту проблему.	They haven't solved this problem yet.
+Они уже решили свои проблемы.	They've already solved their problems.
+Я еще не решил эту задачу.	I haven't solved this task yet.
+Как давно это было?	How long ago was it?
+Это было два года назад.	It was two years ago.
+Сколько лет назад это было?	How many years ago was it?
+Я до сих пор там не был.	I haven't been there so far.
+Я никогда не был там.	I've never been there.
+Ты когда-нибудь был здесь?	Have you ever been here?
+Весь день идет дождь.	It's been raining all day.
+Всю неделю идет снег.	It's been snowing all week.
+Солнце светит весь день.	The sun has been shining all day.
+Она до сих пор этого не сделала.	She hasn't done it so far.
+Она еще не сделала этого.	She hasn't done it yet.
+Она уже сделала это.	She's already done it.
+Как долго он ищет работу?	How long has he been looking for a job?
+Он ищет новую работу в настоящее время?	Is he looking for a new job at present?
+Как долго он там работает?	How long has he been working there?
+Я ходил туда каждый раз, когда я имел эту возможность.	I went there every time I had this opportunity.
+Я делал это вчера весь день.	I was doing it all day yesterday.
+Он вчера весь день сидел дома.	He was staying at home all day yesterday.
+Они не ели восемь часов.	They haven't been eating for eight hours.
+Сколько времени идет дождь?	How long has it been raining?
+Ее колено болит с той аварии.	Her knee has been aching since that accident.
+Мой брат путешествует две недели.	My brother has been travelling for two weeks.
+Она весь день работает в саду и не устала.	She's been working in the garden all day and she isn't tired.
+Я знаю Пола с детства.	I've known Paul since childhood.
+Каждый раз, когда я читал ту книгу, я находил что-то новое.	Every time I read that book, I found something new.
+Весь день идет снег.	It's been snowing all day.
+Его нога болит весь день.	His leg has been aching all day.
+Ветер дует весь день.	The wind has been blowing all day.
+Как долго вы дружите?	How long have you been friends?
+Он пока не нашел работу.	He hasn't found the job so far.
