@@ -353,37 +353,31 @@ export class Trainer {
     this.state.queue = this.state.queue.filter(i => i !== index);
   }
 
-  randomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+  scheduleRepeats(index, gaps) {
+    this.removePendingOccurrences(index);
+    const actualGaps = [];
+    let previousPos = -1;
+    for (const gap of gaps) {
+      const position = Math.min(previousPos + 1 + gap, this.state.queue.length);
+      actualGaps.push(position - previousPos - 1);
+      this.state.queue.splice(position, 0, index);
+      previousPos = position;
+    }
+    this.state.pendingRepeats[index] = gaps.length;
+    delete this.state.mastered[index];
+    return actualGaps;
   }
 
   scheduleReinforcement(index) {
-    this.removePendingOccurrences(index);
-    const firstGap = Math.min(this.randomInt(5, 10), this.state.queue.length);
-    const firstPos = Math.min(firstGap, this.state.queue.length);
-    this.state.queue.splice(firstPos, 0, index);
-    const secondGap = this.randomInt(10, 15);
-    const secondPos = Math.min(firstPos + 1 + secondGap, this.state.queue.length);
-    this.state.queue.splice(secondPos, 0, index);
-    this.state.pendingRepeats[index] = 2;
-    delete this.state.mastered[index];
-    return { first: firstPos + 1, secondAfterFirst: Math.max(1, secondPos - firstPos) };
+    return this.scheduleRepeats(index, [3, 7, 15]);
   }
 
   scheduleIntensiveReinforcement(index) {
-    this.removePendingOccurrences(index);
-    const firstGap = Math.min(this.randomInt(3, 5), this.state.queue.length);
-    const firstPos = Math.min(firstGap, this.state.queue.length);
-    this.state.queue.splice(firstPos, 0, index);
-    const secondGap = this.randomInt(5, 8);
-    const secondPos = Math.min(firstPos + 1 + secondGap, this.state.queue.length);
-    this.state.queue.splice(secondPos, 0, index);
-    const thirdGap = this.randomInt(10, 15);
-    const thirdPos = Math.min(secondPos + 1 + thirdGap, this.state.queue.length);
-    this.state.queue.splice(thirdPos, 0, index);
-    this.state.pendingRepeats[index] = 3;
-    delete this.state.mastered[index];
-    return { first:firstPos + 1, secondAfterFirst:Math.max(1, secondPos-firstPos), thirdAfterSecond:Math.max(1, thirdPos-secondPos) };
+    return this.scheduleRepeats(index, [2, 4, 8, 15, 25]);
+  }
+
+  repeatDescription(gaps) {
+    return `Повторов: ${gaps.length}. Других карточек перед каждым повтором: ${gaps.join(' → ')}. Если других карточек не осталось, повторы идут подряд.`;
   }
 
   recordOutcome(result) {
@@ -422,7 +416,7 @@ export class Trainer {
           this.showFeedback('ok', '✓ Закреплено', userText, 'Все контрольные повторы пройдены правильно.');
         } else {
           delete this.state.mastered[this.current];
-          this.showFeedback('ok', '✓ Правильно', userText, 'Хорошо. Позже будет ещё один контрольный повтор.');
+          this.showFeedback('ok', '✓ Правильно', userText, 'Хорошо. Продолжим контрольные повторы позже.');
         }
       } else {
         this.state.mastered[this.current] = true;
@@ -436,7 +430,7 @@ export class Trainer {
       this.recordOutcome('almost');
       const timing = this.scheduleReinforcement(this.current);
       this.showFeedback('bad', '✕ Пока не совпало', userText,
-        `Первый повтор примерно через ${timing.first} заданий, второй — ещё через ${timing.secondAfterFirst} после него.`);
+        this.repeatDescription(timing));
       this.awaitingNext = true;
       this.lastWasWrong = true;
       this.els.acceptBtn.classList.remove('hidden');
@@ -450,9 +444,9 @@ export class Trainer {
     if (this.awaitingNext || this.current === null) return;
     this.markAttempt(true);
     this.recordOutcome('unknown');
-    const timing = this.scheduleReinforcement(this.current);
+    const timing = this.scheduleIntensiveReinforcement(this.current);
     this.showFeedback('warn', 'Показываю ответ', '',
-      `Первый повтор примерно через ${timing.first} заданий, второй — ещё через ${timing.secondAfterFirst} после него.`);
+      this.repeatDescription(timing));
     this.awaitingNext = true;
     this.lastWasWrong = true;
     this.els.acceptBtn.classList.add('hidden');
