@@ -1,6 +1,6 @@
 import { ProgressStore } from './storage.js';
-import { LessonRepository } from './lessons.js';
-import { Trainer } from './trainer.js';
+import { LessonRepository } from './lessons.js?v=situations-1';
+import { Trainer } from './trainer.js?v=situations-1';
 
 const byId = id => document.getElementById(id);
 const els = {
