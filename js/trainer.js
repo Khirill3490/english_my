@@ -352,6 +352,7 @@ export class Trainer {
     this.awaitingNext = false;
     this.lastWasWrong = false;
     const card = this.deck[this.current];
+    this.els.prompt.classList.toggle('situation-prompt', Boolean(card.parts));
     this.els.prompt.textContent = card.parts
       ? card.parts.map((p, i) => `${i + 1}. ${p.ru}${p.context ? ' [' + p.context + ']' : ''}`).join('\n\n')
       : card.ru;
