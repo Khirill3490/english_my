@@ -1,4 +1,5 @@
 import { deckKey } from './storage.js';
+import { parseSituations } from './situations.js';
 
 export function parseDeck(text, lesson) {
   const cards = [];
@@ -63,7 +64,7 @@ export class LessonRepository {
     if (!response.ok) throw new Error(`${lesson.title || lesson.id}: HTTP ${response.status}`);
 
     const text = await response.text();
-    const cards = parseDeck(text, lesson);
+    const cards = lesson.format === 'situations' ? parseSituations(text, lesson) : parseDeck(text, lesson);
     if (!cards.length) throw new Error(`${lesson.title || lesson.id}: в файле нет карточек`);
 
     // Переносим историю старой одностраничной версии, если она есть в этом браузере.
@@ -84,3 +85,4 @@ export class LessonRepository {
     };
   }
 }
+

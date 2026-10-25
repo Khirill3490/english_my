@@ -9,6 +9,12 @@
   <title>English Drill</title>
   <link rel="icon" type="image/png" sizes="64x64" href="english-drill-favicon-64.png">
   <link rel="stylesheet" href="css/app.css?v=neutral-3">
+  <style>
+    textarea.answer { min-height: 90px; height: auto; resize: vertical; font-family: inherit; line-height: 1.6; box-sizing: border-box; max-width: 100%; }
+    #prompt, #oralCorrectAnswer { white-space: pre-line; overflow-wrap: anywhere; }
+    .situation-result { display: block; margin: 10px 0; padding: 8px 12px; border-left: 3px solid #64748b; line-height: 1.6; overflow-wrap: anywhere; }
+    .situation-detail { font-size: .9em; opacity: .8; margin-top: 5px; }
+  </style>
 </head>
 <body>
   <div class="app-shell">
@@ -114,8 +120,8 @@
         <div class="prompt" id="prompt">Загрузка…</div>
 
         <div id="writtenModePanel">
-          <input id="answerInput" class="answer" type="text" autocomplete="off" autocapitalize="sentences" spellcheck="false" placeholder="Введите перевод на английский…">
-          <div class="answer-hint">Enter — проверить или перейти дальше</div>
+          <textarea id="answerInput" class="answer" rows="2" aria-label="Перевод на английский" autocomplete="off" autocapitalize="sentences" spellcheck="false" placeholder="Введите перевод на английский…"></textarea>
+          <div class="answer-hint" id="answerHint">Enter — проверить или перейти дальше</div>
           <div class="actions">
             <button class="btn primary action-main" id="checkBtn" type="button">✓ Проверить</button>
             <button class="btn secondary-action" id="dontKnowBtn" type="button">? Не знаю</button>
@@ -218,3 +224,4 @@
   <script type="module" src="js/app.js"></script>
 </body>
 </html>
+

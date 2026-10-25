@@ -1,4 +1,5 @@
 import { cardKey, deckKey } from './storage.js';
+import { checkSituationAnswer, normalizeSituationAnswer } from './situations.js';
 
 function expandContractions(s) {
   return s
@@ -274,6 +275,10 @@ export class Trainer {
   }
 
   isCorrect(user, card) {
+    if (card.parts) {
+      return checkSituationAnswer(user, card.parts).correct ||
+        this.progress.acceptedAnswers(card).some(a => normalizeSituationAnswer(a) === normalizeSituationAnswer(user));
+    }
     const u = normalize(user);
     return this.validAnswers(card).some(a => normalize(a) === u);
   }
@@ -309,6 +314,15 @@ export class Trainer {
 
   resetQuestionUIForMode() {
     const oral = this.state?.practiceMode === 'oral';
+    const situation = Boolean(this.deck[this.current]?.parts);
+    this.els.answerInput.rows = situation ? 6 : 2;
+    this.els.answerInput.placeholder = situation
+      ? 'Переведите весь блок. Каждое предложение — с новой строки.'
+      : 'Введите перевод на английский…';
+    const hint = document.getElementById('answerHint');
+    if (hint) hint.textContent = situation
+      ? 'Каждое предложение — с новой строки, в том же порядке. Подсказки в скобках переводить не нужно. Enter — новая строка; Ctrl/⌘ + Enter — проверить. Проверка по вариантам, а не ИИ.'
+      : 'Enter — проверить или перейти дальше';
     this.els.feedback.className = 'feedback';
     this.els.complete.classList.add('hidden');
     if (oral) {
@@ -338,8 +352,10 @@ export class Trainer {
     this.awaitingNext = false;
     this.lastWasWrong = false;
     const card = this.deck[this.current];
-    this.els.prompt.textContent = card.ru;
-    this.els.lessonSource.textContent = `${card.lessonTitle} · №${card.lessonCardNumber}`;
+    this.els.prompt.textContent = card.parts
+      ? card.parts.map((p, i) => `${i + 1}. ${p.ru}${p.context ? ' [' + p.context + ']' : ''}`).join('\n\n')
+      : card.ru;
+    this.els.lessonSource.textContent = `${card.lessonTitle} · №${card.lessonCardNumber}${card.situationTitle ? " · " + card.situationTitle : ""}`;
     const scopeLabel = this.state.allCards
       ? `все ${this.deck.length}`
       : `${this.state.rangeFrom}–${this.state.rangeTo}`;
@@ -457,7 +473,10 @@ export class Trainer {
 
   revealOralAnswer() {
     if (this.state?.practiceMode !== 'oral' || this.current === null) return;
-    this.els.oralCorrectAnswer.textContent = this.deck[this.current].answers.join('  /  ');
+    const card = this.deck[this.current];
+    this.els.oralCorrectAnswer.textContent = card.parts
+      ? card.parts.map((p, i) => `${i + 1}. ${p.answers[0]}`).join('\n\n')
+      : card.answers.join('  /  ');
     this.els.oralAnswerBox.classList.remove('hidden');
     this.els.oralDecisionButtons.classList.remove('hidden');
     this.els.oralCheckBtn.classList.add('hidden');
@@ -502,6 +521,32 @@ export class Trainer {
     this.els.feedback.className = 'feedback ' + kind;
     this.els.fbTitle.textContent = title;
     this.els.repeatInfo.textContent = info;
+    if (card.parts) {
+      this.els.yourRow.classList.toggle('hidden', !user);
+      this.els.yourAnswer.textContent = user;
+      const check = checkSituationAnswer(user, card.parts);
+      this.els.correctAnswer.replaceChildren();
+      card.parts.forEach((part, i) => {
+        const row = document.createElement('div');
+        const result = check.results[i];
+        row.className = 'situation-result';
+        row.textContent = `${user && !(kind === 'ok' && !check.correct) ? (result.correct ? '✓ ' : '✕ ') : ''}${i + 1}. ${part.answers[0]}`;
+        if (user && !(kind === 'ok' && !check.correct)) row.style.borderLeftColor = result.correct ? '#4ade80' : '#fb923c';
+        if (user && kind !== 'ok' && !result.correct) {
+          const detail = document.createElement('div');
+          detail.className = 'situation-detail';
+          detail.textContent = result.input ? `Ваш вариант: ${result.input}` : 'Перевод этого предложения не найден.';
+          row.appendChild(detail);
+        }
+        this.els.correctAnswer.appendChild(row);
+      });
+      if (user) {
+        const matched = check.results.filter(r => r.correct).length;
+        this.els.fbTitle.textContent = kind === 'ok' ? '✓ Блок переведён правильно' : `Совпало предложений: ${matched} из ${card.parts.length}`;
+        if (check.extra.length) this.els.repeatInfo.textContent += ` Лишних предложений или строк: ${check.extra.length}.`;
+      }
+      return;
+    }
     if (user) {
       this.els.yourRow.classList.remove('hidden');
       if (kind === 'bad') {
@@ -522,7 +567,7 @@ export class Trainer {
   acceptCurrentAnswer() {
     const val = this.els.answerInput.value.trim();
     if (!val || this.current === null) return;
-    this.progress.addAcceptedAnswer(this.deck[this.current], val, normalize);
+    this.progress.addAcceptedAnswer(this.deck[this.current], val, this.deck[this.current].parts ? normalizeSituationAnswer : normalize);
     this.removePendingOccurrences(this.current);
     delete this.state.pendingRepeats[this.current];
     this.state.mastered[this.current] = true;
@@ -738,6 +783,8 @@ export class Trainer {
     e.resetBtn.addEventListener('click', () => { if (this.state) this.resetRound(); });
     e.answerInput.addEventListener('keydown', ev => {
       if (ev.key === 'Enter') {
+        if (ev.isComposing) return;
+        if (this.deck[this.current]?.parts && !ev.ctrlKey && !ev.metaKey && !this.awaitingNext) return;
         ev.preventDefault();
         if (this.awaitingNext) this.nextCard(); else this.submitAnswer();
       }
@@ -750,3 +797,4 @@ export class Trainer {
     });
   }
 }
+
