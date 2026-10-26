@@ -5,13 +5,13 @@ import {parseDeck,LessonRepository} from './js/lessons.js';
 const source=parseDeck(fs.readFileSync('lessons/1-10.txt','utf8'),{id:'1-10'});
 const data=fs.readFileSync('lessons/1-10-situations.json','utf8');
 const cards=parseSituations(data,{id:'1-10-situations',title:'Situations'});
-assert.equal(cards.length,341);
+assert.equal(cards.length,335);
 const parts=cards.flatMap(c=>c.parts);
 assert.equal(parts.length,1004);
 assert.equal(new Set(parts.map(p=>p.sourceCard)).size,1004);
-for(const p of parts) assert.equal(p.ru,source[p.sourceCard-1].ru);
+for(const [i,p] of parts.entries()) { assert.equal(p.sourceCard,i+1); assert.equal(p.ru,source[i].ru); }
 for(const card of cards){
- assert(card.parts.length>=2 && card.parts.length<=4);
+ assert(card.parts.length>=2 && card.parts.length<=3);
  assert(checkSituationAnswer(card.parts.map(p=>p.answers[0]).join('\n'),card.parts).correct);
  // All stored alternatives must work independently, without enumerating combinations.
  for(let i=0;i<card.parts.length;i++)for(const a of card.parts[i].answers){
@@ -31,9 +31,9 @@ assert(checkSituationAnswer("He has lost all his money so he can't buy this thin
 assert(!checkSituationAnswer("He is lost all his money so he can't buy this thing.",[p]).correct);
 globalThis.fetch=async url=>({ok:true,text:async()=>fs.readFileSync(String(url),'utf8'),json:async()=>JSON.parse(fs.readFileSync(String(url),'utf8'))});
 const repo=new LessonRepository('lessons');await repo.loadCatalog();
-assert.equal((await repo.loadMany(['1-10-situations'])).cards.length,341);
-assert.equal((await repo.loadMany(['1-10','1-10-situations'])).cards.length,1345);
-console.log('PASS: 1004/1004 exact source prompts; 341 blocks; all alternatives; partial, missing and extra answers; contractions; mixed lessons');
+assert.equal((await repo.loadMany(['1-10-situations'])).cards.length,335);
+assert.equal((await repo.loadMany(['1-10','1-10-situations'])).cards.length,1339);
+console.log('PASS: 1004/1004 exact source prompts; 335 blocks; all alternatives; partial, missing and extra answers; contractions; mixed lessons');
 import {Trainer} from './js/trainer.js';
 const t=Object.create(Trainer.prototype);
 t.progress={acceptedAnswers:()=>[]};
