@@ -8,13 +8,10 @@
   <meta name="color-scheme" content="light dark">
   <title>English Drill</title>
   <link rel="icon" type="image/png" sizes="64x64" href="english-drill-favicon-64.png">
-  <link rel="stylesheet" href="css/app.css?v=neutral-3">
+  <link rel="stylesheet" href="css/app.css?v=oral-only-1">
   <style>
-    textarea.answer { min-height: 90px; height: auto; resize: vertical; font-family: inherit; line-height: 1.6; box-sizing: border-box; max-width: 100%; }
     #prompt, #oralCorrectAnswer { white-space: pre-line; overflow-wrap: anywhere; }
     #prompt.situation-prompt { font-size: clamp(18px, 2.1vw, 26px); line-height: 1.6; text-align: left; font-weight: 600; letter-spacing: normal; }
-    .situation-result { display: block; margin: 10px 0; padding: 8px 12px; border-left: 3px solid #64748b; line-height: 1.6; overflow-wrap: anywhere; }
-    .situation-detail { font-size: .9em; opacity: .8; margin-top: 5px; }
   </style>
 </head>
 <body>
@@ -28,10 +25,7 @@
         </span>
       </a>
       <div class="header-actions">
-        <div class="mode-switch" aria-label="Режим тренировки">
-          <button class="mode-btn active" id="writtenModeBtn" type="button">⌨ Письменно</button>
-          <button class="mode-btn" id="oralModeBtn" type="button">🎙 Устно</button>
-        </div>
+        <span class="mode-label">🎙 Устно</span>
         <button class="icon-btn danger-soft" id="resetBtn" type="button" title="Перезапустить текущую сессию" aria-label="Перезапустить текущую сессию">↻</button>
       </div>
     </header>
@@ -120,18 +114,7 @@
         <div class="trainer-label">Переведи на английский</div>
         <div class="prompt" id="prompt">Загрузка…</div>
 
-        <div id="writtenModePanel">
-          <textarea id="answerInput" class="answer" rows="2" aria-label="Перевод на английский" autocomplete="off" autocapitalize="sentences" spellcheck="false" placeholder="Введите перевод на английский…"></textarea>
-          <div class="answer-hint" id="answerHint">Enter — проверить или перейти дальше</div>
-          <div class="actions">
-            <button class="btn primary action-main" id="checkBtn" type="button">✓ Проверить</button>
-            <button class="btn secondary-action" id="dontKnowBtn" type="button">? Не знаю</button>
-            <button class="btn hidden" id="acceptBtn" type="button">Этот вариант тоже правильный</button>
-            <button class="btn primary hidden action-main" id="nextBtn" type="button">Дальше →</button>
-          </div>
-        </div>
-
-        <div id="oralModePanel" class="hidden">
+        <div id="oralModePanel">
           <div class="oral-intro">Скажите перевод вслух, затем откройте эталон.</div>
           <button class="btn primary oral-main" id="oralCheckBtn" type="button">Показать ответ</button>
           <div class="oral-answer hidden" id="oralAnswerBox">
@@ -145,19 +128,6 @@
           </div>
         </div>
 
-        <div class="feedback" id="feedback">
-          <div class="fb-title" id="fbTitle"></div>
-          <div class="fb-row hidden" id="yourRow">
-            <span class="fb-label">Ваш ответ</span>
-            <span class="english" id="yourAnswer"></span>
-          </div>
-          <div class="fb-row">
-            <span class="fb-label">Эталон</span>
-            <span class="english" id="correctAnswer"></span>
-          </div>
-          <div class="mini" id="repeatInfo"></div>
-        </div>
-
         <div class="complete hidden" id="complete">
           <div class="complete-icon">✓</div>
           <h2>Тренировка завершена!</h2>
@@ -165,8 +135,8 @@
 
           <div class="report-grid">
             <div class="report-item"><div class="rn" id="reportTotal">0</div><div class="rl">всего</div></div>
-            <div class="report-item success"><div class="rn" id="reportKnown">0</div><div class="rl">сразу верно / знал</div></div>
-            <div class="report-item warning"><div class="rn" id="reportAlmost">0</div><div class="rl">почти / ошибка</div></div>
+            <div class="report-item success"><div class="rn" id="reportKnown">0</div><div class="rl">знал</div></div>
+            <div class="report-item warning"><div class="rn" id="reportAlmost">0</div><div class="rl">почти</div></div>
             <div class="report-item danger"><div class="rn" id="reportUnknown">0</div><div class="rl">не знал</div></div>
           </div>
 
@@ -212,9 +182,7 @@
             Выберите <b>один или несколько уроков</b>. Их карточки объединяются в одну общую колоду.<br><br>
             Укажите диапазон или нажмите <b>«Все»</b>. При включённом перемешивании порядок фиксируется на старте сессии.<br><br>
             Статус карточки хранится глобально: ⚪ новая, 🟡 изучается, 🔴 слабая, 🟢 хорошо знаю.<br><br>
-            <b>Письменно:</b> ошибка или «Не знаю» запускают контрольные возвраты карточки.<br><br>
-            <b>Устно:</b> откройте ответ и выберите «Не знал», «Почти» или «Знал».<br><br>
-            <span class="pill"><span class="kbd">Enter</span> проверить / дальше</span>
+            <b>Устно:</b> откройте ответ и выберите «Не знал», «Почти» или «Знал». «Почти» назначает 3 повтора, «Не знал» — 5.<br><br>
             <span class="pill"><span class="kbd">Space</span> показать ответ устно</span>
           </div>
         </details>
@@ -222,7 +190,6 @@
     </main>
   </div>
 
-  <script type="module" src="js/app.js?v=situations-2"></script>
+  <script type="module" src="js/app.js?v=oral-only-1"></script>
 </body>
 </html>
-

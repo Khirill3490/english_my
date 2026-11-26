@@ -174,3 +174,5 @@ details.how-details{padding:0;overflow:hidden}details.how-details summary{list-s
 @media (max-width:470px){
   .brand-copy strong{font-size:14px}.mode-switch{padding:3px}.mode-btn{font-size:0;width:42px;height:32px;padding:0}.mode-btn::first-letter{font-size:15px}.setup-panel{padding:14px}.range-row{grid-template-columns:minmax(0,1fr) 58px}.session-control input{width:52px}.stats{grid-template-columns:repeat(2,1fr)}.stat{text-align:left;padding:10px 11px}.stat .l{font-size:10px}.prompt{font-size:clamp(24px,9vw,34px);min-height:78px}.actions{grid-template-columns:1fr}.actions .btn{width:100%}.oral-actions{grid-template-columns:repeat(3,1fr)}.oral-actions span{font-size:10px}.report-grid-small{grid-template-columns:1fr 1fr}.new-session-btn{width:100%;min-width:0}
 }
+
+.mode-label { font-size: 13px; font-weight: 600; white-space: nowrap; }

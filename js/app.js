@@ -1,6 +1,6 @@
 import { ProgressStore } from './storage.js';
 import { LessonRepository } from './lessons.js?v=situations-2';
-import { Trainer } from './trainer.js?v=situations-2';
+import { Trainer } from './trainer.js?v=oral-only-1';
 
 const byId = id => document.getElementById(id);
 const els = {
@@ -32,15 +32,6 @@ const els = {
   lessonSource: byId('lessonSource'),
   cardStatusBadge: byId('cardStatusBadge'),
   prompt: byId('prompt'),
-  writtenModeBtn: byId('writtenModeBtn'),
-  oralModeBtn: byId('oralModeBtn'),
-  writtenModePanel: byId('writtenModePanel'),
-  oralModePanel: byId('oralModePanel'),
-  answerInput: byId('answerInput'),
-  checkBtn: byId('checkBtn'),
-  dontKnowBtn: byId('dontKnowBtn'),
-  acceptBtn: byId('acceptBtn'),
-  nextBtn: byId('nextBtn'),
   oralCheckBtn: byId('oralCheckBtn'),
   oralAnswerBox: byId('oralAnswerBox'),
   oralCorrectAnswer: byId('oralCorrectAnswer'),
@@ -48,12 +39,6 @@ const els = {
   oralDontKnowBtn: byId('oralDontKnowBtn'),
   oralAlmostBtn: byId('oralAlmostBtn'),
   oralKnowBtn: byId('oralKnowBtn'),
-  feedback: byId('feedback'),
-  fbTitle: byId('fbTitle'),
-  yourRow: byId('yourRow'),
-  yourAnswer: byId('yourAnswer'),
-  correctAnswer: byId('correctAnswer'),
-  repeatInfo: byId('repeatInfo'),
   complete: byId('complete'),
   reportSubtitle: byId('reportSubtitle'),
   reportTotal: byId('reportTotal'),

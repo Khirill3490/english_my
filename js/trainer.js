@@ -1,39 +1,4 @@
 import { cardKey, deckKey } from './storage.js';
-import { checkSituationAnswer, normalizeSituationAnswer } from './situations.js';
-
-function expandContractions(s) {
-  return s
-    .replace(/\b(i)'m\b/g, 'i am')
-    .replace(/\b(you|we|they)'re\b/g, '$1 are')
-    .replace(/\b(he|she|it)'s been\b/g, '$1 has been')
-    .replace(/\b(he|she|it)'s\b/g, '$1 is')
-    .replace(/\b(i|you|we|they)'ve\b/g, '$1 have')
-    .replace(/\b(he|she|it)'ll\b/g, '$1 will')
-    .replace(/\b(i|you|we|they)'ll\b/g, '$1 will')
-    .replace(/\bcan't\b/g, 'cannot')
-    .replace(/\bwon't\b/g, 'will not')
-    .replace(/\bdon't\b/g, 'do not')
-    .replace(/\bdoesn't\b/g, 'does not')
-    .replace(/\bdidn't\b/g, 'did not')
-    .replace(/\bisn't\b/g, 'is not')
-    .replace(/\baren't\b/g, 'are not')
-    .replace(/\bwasn't\b/g, 'was not')
-    .replace(/\bweren't\b/g, 'were not')
-    .replace(/\bhaven't\b/g, 'have not')
-    .replace(/\bhasn't\b/g, 'has not')
-    .replace(/\bhadn't\b/g, 'had not')
-    .replace(/\bshouldn't\b/g, 'should not')
-    .replace(/\bwouldn't\b/g, 'would not')
-    .replace(/\bcouldn't\b/g, 'could not')
-    .replace(/\bmustn't\b/g, 'must not')
-    .replace(/\bneedn't\b/g, 'need not');
-}
-
-function normalize(s) {
-  return expandContractions(
-    String(s).toLowerCase().replace(/[’‘`]/g, "'").replace(/[“”]/g, '"').trim()
-  ).replace(/[.,!?;:"()[\]{}]/g, '').replace(/\s+/g, ' ').trim();
-}
 
 function shuffledCopy(indices) {
   const copy = [...indices];
@@ -42,79 +7,6 @@ function shuffledCopy(indices) {
     [copy[i], copy[j]] = [copy[j], copy[i]];
   }
   return copy;
-}
-
-function tokeniseForDiff(value) {
-  return String(value).match(/[A-Za-z0-9]+(?:['’][A-Za-z0-9]+)*|[^\s]/g) || [];
-}
-
-function diffTokenKey(token) {
-  return token.toLowerCase().replace(/[’]/g, "'");
-}
-
-function computeTokenDiff(userText, expectedText) {
-  const a = tokeniseForDiff(userText);
-  const b = tokeniseForDiff(expectedText);
-  const m = a.length;
-  const n = b.length;
-  const dp = Array.from({length:m + 1}, () => Array(n + 1).fill(0));
-
-  for (let i = m - 1; i >= 0; i--) {
-    for (let j = n - 1; j >= 0; j--) {
-      dp[i][j] = diffTokenKey(a[i]) === diffTokenKey(b[j])
-        ? dp[i + 1][j + 1] + 1
-        : Math.max(dp[i + 1][j], dp[i][j + 1]);
-    }
-  }
-
-  const userParts = [];
-  const expectedParts = [];
-  let i = 0;
-  let j = 0;
-  while (i < m || j < n) {
-    if (i < m && j < n && diffTokenKey(a[i]) === diffTokenKey(b[j])) {
-      userParts.push({text:a[i], kind:'same'});
-      expectedParts.push({text:b[j], kind:'same'});
-      i++; j++;
-    } else if (i < m && (j >= n || dp[i + 1][j] >= dp[i][j + 1])) {
-      userParts.push({text:a[i], kind:'bad'});
-      i++;
-    } else if (j < n) {
-      expectedParts.push({text:b[j], kind:'good'});
-      j++;
-    }
-  }
-  return { userParts, expectedParts };
-}
-
-function appendDiffParts(el, parts) {
-  el.textContent = '';
-  parts.forEach((part, idx) => {
-    if (idx > 0) el.appendChild(document.createTextNode(' '));
-    if (part.kind === 'same') {
-      el.appendChild(document.createTextNode(part.text));
-    } else {
-      const span = document.createElement('span');
-      span.className = part.kind === 'bad' ? 'diff-bad' : 'diff-good';
-      span.textContent = part.text;
-      el.appendChild(span);
-    }
-  });
-}
-
-function tokenDistance(a, b) {
-  const aa = tokeniseForDiff(a).map(diffTokenKey);
-  const bb = tokeniseForDiff(b).map(diffTokenKey);
-  const dp = Array.from({length:aa.length + 1}, (_, i) =>
-    Array.from({length:bb.length + 1}, (_, j) => i === 0 ? j : (j === 0 ? i : 0))
-  );
-  for (let i = 1; i <= aa.length; i++) {
-    for (let j = 1; j <= bb.length; j++) {
-      const cost = aa[i - 1] === bb[j - 1] ? 0 : 1;
-      dp[i][j] = Math.min(dp[i - 1][j] + 1, dp[i][j - 1] + 1, dp[i - 1][j - 1] + cost);
-    }
-  }
-  return dp[aa.length][bb.length];
 }
 
 export class Trainer {
@@ -126,8 +18,6 @@ export class Trainer {
     this.signature = '';
     this.state = null;
     this.current = null;
-    this.awaitingNext = false;
-    this.lastWasWrong = false;
     this.bindEvents();
   }
 
@@ -152,7 +42,7 @@ export class Trainer {
       rangeTo,
       shuffleRange: false,
       allCards: false,
-      practiceMode: 'written',
+      practiceMode: 'oral',
       sessionFirstResult: {},
       sessionErrorsByIndex: {},
       sessionAttemptCount: 0,
@@ -180,7 +70,8 @@ export class Trainer {
       if (state.rangeFrom > state.rangeTo) [state.rangeFrom, state.rangeTo] = [state.rangeTo, state.rangeFrom];
       state.shuffleRange = Boolean(state.shuffleRange);
       state.allCards = Boolean(state.allCards);
-      state.practiceMode = state.practiceMode === 'oral' ? 'oral' : 'written';
+      // Keep progress when resuming an older written session.
+      state.practiceMode = 'oral';
       state.sessionFirstResult ||= {};
       state.sessionErrorsByIndex ||= {};
       state.sessionAttemptCount ||= 0;
@@ -209,7 +100,6 @@ export class Trainer {
     this.lessons = lessons;
     this.signature = deckKey(cards);
     this.current = null;
-    this.awaitingNext = false;
     this.state = this.loadState();
 
     this.els.rangeFromInput.max = this.deck.length;
@@ -218,7 +108,7 @@ export class Trainer {
     this.els.rangeToInput.value = this.state.allCards ? this.deck.length : Math.min(this.state.rangeTo || 20, this.deck.length);
     this.els.shuffleRangeInput.checked = Boolean(this.state.shuffleRange);
     this.syncAllCardsUI();
-    this.applyPracticeMode(this.state.practiceMode, false);
+    this.saveState();
     this.pickNext();
   }
 
@@ -270,19 +160,6 @@ export class Trainer {
     return { from, to };
   }
 
-  validAnswers(card) {
-    return [...card.answers, ...this.progress.acceptedAnswers(card)];
-  }
-
-  isCorrect(user, card) {
-    if (card.parts) {
-      return checkSituationAnswer(user, card.parts).correct ||
-        this.progress.acceptedAnswers(card).some(a => normalizeSituationAnswer(a) === normalizeSituationAnswer(user));
-    }
-    const u = normalize(user);
-    return this.validAnswers(card).some(a => normalize(a) === u);
-  }
-
   updateCurrentCardStatus() {
     if (this.current === null || !this.deck[this.current]) return;
     const status = this.progress.cardStatus(this.deck[this.current]);
@@ -290,56 +167,12 @@ export class Trainer {
     this.els.cardStatusBadge.className = 'status-badge ' + status.className;
   }
 
-  closestReference(userText, card) {
-    let best = card.answers[0] || '';
-    let bestDistance = Infinity;
-    card.answers.forEach(answer => {
-      const d = tokenDistance(userText, answer);
-      if (d < bestDistance) { bestDistance = d; best = answer; }
-    });
-    return best;
-  }
-
-  applyPracticeMode(mode, persist = true) {
-    const normalized = mode === 'oral' ? 'oral' : 'written';
-    if (this.state) this.state.practiceMode = normalized;
-    const oral = normalized === 'oral';
-    this.els.writtenModeBtn.classList.toggle('active', !oral);
-    this.els.oralModeBtn.classList.toggle('active', oral);
-    this.els.writtenModePanel.classList.toggle('hidden', oral);
-    this.els.oralModePanel.classList.toggle('hidden', !oral);
-    if (persist && this.state) this.saveState();
-    if (this.current !== null) this.resetQuestionUIForMode();
-  }
-
-  resetQuestionUIForMode() {
-    const oral = this.state?.practiceMode === 'oral';
-    const situation = Boolean(this.deck[this.current]?.parts);
-    this.els.answerInput.rows = situation ? 6 : 2;
-    this.els.answerInput.placeholder = situation
-      ? 'Переведите весь блок. Каждое предложение — с новой строки.'
-      : 'Введите перевод на английский…';
-    const hint = document.getElementById('answerHint');
-    if (hint) hint.textContent = situation
-      ? 'Каждое предложение — с новой строки, в том же порядке. Подсказки в скобках переводить не нужно. Enter — новая строка; Ctrl/⌘ + Enter — проверить. Проверка по вариантам, а не ИИ.'
-      : 'Enter — проверить или перейти дальше';
-    this.els.feedback.className = 'feedback';
+  resetQuestionUI() {
     this.els.complete.classList.add('hidden');
-    if (oral) {
-      this.els.oralCheckBtn.classList.remove('hidden');
-      this.els.oralAnswerBox.classList.add('hidden');
-      this.els.oralDecisionButtons.classList.add('hidden');
-      this.els.oralCorrectAnswer.textContent = '';
-    } else {
-      this.els.answerInput.value = '';
-      this.els.answerInput.disabled = false;
-      this.els.answerInput.classList.remove('hidden');
-      this.els.checkBtn.classList.remove('hidden');
-      this.els.dontKnowBtn.classList.remove('hidden');
-      this.els.acceptBtn.classList.add('hidden');
-      this.els.nextBtn.classList.add('hidden');
-      setTimeout(() => this.els.answerInput.focus(), 0);
-    }
+    this.els.oralCheckBtn.classList.remove('hidden');
+    this.els.oralAnswerBox.classList.add('hidden');
+    this.els.oralDecisionButtons.classList.add('hidden');
+    this.els.oralCorrectAnswer.textContent = '';
   }
 
   pickNext() {
@@ -349,8 +182,6 @@ export class Trainer {
       return;
     }
     this.current = this.state.queue.shift();
-    this.awaitingNext = false;
-    this.lastWasWrong = false;
     const card = this.deck[this.current];
     this.els.prompt.classList.toggle('situation-prompt', Boolean(card.parts));
     this.els.prompt.textContent = card.parts
@@ -362,7 +193,7 @@ export class Trainer {
       : `${this.state.rangeFrom}–${this.state.rangeTo}`;
     this.els.positionText.textContent = `${scopeLabel} · осталось ${this.state.queue.length + 1}`;
     this.updateCurrentCardStatus();
-    this.resetQuestionUIForMode();
+    this.resetQuestionUI();
     this.updateStats();
   }
 
@@ -393,10 +224,6 @@ export class Trainer {
     return this.scheduleRepeats(index, [2, 4, 8, 15, 25]);
   }
 
-  repeatDescription(gaps) {
-    return `Повторов: ${gaps.length}. Других карточек перед каждым повтором: ${gaps.join(' → ')}. Если других карточек не осталось, повторы идут подряд.`;
-  }
-
   recordOutcome(result) {
     if (this.current === null) return;
     this.progress.recordOutcome(this.deck[this.current], result);
@@ -414,62 +241,6 @@ export class Trainer {
       this.state.streak += 1;
       this.progress.setBestStreak(this.state.streak);
     }
-  }
-
-  submitAnswer() {
-    if (this.awaitingNext) { this.nextCard(); return; }
-    const userText = this.els.answerInput.value.trim();
-    if (!userText || this.current === null) return;
-    const pendingBefore = this.state.pendingRepeats[this.current] || 0;
-
-    if (this.isCorrect(userText, this.deck[this.current])) {
-      this.markAttempt(false);
-      this.recordOutcome('known');
-      if (pendingBefore > 0) {
-        this.state.pendingRepeats[this.current] = pendingBefore - 1;
-        if (this.state.pendingRepeats[this.current] <= 0) {
-          delete this.state.pendingRepeats[this.current];
-          this.state.mastered[this.current] = true;
-          this.showFeedback('ok', '✓ Закреплено', userText, 'Все контрольные повторы пройдены правильно.');
-        } else {
-          delete this.state.mastered[this.current];
-          this.showFeedback('ok', '✓ Правильно', userText, 'Хорошо. Продолжим контрольные повторы позже.');
-        }
-      } else {
-        this.state.mastered[this.current] = true;
-        this.showFeedback('ok', '✓ Правильно', userText, 'Карточка выполнена в этой сессии.');
-      }
-      this.awaitingNext = true;
-      this.lastWasWrong = false;
-      this.els.acceptBtn.classList.add('hidden');
-    } else {
-      this.markAttempt(true);
-      this.recordOutcome('almost');
-      const timing = this.scheduleReinforcement(this.current);
-      this.showFeedback('bad', '✕ Пока не совпало', userText,
-        this.repeatDescription(timing));
-      this.awaitingNext = true;
-      this.lastWasWrong = true;
-      this.els.acceptBtn.classList.remove('hidden');
-    }
-    this.finishAttemptUI();
-    this.saveState();
-    this.updateStats();
-  }
-
-  dontKnow() {
-    if (this.awaitingNext || this.current === null) return;
-    this.markAttempt(true);
-    this.recordOutcome('unknown');
-    const timing = this.scheduleIntensiveReinforcement(this.current);
-    this.showFeedback('warn', 'Показываю ответ', '',
-      this.repeatDescription(timing));
-    this.awaitingNext = true;
-    this.lastWasWrong = true;
-    this.els.acceptBtn.classList.add('hidden');
-    this.finishAttemptUI();
-    this.saveState();
-    this.updateStats();
   }
 
   revealOralAnswer() {
@@ -510,81 +281,6 @@ export class Trainer {
     this.saveState(); this.updateStats(); this.pickNext();
   }
 
-  finishAttemptUI() {
-    this.els.answerInput.disabled = true;
-    this.els.checkBtn.classList.add('hidden');
-    this.els.dontKnowBtn.classList.add('hidden');
-    this.els.nextBtn.classList.remove('hidden');
-  }
-
-  showFeedback(kind, title, user, info) {
-    const card = this.deck[this.current];
-    this.els.feedback.className = 'feedback ' + kind;
-    this.els.fbTitle.textContent = title;
-    this.els.repeatInfo.textContent = info;
-    if (card.parts) {
-      this.els.yourRow.classList.toggle('hidden', !user);
-      this.els.yourAnswer.textContent = user;
-      const check = checkSituationAnswer(user, card.parts);
-      this.els.correctAnswer.replaceChildren();
-      card.parts.forEach((part, i) => {
-        const row = document.createElement('div');
-        const result = check.results[i];
-        row.className = 'situation-result';
-        row.textContent = `${user && !(kind === 'ok' && !check.correct) ? (result.correct ? '✓ ' : '✕ ') : ''}${i + 1}. ${part.answers[0]}`;
-        if (user && !(kind === 'ok' && !check.correct)) row.style.borderLeftColor = result.correct ? '#4ade80' : '#fb923c';
-        if (user && kind !== 'ok' && !result.correct) {
-          const detail = document.createElement('div');
-          detail.className = 'situation-detail';
-          detail.textContent = result.input ? `Ваш вариант: ${result.input}` : 'Перевод этого предложения не найден.';
-          row.appendChild(detail);
-        }
-        this.els.correctAnswer.appendChild(row);
-      });
-      if (user) {
-        const matched = check.results.filter(r => r.correct).length;
-        this.els.fbTitle.textContent = kind === 'ok' ? '✓ Блок переведён правильно' : `Совпало предложений: ${matched} из ${card.parts.length}`;
-        if (check.extra.length) this.els.repeatInfo.textContent += ` Лишних предложений или строк: ${check.extra.length}.`;
-      }
-      return;
-    }
-    if (user) {
-      this.els.yourRow.classList.remove('hidden');
-      if (kind === 'bad') {
-        const reference = this.closestReference(user, card);
-        const diff = computeTokenDiff(user, reference);
-        appendDiffParts(this.els.yourAnswer, diff.userParts);
-        appendDiffParts(this.els.correctAnswer, diff.expectedParts);
-      } else {
-        this.els.yourAnswer.textContent = user;
-        this.els.correctAnswer.textContent = card.answers.join('  /  ');
-      }
-    } else {
-      this.els.yourRow.classList.add('hidden');
-      this.els.correctAnswer.textContent = card.answers.join('  /  ');
-    }
-  }
-
-  acceptCurrentAnswer() {
-    const val = this.els.answerInput.value.trim();
-    if (!val || this.current === null) return;
-    this.progress.addAcceptedAnswer(this.deck[this.current], val, this.deck[this.current].parts ? normalizeSituationAnswer : normalize);
-    this.removePendingOccurrences(this.current);
-    delete this.state.pendingRepeats[this.current];
-    this.state.mastered[this.current] = true;
-    this.lastWasWrong = false;
-    this.els.feedback.className = 'feedback ok';
-    this.els.fbTitle.textContent = '✓ Засчитано как допустимый вариант';
-    this.els.repeatInfo.textContent = 'Этот вариант сохранён для этой карточки и будет приниматься во всех уроках и комбинациях.';
-    this.els.acceptBtn.classList.add('hidden');
-    this.saveState(); this.updateStats();
-  }
-
-  nextCard() {
-    if (!this.awaitingNext) return;
-    this.pickNext();
-  }
-
   renderSessionReport() {
     const total = (this.state.sessionIndices || []).length;
     const values = Object.values(this.state.sessionFirstResult || {});
@@ -599,8 +295,7 @@ export class Trainer {
     this.els.reportUnknown.textContent = unknown;
     this.els.reportAccuracy.textContent = accuracy + '%';
     this.els.reportAttempts.textContent = this.state.sessionAttemptCount || 0;
-    const modeName = this.state.practiceMode === 'oral' ? 'устной' : 'письменной';
-    this.els.reportSubtitle.textContent = `Итоги ${modeName} сессии. Считается первая попытка по каждой карточке.`;
+    this.els.reportSubtitle.textContent = 'Итоги устной сессии. Считается первая попытка по каждой карточке.';
 
     const ranked = Object.entries(this.state.sessionErrorsByIndex || {})
       .map(([index, count]) => [Number(index), Number(count)])
@@ -663,15 +358,9 @@ export class Trainer {
     this.current = null;
     this.els.prompt.textContent = 'Все карточки выполнены.';
     this.els.lessonSource.textContent = '';
-    this.els.answerInput.classList.add('hidden');
-    this.els.checkBtn.classList.add('hidden');
-    this.els.dontKnowBtn.classList.add('hidden');
-    this.els.acceptBtn.classList.add('hidden');
-    this.els.nextBtn.classList.add('hidden');
     this.els.oralCheckBtn.classList.add('hidden');
     this.els.oralAnswerBox.classList.add('hidden');
     this.els.oralDecisionButtons.classList.add('hidden');
-    this.els.feedback.className = 'feedback';
     this.els.complete.classList.remove('hidden');
     this.els.positionText.textContent = `сессия ${this.state.round} завершена`;
     this.renderSessionReport();
@@ -752,8 +441,6 @@ export class Trainer {
 
   bindEvents() {
     const e = this.els;
-    e.writtenModeBtn.addEventListener('click', () => this.applyPracticeMode('written'));
-    e.oralModeBtn.addEventListener('click', () => this.applyPracticeMode('oral'));
     e.oralCheckBtn.addEventListener('click', () => this.revealOralAnswer());
     e.oralDontKnowBtn.addEventListener('click', () => this.markOralDontKnow());
     e.oralAlmostBtn.addEventListener('click', () => this.markOralAlmost());
@@ -776,26 +463,14 @@ export class Trainer {
     });
     e.shuffleRangeInput.addEventListener('change', () => { if (this.state) { this.state.shuffleRange = e.shuffleRangeInput.checked; this.saveState(); } });
     e.allCardsBtn.addEventListener('click', () => { if (this.state) this.setAllCardsMode(!this.state.allCards); });
-    e.checkBtn.addEventListener('click', () => this.submitAnswer());
-    e.dontKnowBtn.addEventListener('click', () => this.dontKnow());
-    e.nextBtn.addEventListener('click', () => this.nextCard());
-    e.acceptBtn.addEventListener('click', () => this.acceptCurrentAnswer());
     e.newRoundBtn.addEventListener('click', () => this.startNewSession());
     e.resetBtn.addEventListener('click', () => { if (this.state) this.resetRound(); });
-    e.answerInput.addEventListener('keydown', ev => {
-      if (ev.key === 'Enter') {
-        if (ev.isComposing) return;
-        if (this.deck[this.current]?.parts && !ev.ctrlKey && !ev.metaKey && !this.awaitingNext) return;
-        ev.preventDefault();
-        if (this.awaitingNext) this.nextCard(); else this.submitAnswer();
-      }
-    });
     document.addEventListener('keydown', ev => {
-      if (!this.state || this.state.practiceMode !== 'oral') return;
+      if (!this.state || this.current === null || ev.repeat) return;
+      if (ev.target?.closest('input, textarea, select, button, a, summary, [contenteditable]')) return;
       if (ev.code === 'Space' && !e.oralCheckBtn.classList.contains('hidden')) {
         ev.preventDefault(); this.revealOralAnswer();
       }
     });
   }
 }
-
